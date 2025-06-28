@@ -59,6 +59,7 @@
     zsh = {
       enable = true;
       enableCompletion = true;
+      dotDir = ".config/zsh";
 
       shellAliases = {
         ls = "ls --color";

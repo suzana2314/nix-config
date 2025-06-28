@@ -27,6 +27,7 @@
       x11.defaultCursor = config.gtk.cursorTheme.name;
     };
   };
+  xresources.path = "${config.home.homeDirectory}/.config/X11/xresources";
 
   xdg.portal.extraPortals = with pkgs; [
     xdg-desktop-portal-wlr

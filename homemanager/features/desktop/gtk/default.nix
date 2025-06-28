@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 let
   gruvbox-theme = pkgs.gruvbox-gtk-theme.override {
@@ -12,6 +12,10 @@ in
 {
   gtk = {
     enable = true;
+    gtk2 = {
+      configLocation = "${config.home.homeDirectory}/.config/gtk-2.0/gtkrc";
+    };
+
     cursorTheme = {
       package = pkgs.quintom-cursor-theme;
       name = "Quintom_Ink";
