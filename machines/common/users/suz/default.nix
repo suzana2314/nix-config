@@ -1,8 +1,7 @@
-{
-  inputs,
-  config,
-  pkgs,
-  ...
+{ inputs
+, config
+, pkgs
+, ...
 }:
 let
   ifExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
@@ -29,4 +28,5 @@ in
   };
 
   home-manager.users.suz = import ../../../../homemanager/${config.networking.hostName}.nix;
+  home-manager.useUserPackages = true;
 }
