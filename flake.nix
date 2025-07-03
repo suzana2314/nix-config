@@ -58,29 +58,16 @@
 
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
 
-      nixosConfigurations = {
-        master = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs lib; };
-          modules = [
-            ./machines/master/configuration.nix
-          ];
-        };
-
-        hemwick = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs lib; };
-          modules = [
-            ./machines/hemwick/configuration.nix
-            ./homelab
-          ];
-        };
-
-        byrgenwerth = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs outputs lib; };
-          modules = [
-            ./machines/byrgenwerth/configuration.nix
-            ./homelab
-          ];
-        };
-      };
+      nixosConfigurations = builtins.listToAttrs (
+        map
+          (host: {
+            name = host;
+            value = nixpkgs.lib.nixosSystem {
+              specialArgs = { inherit inputs outputs lib; };
+              modules = [ ./machines/nixos/${host} ];
+            };
+          })
+          (builtins.attrNames (builtins.readDir ./machines/nixos))
+      );
     };
 }

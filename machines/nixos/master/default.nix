@@ -3,15 +3,15 @@
   imports = [
     inputs.home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
-    ../common/users/suz # main user
+    ../../common/users/suz # main user
 
-    ../common/core
-    ../common/options/tlp
-    ../common/options/audio
-    ../common/options/wireless
-    ../common/options/grub-bootloader # for dual boot
-    ../common/options/wayland
-    ../common/options/printing
+    ../../common/core
+    ../../common/options/tlp
+    ../../common/options/audio
+    ../../common/options/wireless
+    ../../common/options/grub-bootloader # for dual boot
+    ../../common/options/wayland
+    ../../common/options/printing
   ];
 
   # TODO use this...
