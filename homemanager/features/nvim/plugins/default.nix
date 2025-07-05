@@ -57,7 +57,7 @@
       lualine.enable = lib.mkDefault true;
 
       # ======================= MISC =======================
-      vimtex.enable = lib.mkDefault true;
+      vimtex.enable = lib.mkDefault false;
     };
   };
 }
