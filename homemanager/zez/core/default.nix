@@ -4,7 +4,7 @@ let
 in
 {
   imports = [
-    ../features/zsh
+    ../../features/zsh
   ] ++ (builtins.attrValues outputs.homeManagerModules);
 
   programs = {
@@ -13,9 +13,9 @@ in
   };
 
   home = {
-    username = mkDefault "suz";
+    username = mkDefault "zez";
     homeDirectory = mkDefault "/home/${config.home.username}";
-    stateVersion = mkDefault "24.05";
+    stateVersion = mkDefault "24.11";
   };
 
   # some utils

@@ -2,18 +2,18 @@
 {
   imports = [
     inputs.nix-colors.homeManagerModules.default
-    ./features/desktop/alacritty
-    ./features/desktop/discord
-    ./features/desktop/dunst
-    ./features/desktop/gtk
-    ./features/desktop/hyprland
-    ./features/desktop/qt
-    ./features/desktop/waybar
-    ./features/desktop/wayland
-    ./features/desktop/wofi
-    ./features/git
-    ./features/nvim
-    ./features/direnv
+    ../features/desktop/alacritty
+    ../features/desktop/discord
+    ../features/desktop/dunst
+    ../features/desktop/gtk
+    ../features/desktop/hyprland
+    ../features/desktop/qt
+    ../features/desktop/waybar
+    ../features/desktop/wayland
+    ../features/desktop/wofi
+    ../features/git
+    ../features/nvim
+    ../features/direnv
     ./core
   ];
 

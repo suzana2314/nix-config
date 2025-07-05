@@ -46,9 +46,6 @@
       treesitter.enable = lib.mkDefault true;
       iluminate.enable = lib.mkDefault true;
 
-      # ======================= GIT =======================
-      git.enable = lib.mkDefault true;
-
       # ======================= NOTIFICATION =======================
       fidget.enable = lib.mkDefault true;
 
