@@ -23,7 +23,7 @@
   systemd.network.wait-online.enable = false;
 
   networking.hostName = "master";
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # only this machine uses nvidia
   boot.kernelParams = [ "nvidia-drm.modeset=1" ];
