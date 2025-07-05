@@ -15,7 +15,7 @@ in
   home = {
     username = mkDefault "zez";
     homeDirectory = mkDefault "/home/${config.home.username}";
-    stateVersion = mkDefault "24.11";
+    stateVersion = mkDefault "25.05";
   };
 
   # some utils

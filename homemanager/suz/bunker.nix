@@ -1,8 +1,13 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   imports = [
+    inputs.nix-colors.homeManagerModules.default
+    ../features/nvim
+    ../features/desktop/alacritty
     ./core
   ];
+
+  colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-hard;
 
   fontProfiles = {
     enable = true;
@@ -16,5 +21,16 @@
       package = pkgs.nerd-fonts.ubuntu-sans;
     };
   };
+
+  home.packages = with pkgs; [
+    # util
+    vlc
+    # apps
+    unstable.firefox
+    unstable.vscode
+    libreoffice
+    old.freecad-wayland
+    old.prusa-slicer # broke with new release
+  ];
 
 }
