@@ -143,9 +143,9 @@ in
             OWNED_ONLY = "yes";
           };
           ports = [
-            "6881:6881"
-            "6881:6881/udp"
-            "8080:8080"
+            "127.0.0.1:6881:6881"
+            "127.0.0.1:6881:6881/udp"
+            "127.0.0.1:8080:8080"
           ];
           volumes = [
             "/var/lib/gluetun:/gluetun"
@@ -158,9 +158,9 @@ in
           dependsOn = lib.mkIf cfg.gluetun.enable [ "gluetun" ];
           extraOptions = lib.mkIf cfg.gluetun.enable [ "--network=container:gluetun" ];
           ports = lib.mkIf (!cfg.gluetun.enable) [
-            "8080:8080"
-            "6881:6881"
-            "6881:6881/udp"
+            "127.0.0.1:8080:8080"
+            "127.0.0.1:6881:6881"
+            "127.0.0.1:6881:6881/udp"
           ];
           volumes = [
             "${cfg.mediaDir}/torrents:/data/torrents"
