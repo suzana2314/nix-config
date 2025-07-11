@@ -1,7 +1,7 @@
 {
   programs.zsh = {
     enable = true;
-    enableCompletion = false;
+    enableCompletion = true;
     enableGlobalCompInit = false;
   };
 }
