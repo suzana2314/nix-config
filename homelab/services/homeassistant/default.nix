@@ -35,6 +35,7 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
+
     systemd.tmpfiles.rules = [ "d ${cfg.configDir} 0775 ${homelab.user} ${homelab.group} - -" ];
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
@@ -59,6 +60,7 @@ in
             extraOptions = [
               "--pull=newer"
               "--device=/dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20231031155326-if00"
+              "--cap-add=CAP_NET_RAW"
             ];
             volumes = [
               "${cfg.configDir}:/config"
