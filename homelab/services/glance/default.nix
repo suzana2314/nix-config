@@ -186,6 +186,11 @@ in
                         icon = "di:esphome";
                       }
                       {
+                        title = "Frigate";
+                        url = "https://frigate.${config.homelab.baseDomain}";
+                        icon = "di:frigate-light";
+                      }
+                      {
                         title = "FreeDS";
                         url = "http://freeds.${config.homelab.baseDomain}";
                         icon = "https://github.com/pablozg/freeds/wiki/images/logo.png";

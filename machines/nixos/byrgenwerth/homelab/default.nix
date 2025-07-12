@@ -28,10 +28,16 @@ in
         configFile = config.sops.secrets."cloudflare/ddnsCredentials".path;
         notifications = config.sops.secrets."cloudflare/ddnsNotification".path;
       };
+
       gotify.enable = true;
       glance.enable = true;
       immich.enable = true;
       uptime-kuma.enable = true;
+
+      frigate = {
+        enable = true;
+        envFile = config.sops.secrets.frigate.path;
+      };
     };
   };
 
@@ -56,6 +62,10 @@ in
     };
     "vpn/credentialsFile" = {
       inherit sopsFile;
+    };
+    frigate = {
+      inherit sopsFile;
+      mode = "0400";
     };
   };
 

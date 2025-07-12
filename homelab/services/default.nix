@@ -71,5 +71,6 @@
     ./immich
     ./extracaddyhosts
     ./uptime-kuma
+    ./frigate
   ];
 }
