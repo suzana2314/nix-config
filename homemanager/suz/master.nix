@@ -94,10 +94,10 @@
     unstable.firefox-beta
     unstable.vscode
     unstable.obsidian
-    libreoffice
-    old.freecad-wayland
-    old.prusa-slicer # broke with new release
+    unstable.prusa-slicer
     unstable.prismlauncher
+    unstable.freecad-wayland
+    libreoffice
 
   ];
 }
