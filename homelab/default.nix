@@ -37,6 +37,7 @@ in
   };
   imports = [
     ./services
+    ./motd
   ];
   config = lib.mkIf conf.enable {
     users = {

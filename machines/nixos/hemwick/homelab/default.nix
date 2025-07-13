@@ -14,6 +14,8 @@ in
     cloudflare.dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
     externalIP = hostCfg.ip;
 
+    motd.enable = true;
+
     services = {
       enable = true;
       adguardhome.enable = true;

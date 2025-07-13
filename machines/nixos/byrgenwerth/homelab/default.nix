@@ -13,6 +13,8 @@ in
     cloudflare.dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
     externalIP = hostConf.ip;
 
+    motd.enable = true;
+
     services = {
       enable = true;
       mediaStack = {
