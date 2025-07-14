@@ -81,6 +81,11 @@
       --roundness-xs: 10px; /* channels, buttons */
       --roundness-xxs: 10px; /* searchbar, small elements */
 
+      --border-light: var(--bg-4); /* general light border color */
+      --border: var(--bg-3); /* general normal border color */
+      --border-hover: var(--bg-3); /* border color of panels when hovered */
+      --button-border: hsl(220, 0%, 100%, 0.1); /* neutral border color of buttons */
+
       /* direct messages moon icon */
       /* change to block to show, none to hide */
       --discord-icon: none; /* discord icon */
