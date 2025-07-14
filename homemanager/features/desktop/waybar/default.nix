@@ -6,12 +6,14 @@
       mainBar = {
         layer = "top";
         position = "top";
-        height = 10;
+        height = 50;
         exclusive = true;
         passthrough = false;
         gtk-layer-shell = true;
-        width = 1300;
+        margin-left = 10;
+        margin-right = 10;
         margin-top = 10;
+
         modules-left = [
           "custom/padd"
           "custom/l_end"
@@ -20,6 +22,16 @@
           "custom/padd"
           "custom/l_end"
           "hyprland/workspaces"
+          "custom/r_end"
+          "custom/padd"
+          "cava"
+          "custom/padd"
+        ];
+
+        modules-center = [
+          "custom/padd"
+          "custom/l_end"
+          "clock"
           "custom/r_end"
           "custom/padd"
         ];
@@ -34,10 +46,6 @@
           "custom/l_end"
           "custom/network-icon"
           "network"
-          "custom/r_end"
-          "custom/padd"
-          "custom/l_end"
-          "clock"
           "custom/r_end"
           "custom/padd"
           "custom/l_end"
@@ -125,25 +133,16 @@
           active-only = true;
           sort-by = "number";
           on-click = "activate";
-          separate-outputs = true;
+          separate-outputs = false;
           # persistent-workspaces = {
           #   "*" = 10;
           # };
           persistent-workspaces = {
-            "eDP-1" = [
-              1
-              2
-              3
-              4
-              5
-            ];
-            "HDMI-A-1" = [
-              1
-              2
-              3
-              4
-              5
-            ];
+            "1" = [ ];
+            "2" = [ ];
+            "3" = [ ];
+            "4" = [ ];
+            "5" = [ ];
           };
         };
 
@@ -236,6 +235,29 @@
         "battery" = {
           format = "{capacity}%";
           tooltip = false;
+        };
+
+        "cava" = {
+          framerate = 30;
+          autosens = 1;
+          bars = 14;
+          lower_cutoff_freq = 50;
+          higher_cutoff_freq = 10000;
+          hide_on_silence = true;
+          sleep_timer = 1;
+          method = "pipewire";
+          source = "auto";
+          stereo = true;
+          reverse = false;
+          monstercat = false;
+          waves = true;
+          noise_reduction = 0.77;
+          input_delay = 2;
+          bar_delimiter = 0;
+          format-icons = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+          actions = {
+            on-click-right = "mode";
+          };
         };
       };
     };
@@ -349,6 +371,16 @@
           padding-left: 3px;
           padding-right: 7px;
           color: #fb4934;
+        }
+
+        #cava {
+          color: #${palette.base0F};
+          background: #282828;
+          margin: 8px 0px 8px 0px;
+          padding-left: 8px;
+          padding-right: 8px;
+          border-radius: 7px;
+          transition: ease 0.3s;
         }
       '';
   };

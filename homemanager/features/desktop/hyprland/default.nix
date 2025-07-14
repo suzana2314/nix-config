@@ -9,10 +9,10 @@
   ];
 
   xdg.portal = {
-    extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-hyprland ];
     config.hyprland = {
       default = [
-        "wlr"
+        "hyprland"
         "gtk"
       ];
     };
@@ -42,8 +42,9 @@
             "${m.name}, ${if m.enabled then "${resolution}, ${position},1" else "disable"}"
           )
           config.monitors;
+
         workspace = lib.flatten (
-          map (m: map (workspace: "name:${workspace},monitor:${m.name}") m.workspaces) (
+          map (m: map (workspace: "${workspace},monitor:${m.name}") m.workspaces) (
             lib.filter (m: m.enabled && m.workspaces != [ ]) config.monitors
           )
         );
@@ -93,6 +94,11 @@
           "QT_CURSOR_THEME,${config.gtk.cursorTheme.name}"
           "QT_CURSOR_SIZE,16"
           "XDG_SCREENSHOTS_DIR,~/pictures"
+          "NIXOS_OZONE_WL,1"
+          "NVD_BACKEND,direct"
+          "GBM_BACKEND,nvidia-drm"
+          "LIBVA_DRIVER_NAME,nvidia"
+          "__GLX_VENDOR_LIBRARY_NAME,nvidia"
         ];
 
         # ============================== BINDS ==============================
@@ -146,7 +152,7 @@
             "SUPER, E, exec, nautilus"
             "SUPER, P, exec, hyprlock"
 
-            "SUPER, 0, workspace, name:10"
+            "SUPER, 0, workspace, 10"
             "SUPERSHIFT, 0, movetoworkspacesilent, name:10"
 
             "SUPER,f,fullscreen,1"
@@ -158,10 +164,10 @@
           ]
           ++
           # Change workspace
-          (map (n: "SUPER,${n},workspace,name:${n}") workspaces)
+          (map (n: "SUPER,${n},workspace,${n}") workspaces)
           ++
           # Move window to workspace
-          (map (n: "SUPERSHIFT,${n},movetoworkspacesilent,name:${n}") workspaces)
+          (map (n: "SUPERSHIFT,${n},movetoworkspacesilent,${n}") workspaces)
           ++
           # Move focus
           (lib.mapAttrsToList (key: direction: "SUPER,${key},movefocus,${direction}") directions)
