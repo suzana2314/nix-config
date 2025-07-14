@@ -8,10 +8,11 @@
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
-    theme = "${import ./sddm-sugar-custom.nix { inherit pkgs; }}";
+    theme = "${import ./sddm-sugar { inherit pkgs; }}";
   };
 
-  # my sddm theme needs these packages
+  fonts.packages = with pkgs; [ nerd-fonts.jetbrains-mono ];
+
   environment.systemPackages = with pkgs; [
     libsForQt5.qt5.qtquickcontrols2
     libsForQt5.qt5.qtgraphicaleffects

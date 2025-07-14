@@ -19,7 +19,7 @@
 
   colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-hard;
 
-  wallpaper = "~/pictures/wallpaper/gruvbox-darker.png";
+  wallpaper = "~/pictures/wallpaper/ronin.jpg";
 
   fontProfiles = {
     enable = true;
