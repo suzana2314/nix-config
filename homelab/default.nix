@@ -38,6 +38,7 @@ in
   imports = [
     ./services
     ./motd
+    ./notify-ssh
   ];
   config = lib.mkIf conf.enable {
     users = {

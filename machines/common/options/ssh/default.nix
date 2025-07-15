@@ -25,14 +25,4 @@
     authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" ];
   };
 
-  security.pam.services.sshd.rules.session.env-pre-systemd = {
-    order = config.security.pam.services.sshd.rules.session.systemd.order - 1;
-    enable = true;
-    control = "optional";
-    modulePath = "${config.security.pam.package}/lib/security/pam_exec.so";
-    args = [
-      "log=/var/log/gotify-ssh.log"
-      "/etc/notify.sh"
-    ];
-  };
 }

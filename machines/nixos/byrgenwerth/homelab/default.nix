@@ -15,6 +15,12 @@ in
 
     motd.enable = true;
 
+    notify-ssh = {
+      enable = true;
+      url = "gotify.${config.homelab.baseDomain}";
+      apiKey = config.sops.secrets.notify-ssh.path;
+    };
+
     services = {
       enable = true;
       mediaStack = {
@@ -66,6 +72,10 @@ in
       inherit sopsFile;
     };
     frigate = {
+      inherit sopsFile;
+      mode = "0400";
+    };
+    notify-ssh = {
       inherit sopsFile;
       mode = "0400";
     };

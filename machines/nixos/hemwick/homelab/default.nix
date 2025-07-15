@@ -15,6 +15,11 @@ in
     externalIP = hostCfg.ip;
 
     motd.enable = true;
+    notify-ssh = {
+      enable = true;
+      url = "gotify.${config.homelab.baseDomain}";
+      apiKey = config.sops.secrets.notify-ssh.path;
+    };
 
     services = {
       enable = true;
@@ -64,6 +69,10 @@ in
     esphome = {
       inherit sopsFile;
       owner = config.users.users.esphome.name;
+      mode = "0400";
+    };
+    notify-ssh = {
+      inherit sopsFile;
       mode = "0400";
     };
   };
