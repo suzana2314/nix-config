@@ -37,7 +37,7 @@
           # Icons
           icon_position = "left";
           min_icon_size = 0;
-          max_icon_size = 32;
+          max_icon_size = 50;
 
           # misc
           always_run_script = true;

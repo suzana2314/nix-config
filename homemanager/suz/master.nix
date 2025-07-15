@@ -95,7 +95,6 @@
     unstable.vscode
     unstable.obsidian
     unstable.prusa-slicer
-    unstable.prismlauncher
     unstable.freecad-wayland
     libreoffice
 
