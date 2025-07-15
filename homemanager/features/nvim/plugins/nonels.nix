@@ -13,7 +13,6 @@
           enableLspFormat = true;
           sources = {
             formatting = {
-              google_java_format.enable = true;
               nixpkgs_fmt.enable = true;
               clang_format = {
                 enable = true;

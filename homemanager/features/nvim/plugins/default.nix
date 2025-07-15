@@ -18,7 +18,6 @@
     ./nvim-lightbulb.nix
     ./web-devicons.nix
     ./comment.nix
-    ./nvim-jdtls.nix
   ];
 
   config = {
@@ -27,7 +26,6 @@
       # ======================= LSP =======================
       lspconfig.enable = lib.mkDefault true;
       nvim-lightbulb.enable = lib.mkDefault true;
-      nvim-jdtls.enable = lib.mkDefault false;
       # ======================= SEARCH =======================
       telescope.enable = lib.mkDefault true;
 
