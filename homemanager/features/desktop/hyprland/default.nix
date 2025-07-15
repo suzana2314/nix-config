@@ -95,10 +95,6 @@
           "QT_CURSOR_SIZE,16"
           "XDG_SCREENSHOTS_DIR,~/pictures"
           "NIXOS_OZONE_WL,1"
-          "NVD_BACKEND,direct"
-          "GBM_BACKEND,nvidia-drm"
-          "LIBVA_DRIVER_NAME,nvidia"
-          "__GLX_VENDOR_LIBRARY_NAME,nvidia"
         ];
 
         # ============================== BINDS ==============================

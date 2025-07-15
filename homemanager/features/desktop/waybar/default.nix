@@ -24,8 +24,6 @@
           "hyprland/workspaces"
           "custom/r_end"
           "custom/padd"
-          "cava"
-          "custom/padd"
         ];
 
         modules-center = [
