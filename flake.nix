@@ -41,7 +41,6 @@
       inherit (self) outputs;
       systems = [
         "x86_64-linux"
-        "aarch64-linux"
       ];
       forAllSystems = nixpkgs.lib.genAttrs systems;
 
@@ -54,7 +53,7 @@
       # package modifications
       overlays = import ./overlays { inherit inputs; };
       nixosModules = import ./modules/nixos;
-      homeManagerModules = import ./modules/home-manager;
+      homeModules = import ./modules/home-manager;
 
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
 

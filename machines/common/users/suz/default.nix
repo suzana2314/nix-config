@@ -27,6 +27,6 @@ in
     ];
   };
 
-  home-manager.users.suz = import ../../../../homemanager/suz/${config.networking.hostName}.nix;
+  home-manager.users.suz = import ../../../../home/suz/${config.networking.hostName}.nix;
   home-manager.useUserPackages = true;
 }

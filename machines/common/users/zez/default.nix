@@ -19,6 +19,6 @@ in
     ];
   };
 
-  home-manager.users.zez = import ../../../../homemanager/zez/${config.networking.hostName}.nix;
+  home-manager.users.zez = import ../../../../home/zez/${config.networking.hostName}.nix;
   home-manager.useUserPackages = true;
 }
