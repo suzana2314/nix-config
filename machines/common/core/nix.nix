@@ -19,7 +19,6 @@
         ];
         flake-registry = "";
         nix-path = config.nix.nixPath;
-        auto-optimise-store = true;
         warn-dirty = false;
         trusted-users = [
           "root"
@@ -31,7 +30,12 @@
       gc = {
         automatic = true;
         dates = "weekly";
-        options = "--delete-older-than +5"; # keep last 5 gens
+        options = "--delete-generations +3"; # keep last 3 gens
+      };
+
+      optimise = {
+        automatic = true;
+        dates = [ "weekly" ];
       };
 
       registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
