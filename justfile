@@ -1,6 +1,18 @@
 default:
   @just --list
 
+[group('dev')]
+diff:
+  git diff ':!flake.lock'
+
+[group('dev')]
+check:
+  nix flake check
+
+[group('dev')]
+format:
+  nixpkgs-fmt .
+
 [group('nix')]
 up:
   nix flake update
@@ -10,9 +22,22 @@ verify:
   nix store verify --all
 
 [group('nix')]
-build-host HOST:
-  nixos-rebuild --flake .#"{{HOST}}" --target-host {{HOST}} --fast switch --use-remote-sudo --show-trace
+gc:
+  sudo nix-collect-garbage -d
 
-[group('nix')]
+[group('build')]
 build:
   sudo nixos-rebuild switch --flake .#master --show-trace --verbose
+
+[group('build')]
+build-boot:
+  sudo nixos-rebuild boot --flake .#master --show-trace --verbose
+
+[group('deploy')]
+sync $host:
+  rsync -ax --delete --rsync-path="sudo rsync" ./ {{host}}:/etc/nixos/
+
+[group('deploy')]
+deploy $host:
+  just sync {{ host }}; nixos-rebuild switch --flake .#{{host}} --target-host {{host}} --build-host {{host}} --fast --use-remote-sudo --show-trace
+

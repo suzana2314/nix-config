@@ -1,4 +1,4 @@
-{ inputs, outputs, ... }:
+{ inputs, outputs, pkgs, ... }:
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
@@ -21,4 +21,9 @@
       allowUnfree = true;
     };
   };
+
+  environment.systemPackages = with pkgs; [
+    rsync
+    nitch
+  ];
 }
