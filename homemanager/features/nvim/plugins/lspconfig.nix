@@ -36,9 +36,13 @@
               ];
             };
 
+            jdtls = {
+              enable = true;
+            };
+
             # OCaml
             ocamllsp = {
-              enable = false;
+              enable = true;
               package = pkgs.ocaml-ng.ocamlPackages_4_14.ocaml-lsp;
             };
 
