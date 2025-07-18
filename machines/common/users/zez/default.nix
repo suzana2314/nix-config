@@ -1,4 +1,9 @@
-{ inputs, config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 let
   ifExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
   sopsFile = "${builtins.toString inputs.nix-secrets}/sops/shared.yaml";

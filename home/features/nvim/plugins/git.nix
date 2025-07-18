@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
 
   options = {
     nixvim-config.plugins.git.enable = lib.mkEnableOption "enables  neovim git modules";

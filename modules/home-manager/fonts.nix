@@ -1,6 +1,11 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkEnableOption mkOption types mkIf;
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    types
+    mkIf
+    ;
   cfg = config.fontProfiles;
   mkFontOption = kind: {
     name = mkOption {

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
 
   options = {
     nixvim-config.plugins.vimtex.enable = lib.mkEnableOption "enables vimtex module";

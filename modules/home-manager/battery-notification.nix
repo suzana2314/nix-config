@@ -29,7 +29,7 @@ let
       for battery in $(get_battery_devices); do
         battery_level=$(cat "$battery/capacity" 2>/dev/null || echo "Unknown")
         battery_status=$(cat "$battery/status" 2>/dev/null || echo "Unknown")
-        
+
         if [[ "$battery_level" != "Unknown" && "$battery_status" != "Unknown" ]]; then
           if (( battery_level <= LOW_BATTERY_THRESHOLD )) && [[ "$battery_status" != "Charging" && "$battery_status" != "Full" ]]; then
             any_battery_low=true

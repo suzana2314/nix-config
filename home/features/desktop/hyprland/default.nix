@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 {
   imports = [
     ./hypridle.nix
@@ -9,7 +14,10 @@
   ];
 
   xdg.portal = {
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-hyprland ];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-hyprland
+    ];
     config.hyprland = {
       default = [
         "hyprland"
@@ -32,16 +40,14 @@
         inherit (config.colorScheme) palette;
       in
       {
-        monitor = map
-          (
-            m:
-            let
-              resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
-              position = "${toString m.x}x${toString m.y}";
-            in
-            "${m.name}, ${if m.enabled then "${resolution}, ${position},1" else "disable"}"
-          )
-          config.monitors;
+        monitor = map (
+          m:
+          let
+            resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
+            position = "${toString m.x}x${toString m.y}";
+          in
+          "${m.name}, ${if m.enabled then "${resolution}, ${position},1" else "disable"}"
+        ) config.monitors;
 
         workspace = lib.flatten (
           map (m: map (workspace: "${workspace},monitor:${m.name}") m.workspaces) (
@@ -159,17 +165,17 @@
             "SUPERSHIFT,s,exec,screenshot-tool"
           ]
           ++
-          # Change workspace
-          (map (n: "SUPER,${n},workspace,${n}") workspaces)
+            # Change workspace
+            (map (n: "SUPER,${n},workspace,${n}") workspaces)
           ++
-          # Move window to workspace
-          (map (n: "SUPERSHIFT,${n},movetoworkspacesilent,${n}") workspaces)
+            # Move window to workspace
+            (map (n: "SUPERSHIFT,${n},movetoworkspacesilent,${n}") workspaces)
           ++
-          # Move focus
-          (lib.mapAttrsToList (key: direction: "SUPER,${key},movefocus,${direction}") directions)
+            # Move focus
+            (lib.mapAttrsToList (key: direction: "SUPER,${key},movefocus,${direction}") directions)
           ++
-          # Swap windows
-          (lib.mapAttrsToList (key: direction: "SUPERSHIFT,${key},swapwindow,${direction}") directions);
+            # Swap windows
+            (lib.mapAttrsToList (key: direction: "SUPERSHIFT,${key},swapwindow,${direction}") directions);
 
         bindm = [
           "SUPER, mouse:272, movewindow"

@@ -59,7 +59,7 @@ let
              else
                  echo "Failed to retrieve valid battery level for $device_name. Output: '$battery_level'"
              fi
-         done 
+         done
     '';
   };
 in

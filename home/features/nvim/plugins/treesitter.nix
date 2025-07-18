@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
 
   options = {
     nixvim-config.plugins.treesitter.enable = lib.mkEnableOption "enables treesitter module";

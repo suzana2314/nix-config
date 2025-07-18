@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (config) homelab;
   cfg = homelab.notify-ssh;
@@ -17,13 +22,13 @@ let
         echo "Error: API key file not found at ${cfg.apiKey}" >&2
         exit 1
     fi
-    
+
     HOST=$(hostname)
     USER="$PAM_USER"
     IP=''${PAM_RHOST:-unknown}
-    
+
     MESSAGE="SSH Login detected on $HOST from $IP by $USER"
-    
+
     curl -s -X POST "$URL" \
          -H "X-Gotify-Key: $TOKEN" \
          -H "Content-Type: application/json" \
@@ -45,7 +50,6 @@ in
       default = "";
       description = "Gotify server URL";
     };
-
 
   };
 

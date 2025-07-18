@@ -1,7 +1,8 @@
-{ inputs
-, config
-, pkgs
-, ...
+{
+  inputs,
+  config,
+  pkgs,
+  ...
 }:
 let
   ifExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;

@@ -252,7 +252,16 @@
           noise_reduction = 0.77;
           input_delay = 2;
           bar_delimiter = 0;
-          format-icons = [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+          format-icons = [
+            "▁"
+            "▂"
+            "▃"
+            "▄"
+            "▅"
+            "▆"
+            "▇"
+            "█"
+          ];
           actions = {
             on-click-right = "mode";
           };

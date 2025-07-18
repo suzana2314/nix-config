@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   options = {
     nixvim-config.plugins.nonels.enable = lib.mkEnableOption "enables none ls config module";

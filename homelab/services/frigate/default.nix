@@ -1,4 +1,10 @@
-{ inputs, lib, config, pkgs, ... }:
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   inherit (config) homelab;
   service = "frigate";
@@ -57,7 +63,7 @@ in
       # Ports
       ports = [
         "127.0.0.1:8971:8971"
-        "8555:8555/tcp" # webrtc 
+        "8555:8555/tcp" # webrtc
         "8555:8555/udp" # webrtc
       ];
 
@@ -72,18 +78,18 @@ in
         "/dev/dri/renderD128:/dev/dri/renderD128" # Intel hardware acceleration
       ];
 
-      extraOptions = [
-        "--shm-size=512m"
-        "--tmpfs=/tmp/cache:size=1000000000"
-        "--stop-timeout=30"
-      ]
-      ++ lib.optionals (cfg.envFile != "") [
-        "--env-file=${cfg.envFile}"
-      ];
+      extraOptions =
+        [
+          "--shm-size=512m"
+          "--tmpfs=/tmp/cache:size=1000000000"
+          "--stop-timeout=30"
+        ]
+        ++ lib.optionals (cfg.envFile != "") [
+          "--env-file=${cfg.envFile}"
+        ];
 
       autoStart = true;
     };
-
 
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;

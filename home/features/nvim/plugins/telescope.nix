@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
 
   options = {
     nixvim-config.plugins.telescope.enable = lib.mkEnableOption "enables telescope module";

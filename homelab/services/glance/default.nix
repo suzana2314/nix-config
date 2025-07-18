@@ -1,4 +1,10 @@
-{ inputs, lib, config, pkgs, ... }:
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   inherit (config) homelab;
   service = "glance";
@@ -194,7 +200,10 @@ in
                         title = "FreeDS";
                         url = "http://freeds.${config.homelab.baseDomain}";
                         icon = "https://github.com/pablozg/freeds/wiki/images/logo.png";
-                        alt-status-codes = [ 403 401 ];
+                        alt-status-codes = [
+                          403
+                          401
+                        ];
                       }
                     ];
                   }

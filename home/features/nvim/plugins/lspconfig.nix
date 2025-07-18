@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   options = {
     nixvim-config.plugins.lspconfig.enable = lib.mkEnableOption "enables lsp module";

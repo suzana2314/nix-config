@@ -1,4 +1,5 @@
-{ config, lib, ... }: {
+{ config, lib, ... }:
+{
 
   options = {
     nixvim-config.plugins.toggleterm.enable = lib.mkEnableOption "enables toggleterm module";

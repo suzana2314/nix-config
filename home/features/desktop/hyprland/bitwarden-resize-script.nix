@@ -2,7 +2,10 @@
 let
   bitwarden-resize = pkgs.writeShellApplication {
     name = "bitwarden-resize";
-    runtimeInputs = [ pkgs.socat pkgs.jq ];
+    runtimeInputs = [
+      pkgs.socat
+      pkgs.jq
+    ];
     text = ''
       handle() {
         case $1 in
@@ -20,7 +23,7 @@ let
             ;;
         esac
       }
-      
+
       # Listen to the Hyprland socket for events and process each line with the handle function
       socat -U - UNIX-CONNECT:/run/user/1000/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock | while read -r line; do handle "$line"; done
     '';

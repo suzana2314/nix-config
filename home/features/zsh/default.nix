@@ -69,11 +69,11 @@
 
       initContent = ''
         function vpn-function() {
-          if [ "$1" = "up" ]; then 
+          if [ "$1" = "up" ]; then
             nmcli c up vpn-oedon
-          elif [ "$1" = "down" ]; then 
+          elif [ "$1" = "down" ]; then
             nmcli c down vpn-oedon
-          else 
+          else
             echo "Usage: vpn up|down"
           fi
         }

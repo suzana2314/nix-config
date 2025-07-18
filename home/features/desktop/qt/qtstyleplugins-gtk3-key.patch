@@ -21,7 +21,7 @@ index cfd73a3..8aeeac9 100644
 --- a/src/plugins/styles/gtk2/plugin.cpp
 +++ b/src/plugins/styles/gtk2/plugin.cpp
 @@ -47,7 +47,7 @@ public:
- 
+
  QStyle *QGtk2StylePlugin::create(const QString &key)
  {
 -    if (key == "gtk2")

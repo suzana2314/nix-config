@@ -32,7 +32,6 @@ in
       ];
     };
 
-
     webrtc = {
       candidates = [
         "${networkCfg.byrgenwerth.ip}:8555"
@@ -134,16 +133,28 @@ in
 
   review = {
     alerts = {
-      labels = [ "dog" "cat" "person" ];
+      labels = [
+        "dog"
+        "cat"
+        "person"
+      ];
     };
 
     detections = {
-      labels = [ "dog" "cat" "person" ];
+      labels = [
+        "dog"
+        "cat"
+        "person"
+      ];
     };
   };
 
   objects = {
-    track = [ "dog" "cat" "person" ];
+    track = [
+      "dog"
+      "cat"
+      "person"
+    ];
   };
 
   record = {

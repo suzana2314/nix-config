@@ -1,11 +1,16 @@
 # https://github.com/notthebee/nix-config/blob/main/homelab/motd/default.nix
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
 
   homelabServices = lib.attrsets.mapAttrsToList (name: value: name) (
-    lib.attrsets.filterAttrs
-      (name: value: value ? configDir && value ? enable && value.enable)
-      config.homelab.services
+    lib.attrsets.filterAttrs (
+      name: value: value ? configDir && value ? enable && value.enable
+    ) config.homelab.services
   );
 
   # additional services to keep track (these are all in a single file! #TODO separate them)
@@ -25,18 +30,18 @@ let
   motd = pkgs.writeShellScriptBin "motd" ''
     #!/usr/bin/env bash
     source /etc/os-release
-    
+
     RED="\e[31m"
     GREEN="\e[32m"
     YELLOW="\e[33m"
     BOLD="\e[1m"
     ENDCOLOR="\e[0m"
-    
+
     LOAD1=$(cat /proc/loadavg | awk '{print $1}')
     LOAD5=$(cat /proc/loadavg | awk '{print $2}')
     LOAD15=$(cat /proc/loadavg | awk '{print $3}')
     MEMORY=$(free -m | awk 'NR==2{printf "%s/%sMB (%.2f%%)\n", $3,$2,$3*100 / $2 }')
-    
+
     # Time of day greeting
     HOUR=$(date +"%H")
     if [ $HOUR -lt 12 -a $HOUR -ge 0 ]; then
@@ -46,21 +51,21 @@ let
     else
         TIME="evening"
     fi
-    
+
     # System uptime
     uptime=$(cat /proc/uptime | cut -f1 -d.)
     upDays=$((uptime/60/60/24))
     upHours=$((uptime/60/60%24))
     upMins=$((uptime/60%60))
     upSecs=$((uptime%60))
-    
+
     printf "$BOLD Welcome to $(hostname)!$ENDCOLOR\n"
     printf "\n"
-    
+
     # Network interfaces
     NETDEV=$(ip -o route get 8.8.8.8 | cut -f 5 -d " ")
     printf "$BOLD  * %-20s$ENDCOLOR %s\n" "IPv4 $NETDEV" "$(ip -4 addr show $NETDEV | grep -oP '(?<=inet\s)\d+(\.\d+){3}')"
-    
+
     printf "$BOLD  * %-20s$ENDCOLOR %s\n" "Release" "$PRETTY_NAME"
     printf "$BOLD  * %-20s$ENDCOLOR %s\n" "Kernel" "$(uname -rs)"
     printf "\n"
@@ -69,7 +74,7 @@ let
     printf "$BOLD  * %-20s$ENDCOLOR %s\n" "System uptime" "$upDays days $upHours hours $upMins minutes $upSecs seconds"
     printf "\n"
     printf "$BOLD Service status$ENDCOLOR\n"
-    
+
     get_service_status() {
       statuses=$(systemctl list-units | grep "$1" | grep service)
       while IFS= read -r line; do
@@ -84,10 +89,12 @@ let
         fi
       done <<< "$statuses"
     }
-    
-    ${lib.strings.concatStrings (lib.lists.forEach enabledServices (service: ''
-      get_service_status ${service}
-    ''))}
+
+    ${lib.strings.concatStrings (
+      lib.lists.forEach enabledServices (service: ''
+        get_service_status ${service}
+      '')
+    )}
   '';
 in
 {
