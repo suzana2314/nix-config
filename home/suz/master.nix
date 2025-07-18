@@ -87,8 +87,6 @@
     zathura
     vlc
     lenopow
-    sops
-    just
 
     # apps
     unstable.firefox-beta

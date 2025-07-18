@@ -33,6 +33,12 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
@@ -57,16 +63,30 @@
 
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
 
+      checks = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        import ./checks.nix { inherit inputs system pkgs; }
+      );
+
+      devShells = forAllSystems (
+        system:
+        import ./shell.nix {
+          pkgs = nixpkgs.legacyPackages.${system};
+          checks = self.checks.${system};
+        }
+      );
+
       nixosConfigurations = builtins.listToAttrs (
-        map
-          (host: {
-            name = host;
-            value = nixpkgs.lib.nixosSystem {
-              specialArgs = { inherit inputs outputs lib; };
-              modules = [ ./machines/nixos/${host} ];
-            };
-          })
-          (builtins.attrNames (builtins.readDir ./machines/nixos))
+        map (host: {
+          name = host;
+          value = nixpkgs.lib.nixosSystem {
+            specialArgs = { inherit inputs outputs lib; };
+            modules = [ ./machines/nixos/${host} ];
+          };
+        }) (builtins.attrNames (builtins.readDir ./machines/nixos))
       );
     };
 }
