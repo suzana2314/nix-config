@@ -9,12 +9,10 @@ in
     enable = lib.mkEnableOption {
       description = "Enable the linux iso download tools";
     };
-
     mediaDir = lib.mkOption {
       type = lib.types.str;
       default = "/storage/data";
     };
-
     gluetun = {
       enable = lib.mkEnableOption {
         description = "VPN tunneling for qbittorrent";

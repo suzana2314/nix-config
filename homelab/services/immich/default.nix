@@ -9,15 +9,17 @@ in
     enable = lib.mkEnableOption {
       description = "Enable ${service}";
     };
-
     mediaDir = lib.mkOption {
       type = lib.types.path;
       default = "/storage/immich";
     };
-
     url = lib.mkOption {
       type = lib.types.str;
       default = "${service}.${homelab.baseDomain}";
+    };
+    configDir = lib.mkOption {
+      type = lib.types.str;
+      default = "/var/lib/${service}";
     };
   };
 

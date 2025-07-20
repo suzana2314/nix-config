@@ -17,6 +17,10 @@ in
       type = lib.types.str;
       default = "";
     };
+    configDir = lib.mkOption {
+      type = lib.types.str;
+      default = "/var/lib/${service}";
+    };
   };
   config = lib.mkIf cfg.enable {
     users.users.ddns-updater = {

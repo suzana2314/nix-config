@@ -25,6 +25,10 @@ in
       type = lib.types.str;
       default = "5555";
     };
+    configDir = lib.mkOption {
+      type = lib.types.str;
+      default = "/var/lib/${service}";
+    };
   };
 
   config = lib.mkIf cfg.enable {
