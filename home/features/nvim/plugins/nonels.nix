@@ -19,7 +19,10 @@
           sources = {
             formatting = {
               google_java_format.enable = true;
-              nixpkgs_fmt.enable = true;
+              nixfmt = {
+                enable = true;
+                package = pkgs.nixfmt-rfc-style;
+              };
               clang_format = {
                 enable = true;
                 settings = ''
