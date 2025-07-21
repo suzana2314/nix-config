@@ -126,6 +126,12 @@ in
       script = ''
         set -euo pipefail
 
+        # FIXME: remove when repo public
+        if [ -f "$HOME/.ssh/github" ]; then
+          eval "$(ssh-agent -s)"
+          ssh-add "$HOME/.ssh/github"
+        fi
+
         send_notification() {
           local status="$1"
           local message="$2"
@@ -153,16 +159,14 @@ in
           exit 1
         fi
 
-        if ! git diff-index --quiet HEAD --; then
-          error_msg="There are uncommitted changes in the repository"
+        echo "Pulling changes from origin/${cfg.branch}..."
+        old_commit="$(git rev-parse HEAD)"
+        if ! git pull --ff-only origin "${cfg.branch}"; then
+          error_msg="Git pull failed - there may be uncommitted changes or merge conflicts"
           echo "Error: $error_msg"
           send_notification "failed" "$error_msg"
           exit 1
         fi
-
-        echo "Pulling changes from origin/${cfg.branch}..."
-        old_commit="$(git rev-parse HEAD)"
-        git pull --ff-only origin "${cfg.branch}"
         new_commit="$(git rev-parse HEAD)"
 
         if [ "$old_commit" = "$new_commit" ]; then
@@ -184,6 +188,11 @@ in
         WorkingDirectory = "${cfg.repoPath}";
         User = cfg.user;
         Type = "oneshot";
+      };
+      # FIXME: remove when repo public
+      environment = {
+        HOME = config.users.users.${cfg.user}.home;
+        SSH_AUTH_SOCK = "/run/user/${toString config.users.users.${cfg.user}.uid}/ssh-agent";
       };
     };
 
