@@ -9,6 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Setup SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.NIX_SECRETS_DEPLOY_KEY }}
       - uses: DeterminateSystems/nix-installer-action@v12
       - id: update
         uses: DeterminateSystems/update-flake-lock@v23
