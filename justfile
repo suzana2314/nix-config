@@ -27,7 +27,8 @@ gc:
 
 [group('build')]
 build:
-  sudo nixos-rebuild switch --flake .#master --show-trace --verbose
+  # sudo nixos-rebuild switch --flake .#master --show-trace --verbose
+  nh os switch .#nixosConfigurations.master --ask
 
 [group('build')]
 build-boot:
