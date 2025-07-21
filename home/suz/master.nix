@@ -64,13 +64,6 @@
         "5"
       ];
     }
-    {
-      name = "Unknown-1";
-      width = 1920;
-      height = 1080;
-      refreshRate = 60;
-      enabled = false;
-    }
   ];
 
   services = {
