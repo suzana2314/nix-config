@@ -2,6 +2,7 @@
   inputs,
   outputs,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -24,6 +25,14 @@
     overlays = builtins.attrValues outputs.overlays;
     config = {
       allowUnfree = true;
+    };
+  };
+
+  security = {
+    doas.enable = lib.mkDefault false;
+    sudo = {
+      enable = lib.mkDefault true;
+      wheelNeedsPassword = lib.mkDefault false;
     };
   };
 

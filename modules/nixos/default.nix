@@ -5,4 +5,5 @@
   # List your module files here
   # my-module = import ./my-module.nix;
   sys-cfg = import ./sys-cfg.nix;
+  autoUpgrade = import ./autoUpgrade.nix;
 }

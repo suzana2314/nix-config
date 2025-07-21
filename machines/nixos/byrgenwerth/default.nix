@@ -1,7 +1,8 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
 let
   networkCfg = inputs.nix-secrets.networking;
   hostCfg = networkCfg.subnets.default.hosts.byrgenwerth;
+  sopsFile = "${builtins.toString inputs.nix-secrets}/sops/${config.networking.hostName}.yaml";
 in
 {
   imports = [
@@ -36,6 +37,23 @@ in
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIffQ9emrhg7TSytvjqp+/T6szmYAZndKCZ6EuXIsGat suz@master"
     ];
+  };
+
+  autoUpgrade = {
+    enable = true;
+    user = config.users.users.suz.name;
+    telegram = {
+      enable = true;
+      credentialsFile = config.sops.secrets."telegram/auto-update".path;
+    };
+  };
+
+  sops.secrets = {
+    "telegram/auto-update" = {
+      inherit sopsFile;
+      owner = config.users.users.suz.name;
+      mode = "0440";
+    };
   };
 
   system.stateVersion = "24.05";
