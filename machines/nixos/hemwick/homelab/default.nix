@@ -17,8 +17,7 @@ in
     motd.enable = true;
     notify-ssh = {
       enable = true;
-      url = "gotify.${config.homelab.baseDomain}";
-      apiKey = config.sops.secrets.notify-ssh.path;
+      credentialsFile = config.sops.secrets."telegram/ssh".path;
     };
 
     services = {
@@ -71,7 +70,7 @@ in
       owner = config.users.users.esphome.name;
       mode = "0400";
     };
-    notify-ssh = {
+    "telegram/ssh" = {
       inherit sopsFile;
       mode = "0400";
     };
