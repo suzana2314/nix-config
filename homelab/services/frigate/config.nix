@@ -82,8 +82,8 @@ in
       };
 
       motion = {
-        threshold = 50;
-        contour_area = 50;
+        threshold = 30;
+        contour_area = 16;
         improve_contrast = true;
       };
     };
@@ -122,6 +122,12 @@ in
         threshold = 43;
         contour_area = 49;
         improve_contrast = true;
+      };
+      zones = {
+        Small_Gate = {
+          coordinates = "0.744,0.067,0.748,0.184,0.602,0.232,0.402,0.115,0.4,0.015";
+          loitering_time = 0;
+        };
       };
     };
   };
