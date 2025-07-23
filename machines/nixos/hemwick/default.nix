@@ -47,7 +47,7 @@ in
     ];
   };
 
-  autoUpgrade = {
+  services.autoUpgrade = {
     enable = true;
     user = config.users.users.suz.name;
     telegram = {
