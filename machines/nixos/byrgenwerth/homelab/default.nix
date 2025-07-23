@@ -36,7 +36,6 @@ in
         notifications = config.sops.secrets."cloudflare/ddnsNotification".path;
       };
 
-      gotify.enable = true;
       glance.enable = true;
       immich.enable = true;
       uptime-kuma.enable = true;

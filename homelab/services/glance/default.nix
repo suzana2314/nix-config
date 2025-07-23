@@ -294,11 +294,6 @@ in
                         icon = "di:mainsail";
                       }
                       {
-                        title = "Gotify";
-                        url = "https://gotify.${config.homelab.baseDomain}";
-                        icon = "di:gotify";
-                      }
-                      {
                         title = "Uptime Kuma";
                         url = "https://kuma.${config.homelab.baseDomain}";
                         icon = "di:uptime-kuma";
