@@ -24,4 +24,9 @@
     authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" ];
   };
 
+  services.fail2ban = {
+    enable = true;
+    maxretry = 3;
+    bantime = "24h";
+  };
 }
