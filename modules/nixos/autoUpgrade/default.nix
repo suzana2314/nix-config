@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.autoUpgrade;
+  cfg = config.services.autoUpgrade;
   sendTelegramScript = pkgs.writeScriptBin "send-telegram" ''
     #!/run/current-system/sw/bin/bash
     set -euo pipefail
@@ -57,7 +57,7 @@ let
   '';
 in
 {
-  options.autoUpgrade = {
+  options.services.autoUpgrade = {
     enable = lib.mkEnableOption "Enable auto-upgrade";
 
     user = lib.mkOption {

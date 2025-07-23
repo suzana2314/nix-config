@@ -19,12 +19,6 @@
     ../../common/options/printing
   ];
 
-  # TODO use this...
-  sys-cfg = {
-    hostName = "master";
-  };
-
-  #FIXME check this:
   systemd.network.wait-online.enable = false;
 
   networking.hostName = "master";
