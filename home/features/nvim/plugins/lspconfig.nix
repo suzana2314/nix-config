@@ -47,7 +47,7 @@
 
             # OCaml
             ocamllsp = {
-              enable = true;
+              enable = false;
               package = pkgs.ocaml-ng.ocamlPackages_4_14.ocaml-lsp;
             };
 
@@ -101,10 +101,11 @@
             # nix
             nixd = {
               enable = true;
-              settings = # TODO change these paths to something more universal (use self, and hostname)
+              settings =
                 let
-                  nixos = "(builtins.getFlake \"/home/suz/.nixos/\").nixosConfigurations.master.options";
-                  nixpkgs = "import (builtins.getFlhome-managerake \"/home/suz/.nixos/\").inputs.nixpkgs { }";
+                  nixosPath = "${config.home.homeDirectory}/.nix/nix-config";
+                  nixos = "(builtins.getFlake \"${nixosPath}\").nixosConfigurations.master.options";
+                  nixpkgs = "import (builtins.getFlake \"${nixosPath}\").inputs.nixpkgs { }";
                   home-manager = nixos + ".home-manager.users.type.getSubOptions []";
                 in
                 {
