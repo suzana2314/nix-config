@@ -108,6 +108,7 @@
         ignoreDups = true;
         ignoreSpace = true;
         share = true;
+        path = "$HOME/.local/share/zsh/zsh_history";
       };
     };
   };

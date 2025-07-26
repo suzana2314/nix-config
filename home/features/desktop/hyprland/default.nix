@@ -97,7 +97,7 @@
 
         env = [
           "XCURSOR_THEME,${config.gtk.cursorTheme.name}"
-          "XCURSOR_PATH,~/.local/share/icons"
+          "XCURSOR_PATH,${config.home.homeDirectory}/.local/share/icons"
           "XCURSOR_SIZE,16"
           "HYPRCURSOR_THEME,${config.gtk.cursorTheme.name}"
           "HYPRCURSOR_SIZE,16"
