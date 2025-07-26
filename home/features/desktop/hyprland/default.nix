@@ -153,7 +153,7 @@
 
             # apps
             "SUPER, Return, exec, alacritty"
-            "SUPER, Z, exec, firefox-beta"
+            "SUPER, Z, exec, firefox"
             "SUPER, D, exec, wofi --show drun"
             "SUPER, E, exec, nautilus"
             "SUPER, P, exec, hyprlock"

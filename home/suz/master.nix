@@ -82,7 +82,7 @@
     lenopow
 
     # apps
-    unstable.firefox-beta
+    unstable.firefox
     unstable.vscode
     unstable.obsidian
     unstable.prusa-slicer
