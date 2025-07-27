@@ -72,5 +72,6 @@
     ./extracaddyhosts
     ./uptime-kuma
     ./frigate
+    ./wireguard-server
   ];
 }

@@ -38,6 +38,14 @@ in
           credentialsFile = config.sops.secrets."cloudflare/tunnelCredentials".path;
         };
       };
+
+      wireguard-server = {
+        enable = true;
+        port = inputs.nix-secrets.yahargulWgPort;
+        privateKeyFile = config.sops.secrets."wireguard/privateKey".path;
+        peers = inputs.nix-secrets.yahargulWgPeers;
+        networkInterface = "eno1";
+      };
     };
   };
 
@@ -59,6 +67,10 @@ in
       mode = "0400";
     };
     "telegram/ssh" = {
+      inherit sopsFile;
+      mode = "0400";
+    };
+    "wireguard/privateKey" = {
       inherit sopsFile;
       mode = "0400";
     };
