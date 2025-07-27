@@ -21,6 +21,25 @@ in
       type = lib.types.str;
       default = "${service}.${homelab.baseDomain}";
     };
+    zigbee = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable Zigbee coordinator support";
+      };
+      coordinatorPath = lib.mkOption {
+        type = lib.types.str;
+        default = "/dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20231031155326-if00";
+        description = "Path to the Zigbee coordinator device";
+      };
+    };
+    shelly = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Enable Shelly CoIoT support";
+      };
+    };
     cloudflared.credentialsFile = lib.mkOption {
       type = lib.types.str;
       example = lib.literalExpression ''
@@ -37,7 +56,7 @@ in
   config = lib.mkIf cfg.enable {
 
     systemd.tmpfiles.rules = [ "d ${cfg.configDir} 0775 ${homelab.user} ${homelab.group} - -" ];
-    services.caddy.virtualHosts."${cfg.url}" = {
+    services.caddy.virtualHosts."${cfg.url}" = lib.mkIf homelab.enableCaddy {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''
         reverse_proxy http://127.0.0.1:8123
@@ -59,8 +78,10 @@ in
             autoStart = true;
             extraOptions = [
               "--pull=newer"
-              "--device=/dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20231031155326-if00"
               "--cap-add=CAP_NET_RAW"
+            ]
+            ++ lib.optionals cfg.zigbee.enable [
+              "--device=${cfg.zigbee.coordinatorPath}"
             ];
             volumes = [
               "${cfg.configDir}:/config"
@@ -68,13 +89,11 @@ in
             ports = [
               "8123:8123"
               "8124:80"
+            ]
+            ++ lib.optionals cfg.shelly.enable [
               "5683:5683" # this is for colIoT
               "5683:5683/udp"
             ];
-            # ports = [
-            #   "127.0.0.1:8123:8123"
-            #   "127.0.0.1:8124:80"
-            # ];
             environment = {
               TZ = homelab.timeZone;
               PUID = toString config.users.users.${homelab.user}.uid;

@@ -31,6 +31,8 @@ in
 
       homeassistant = {
         enable = true;
+        zigbee.enable = false;
+        shelly.enable = false;
         cloudflared = {
           inherit (inputs.nix-secrets) tunnelId;
           credentialsFile = config.sops.secrets."cloudflare/tunnelCredentials".path;
