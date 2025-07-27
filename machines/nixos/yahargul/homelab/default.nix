@@ -8,7 +8,7 @@ in
     inherit (config.time) timeZone;
     email = inputs.nix-secrets.email.default;
     baseDomain = inputs.nix-secrets.domain;
-    cloudflare.dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
+    enableCaddy = false;
 
     motd.enable = true;
     notify-ssh = {
@@ -18,10 +18,17 @@ in
 
     services = {
       enable = true;
-      adguardhome.enable = true;
+
+      ddns-updater = {
+        enable = true;
+        configFile = config.sops.secrets."cloudflare/ddnsCredentials".path;
+        notifications = config.sops.secrets."cloudflare/ddnsNotification".path;
+      };
+
       mosquitto = {
         enable = true;
       };
+
       homeassistant = {
         enable = true;
         cloudflared = {
@@ -37,9 +44,16 @@ in
     "cloudflare/tunnelCredentials" = {
       inherit sopsFile;
     };
-    "cloudflare/dnsCredentials" = {
+    "cloudflare/ddnsCredentials" = {
       inherit sopsFile;
-      owner = config.users.users.acme.name;
+      owner = config.users.users.ddns-updater.name;
+      group = config.users.users.ddns-updater.name;
+      mode = "0400";
+    };
+    "cloudflare/ddnsNotification" = {
+      inherit sopsFile;
+      owner = config.users.users.ddns-updater.name;
+      group = config.users.users.ddns-updater.name;
       mode = "0400";
     };
     "telegram/ssh" = {
