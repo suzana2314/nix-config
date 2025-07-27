@@ -10,7 +10,7 @@
       443
     ];
 
-    security.acme = {
+    security.acme = lib.mkIf config.homelab.enableCaddy {
       acceptTerms = true;
       defaults.email = "${config.homelab.email}";
       certs.${config.homelab.baseDomain} = {
@@ -24,7 +24,7 @@
       };
     };
 
-    services.caddy = {
+    services.caddy = lib.mkIf config.homelab.enableCaddy {
       enable = true;
       globalConfig = ''auto_https off'';
       virtualHosts = {

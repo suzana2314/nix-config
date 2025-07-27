@@ -34,6 +34,11 @@ in
       type = lib.types.str;
       description = "External IP address for services";
     };
+    enableCaddy = lib.mkOption {
+      default = true;
+      type = lib.types.bool;
+      description = "Enable Caddy reverse proxy with ACME";
+    };
   };
   imports = [
     ./services
