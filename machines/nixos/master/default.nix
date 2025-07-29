@@ -1,17 +1,17 @@
 {
   inputs,
-  config,
   pkgs,
   ...
 }:
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6h-hybrid
+
     ./hardware-configuration.nix
     ../../common/users/suz # main user
-
     ../../common/core
-    ../../common/options/tlp
+    ../../common/options/power
     ../../common/options/audio
     ../../common/options/wireless
     ../../common/options/grub-bootloader # for dual boot
@@ -24,16 +24,8 @@
   networking.hostName = "master";
   networking.firewall.enable = true;
 
-  # only this machine uses nvidia
-  boot.kernelParams = [ "nvidia-drm.modeset=1" ];
-  hardware.graphics.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    open = false;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
+  hardware.nvidia.prime.amdgpuBusId = "PCI:6:0:0";
+  hardware.nvidia.dynamicBoost.enable = true;
 
   boot.supportedFilesystems = [ "ntfs" ]; # for external hdd
 

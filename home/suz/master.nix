@@ -11,6 +11,7 @@
     ../features/desktop/waybar
     ../features/desktop/wayland
     ../features/desktop/wofi
+    ../features/desktop/audio
     ../features/git
     ../features/nvim
     ../features/direnv
@@ -37,11 +38,13 @@
   monitors = [
     {
       name = "eDP-1";
+      description = "BOE 0x08E8";
       width = 1920;
       height = 1080;
       refreshRate = 120;
       x = 2550;
-      y = 0;
+      y = 722;
+      scale = 1.0;
       workspaces = [
         "6"
         "7"
@@ -52,9 +55,13 @@
     }
     {
       name = "HDMI-A-1";
-      width = 2550;
+      description = "Samsung Electric Company LC27G5xT H4ZR704887";
+      width = 2560;
       height = 1440;
       refreshRate = 144;
+      x = 0;
+      y = 0;
+      scale = 1.0;
       primary = true;
       workspaces = [
         "1"
@@ -76,7 +83,6 @@
     unstable.nautilus
     eog
     bluetui
-    pavucontrol
     zathura
     vlc
     lenopow

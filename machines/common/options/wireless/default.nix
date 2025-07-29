@@ -9,6 +9,9 @@
         General = {
           Enable = "Source,Sink,Media,Socket";
           Experimental = true; # -> display battery information
+          FastConnectable = true;
+          JustWorksRepairing = "always";
+          AutoEnable = true;
         };
       };
     };

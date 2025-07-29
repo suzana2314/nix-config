@@ -25,11 +25,8 @@
       gtk.enable = true;
       x11.enable = true;
       x11.defaultCursor = config.gtk.cursorTheme.name;
+      dotIcons.enable = false;
     };
   };
   xresources.path = "${config.home.homeDirectory}/.config/X11/xresources";
-
-  xdg.portal.extraPortals = with pkgs; [
-    xdg-desktop-portal-wlr
-  ];
 }

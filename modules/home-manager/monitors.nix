@@ -13,6 +13,10 @@ in
             type = types.str;
             example = "eDP-1";
           };
+          description = mkOption {
+            type = types.str;
+            example = "BOE 0x08E8";
+          };
           primary = mkOption {
             type = types.bool;
             default = false;
@@ -36,6 +40,10 @@ in
           y = mkOption {
             type = types.int;
             default = 0;
+          };
+          scale = mkOption {
+            type = types.float;
+            default = 1.0;
           };
           workspaces = mkOption {
             type = types.listOf types.str;

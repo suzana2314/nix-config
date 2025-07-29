@@ -45,10 +45,14 @@
         monitor = map (
           m:
           let
-            resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}";
+            resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}.0";
             position = "${toString m.x}x${toString m.y}";
+            scale = toString m.scale;
           in
-          "${m.name}, ${if m.enabled then "${resolution}, ${position},1" else "disable"}"
+          if m.enabled then
+            "desc:${m.description},${resolution},${position},${scale}"
+          else
+            "desc:${m.description},disable"
         ) config.monitors;
 
         workspace = lib.flatten (
@@ -105,6 +109,7 @@
           "QT_CURSOR_SIZE,16"
           "XDG_SCREENSHOTS_DIR,~/pictures"
           "NIXOS_OZONE_WL,1"
+          "AQ_DRM_DEVICES,/dev/dri/card0:/dev/dri/card1"
         ];
 
         # ============================== BINDS ==============================
