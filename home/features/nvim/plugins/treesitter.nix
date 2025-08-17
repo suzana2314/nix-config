@@ -13,6 +13,7 @@
           settings.indent.enable = true;
           nixvimInjections = true;
           folding = false;
+          settings.highlight.enable = true;
         };
       };
     };

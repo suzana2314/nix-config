@@ -7,6 +7,18 @@
     ./colorschemes.nix
   ];
 
+  home.file.".local/share/applications/nvim.desktop".text = ''
+    [Desktop Entry]
+    Type=Application
+    Name=Neovim
+    Icon=nvim
+    Exec=alacritty -e nvim %F
+    Categories=Development;IDE;
+    MimeType=text/plain;text/x-c;text/x-cpp;text/x-python;text/x-sh;text/x-makefile;
+    Terminal=false
+    StartupNotify=true
+  '';
+
   programs.nixvim = {
     enable = true;
     vimAlias = true;
