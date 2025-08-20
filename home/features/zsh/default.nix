@@ -68,16 +68,6 @@
       };
 
       initContent = ''
-        function vpn-function() {
-          if [ "$1" = "up" ]; then
-            nmcli c up vpn-oedon
-          elif [ "$1" = "down" ]; then
-            nmcli c down vpn-oedon
-          else
-            echo "Usage: vpn up|down"
-          fi
-        }
-
         zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
         zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
         export GOPATH=$HOME/.config/go/golang
