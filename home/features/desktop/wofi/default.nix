@@ -3,7 +3,7 @@
   programs.wofi = with config.colorScheme.palette; {
     enable = true;
     settings = {
-      allow_images = false;
+      allow_images = true;
       width = "20%";
       hide_scroll = true;
       term = "foot";
@@ -36,12 +36,17 @@
         margin: 10px;
         padding: 20px 20px;
         border-radius: 10px;
+        color: #${base0C};
       }
       #entry:selected {
-        background-color: #${base0D};
-        color: #${base06};
+        background-color: #282828;
+        color: #${base0C};
       }
       #entry:hover {
+      }
+
+      #entry image {
+        padding-right: 10px;
       }
     '';
   };
