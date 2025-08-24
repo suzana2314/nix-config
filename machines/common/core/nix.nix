@@ -35,7 +35,7 @@
       gc = {
         automatic = true;
         dates = "weekly";
-        options = "--delete-generations +3"; # keep last 3 gens
+        options = "--delete-older-than 14d";
       };
 
       optimise = {
