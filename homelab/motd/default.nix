@@ -7,25 +7,11 @@
 }:
 let
 
-  homelabServices = lib.attrsets.mapAttrsToList (name: value: name) (
+  enabledServices = lib.attrsets.mapAttrsToList (name: value: name) (
     lib.attrsets.filterAttrs (
       name: value: value ? configDir && value ? enable && value.enable
     ) config.homelab.services
   );
-
-  # additional services to keep track (these are all in a single file! #TODO separate them)
-  mediaStackServices = lib.optionals (config.homelab.services.mediaStack.enable or false) [
-    "bazarr"
-    "radarr"
-    "sonarr"
-    "jellyfin"
-    "jellyseerr"
-    "prowlarr"
-    "${config.virtualisation.oci-containers.backend}-gluetun"
-    "${config.virtualisation.oci-containers.backend}-qbittorrent"
-  ];
-
-  enabledServices = homelabServices ++ mediaStackServices;
 
   motd = pkgs.writeShellScriptBin "motd" ''
     #!/usr/bin/env bash
