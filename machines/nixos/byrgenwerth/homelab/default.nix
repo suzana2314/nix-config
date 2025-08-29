@@ -22,13 +22,12 @@ in
 
     services = {
       enable = true;
-      mediaStack = {
+      media.enable = true;
+      wireguard-netns = {
         enable = true;
-        gluetun = {
-          enable = true;
-          inherit (inputs.nix-secrets) vpnProvider vpnCities;
-          vpnCredentialsFile = config.sops.secrets."vpn/credentialsFile".path;
-        };
+        configFile = config.sops.secrets."vpn/credentialsFile".path;
+        privateIP = inputs.nix-secrets.vpnPrivateIP;
+        dnsIP = inputs.nix-secrets.vpnDnsIP;
       };
       ddns-updater = {
         enable = true;

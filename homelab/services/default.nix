@@ -55,7 +55,7 @@
   };
 
   imports = [
-    ./mediastack
+    ./media
     ./homeassistant
     ./mqtt
     ./esphome
@@ -73,5 +73,6 @@
     ./uptime-kuma
     ./frigate
     ./wireguard-server
+    ./wireguard-netns
   ];
 }
