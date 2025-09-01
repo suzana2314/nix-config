@@ -207,10 +207,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1756741611,
-        "narHash": "sha256-AIVpbUwjLDK160gtgxnNf8j4JHF3VZvbTG23EZkGoyI=",
+        "lastModified": 1756744472,
+        "narHash": "sha256-BK0ArCpJVrtBYPSgw1s/acddvLRQkc+Tshq9z8XYHrk=",
         "ref": "master",
-        "rev": "f635c995cd45df089a7b0e6cb1c3ca60a1b24f0a",
+        "rev": "bf71b4842eb87edba2cd53769e6b0873d9a12b67",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@github.com/suzana2314/nix-secrets.git"
@@ -224,16 +224,16 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1753725081,
-        "narHash": "sha256-W0iB3Yb5lpVpCpGqV3X6CqJ6Z0yDH9dd5RuOI1q2S6U=",
-        "owner": "suzana2314",
+        "lastModified": 1756750488,
+        "narHash": "sha256-e4ZAu2sjOtGpvbdS5zo+Va5FUUkAnizl4wb0/JlIL2I=",
+        "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "28fc41508c1fa7c7b1f13e2e3f81f7dcdbf7c883",
+        "rev": "47eb4856cfd01eaeaa7bb5944a0f27db8fb9b94a",
         "type": "github"
       },
       "original": {
-        "owner": "suzana2314",
-        "ref": "lenovo-legion-15ach6h",
+        "owner": "NixOS",
+        "ref": "master",
         "repo": "nixos-hardware",
         "type": "github"
       }
