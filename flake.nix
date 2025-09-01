@@ -13,7 +13,7 @@
     };
 
     nixos-hardware = {
-      url = "github:suzana2314/nixos-hardware/lenovo-legion-15ach6h";
+      url = "github:NixOS/nixos-hardware/master";
     };
 
     disko = {
