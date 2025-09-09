@@ -67,6 +67,7 @@
     ./grafana
     ./hoarder
     ./glance
+    ./glance-agent
     ./gree-server
     ./immich
     ./extracaddyhosts

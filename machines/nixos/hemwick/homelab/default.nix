@@ -39,6 +39,12 @@ in
       };
       gree-server.enable = true;
 
+      glance-agent = {
+        enable = true;
+        environmentFile = config.sops.secrets."glance/environmentFile".path;
+        url = "${config.networking.hostName}-glance.${config.homelab.baseDomain}";
+      };
+
       extraCaddyHosts = {
         enable = true;
         hosts = {
@@ -71,6 +77,10 @@ in
       mode = "0400";
     };
     "telegram/ssh" = {
+      inherit sopsFile;
+      mode = "0400";
+    };
+    "glance/environmentFile" = {
       inherit sopsFile;
       mode = "0400";
     };

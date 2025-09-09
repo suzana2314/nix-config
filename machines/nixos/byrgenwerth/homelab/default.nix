@@ -35,7 +35,10 @@ in
         notifications = config.sops.secrets."cloudflare/ddnsNotification".path;
       };
 
-      glance.enable = true;
+      glance = {
+        enable = true;
+        apiToken = config.sops.secrets."glance/hemwickApitoken".path;
+      };
       immich.enable = true;
       uptime-kuma.enable = true;
 
@@ -73,6 +76,10 @@ in
       mode = "0400";
     };
     "telegram/ssh" = {
+      inherit sopsFile;
+      mode = "0400";
+    };
+    "glance/hemwickApitoken" = {
       inherit sopsFile;
       mode = "0400";
     };

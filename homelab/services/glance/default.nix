@@ -25,6 +25,11 @@ in
       type = lib.types.str;
       default = "${service}.${homelab.baseDomain}";
     };
+
+    apiToken = lib.mkOption {
+      type = lib.types.path;
+      description = "The path to the apiToken of the remote machine";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -59,6 +64,13 @@ in
                     servers = [
                       {
                         type = "local";
+                      }
+                      {
+                        type = "remote";
+                        url = "https://hemwick-glance.${homelab.baseDomain}";
+                        token = {
+                          _secret = cfg.apiToken;
+                        };
                       }
                     ];
                   }
