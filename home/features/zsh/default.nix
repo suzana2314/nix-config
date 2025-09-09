@@ -43,6 +43,7 @@
         battery.disabled = true;
         package.disabled = true;
         gradle.disabled = true;
+        vlang.disabled = true;
 
         cmd_duration = {
           disabled = true;

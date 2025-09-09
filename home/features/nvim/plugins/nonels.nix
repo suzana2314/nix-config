@@ -46,7 +46,7 @@
                 enable = true;
               };
               ocamlformat = {
-                enable = false;
+                enable = true;
                 settings = ''
                   {
                     extra_args = {
