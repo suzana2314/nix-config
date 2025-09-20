@@ -18,13 +18,29 @@
           enableLspFormat = true;
           sources = {
             formatting = {
-              google_java_format.enable = true;
+
+              # terraform
+              terraform_fmt = {
+                enable = true;
+                package = null; # pkgs.terraform
+              };
+
+              # java
+              google_java_format = {
+                enable = true;
+                package = null; # pkgs.google-java-format
+              };
+
+              # nix
               nixfmt = {
                 enable = true;
                 package = pkgs.nixfmt-rfc-style;
               };
+
+              # c/c++
               clang_format = {
                 enable = true;
+                package = null; # pkgs.clang-tools
                 settings = ''
                   {
                     extra_args = {
@@ -33,20 +49,28 @@
                   }
                 '';
               };
+
               # python
               black = {
                 enable = true;
+                package = null; # pkgs.python3.pkgs.black
                 settings = ''
                   {
                     extra_args = { "--fast" },
                   }
                 '';
               };
+
+              # go
               gofmt = {
                 enable = true;
+                package = null; # pkgs.go
               };
+
+              # ocaml
               ocamlformat = {
                 enable = true;
+                package = null; # pkgs.ocamlPackages.ocamlformat
                 settings = ''
                   {
                     extra_args = {
@@ -61,14 +85,30 @@
                 '';
               };
             };
+
             code_actions = {
+
+              # nix
               statix.enable = true;
+
             };
+
             diagnostics = {
+
+              # terraform
+              terraform_validate = {
+                enable = true;
+                package = null;
+              };
+
+              # nix
               statix.enable = true;
               deadnix.enable = true;
+
+              # python
               pylint = {
                 enable = true;
+                package = null; # pkgs.pylint
                 settings = {
                   extra_args = [
                     "--disable=missing-module-docstring"
@@ -82,9 +122,5 @@
         };
       };
     };
-
-    home.packages = with pkgs; [
-      nixpkgs-fmt
-    ];
   };
 }

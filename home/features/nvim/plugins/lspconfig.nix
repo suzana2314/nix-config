@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -16,9 +15,11 @@
           enable = true;
           inlayHints = true;
           servers = {
+
+            # c/c++
             clangd = {
               enable = true;
-              package = pkgs.unstable.clang-tools;
+              package = null; # pkgs.unstable.clang-tools
               extraOptions = {
                 capabilities = {
                   offsetEncoding = [ "utf-16" ];
@@ -41,30 +42,39 @@
               ];
             };
 
+            # java
             jdtls = {
               enable = true;
+              package = null; # pkgs.jdt-language-server
             };
 
-            # OCaml
+            # ocaml
             ocamllsp = {
               enable = true;
-              package = pkgs.ocaml-ng.ocamlPackages_4_14.ocaml-lsp;
+              package = null; # pkgs.ocaml-ng.ocamlPackages_4_14.ocaml-lsp;
             };
 
             # python
             pyright = {
               enable = true;
+              package = null; # pkgs.pyright
             };
 
-            # Go
+            # go
             gopls = {
               enable = true;
-              package = null; # default = pkgs.gopls
+              package = null; # pkgs.gopls
+            };
+
+            # terraform
+            terraform_lsp = {
+              enable = true;
+              package = null; # pkgs.terraform-lsp
             };
 
             rust_analyzer = {
               enable = true;
-              package = null;
+              package = null; # pkgs.rust-analyzer
               installCargo = false;
               installRustc = false;
               installRustfmt = false;
