@@ -1,6 +1,5 @@
 {
   inputs,
-  pkgs,
   ...
 }:
 {
@@ -17,6 +16,7 @@
     ../../common/options/grub-bootloader # for dual boot
     ../../common/options/wayland
     ../../common/options/printing
+    ../../common/options/virtualisation
   ];
 
   systemd.network.wait-online.enable = false;
@@ -33,11 +33,6 @@
     devmon.enable = true;
     gvfs.enable = true;
     udisks2.enable = true;
-  };
-
-  virtualisation.docker = {
-    enable = true;
-    package = pkgs.docker_25;
   };
 
   programs.ssh.startAgent = true;
