@@ -25,12 +25,6 @@
                 package = null; # pkgs.terraform
               };
 
-              # java
-              google_java_format = {
-                enable = true;
-                package = null; # pkgs.google-java-format
-              };
-
               # nix
               nixfmt = {
                 enable = true;
