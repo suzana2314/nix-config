@@ -24,12 +24,22 @@ in
     mediaDir = lib.mkOption {
       type = lib.types.str;
     };
+    environmentFile = lib.mkOption {
+      type = lib.types.path;
+      example = lib.literalExpression ''
+        pkgs.writeText "navidrome-env" '''
+          ND_LASTFM_APIKEY=abcabc
+          ND_LASTFM_SECRET=abcabc
+        '''
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
     services.${service} = {
       enable = true;
       inherit (homelab) user group;
+      inherit (cfg) environmentFile;
       settings = {
         MusicFolder = "${cfg.mediaDir}/media/music";
       };

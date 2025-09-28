@@ -22,7 +22,10 @@ in
 
     services = {
       enable = true;
-      media.enable = true;
+      media = {
+        enable = true;
+        navidromeEnvFile = config.sops.secrets.navidrome.path;
+      };
       wireguard-netns = {
         enable = true;
         configFile = config.sops.secrets."vpn/credentialsFile".path;
@@ -80,6 +83,10 @@ in
       mode = "0400";
     };
     "glance/hemwickApitoken" = {
+      inherit sopsFile;
+      mode = "0400";
+    };
+    navidrome = {
       inherit sopsFile;
       mode = "0400";
     };

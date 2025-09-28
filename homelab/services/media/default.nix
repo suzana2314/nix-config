@@ -8,10 +8,18 @@ in
     enable = lib.mkEnableOption {
       description = "Enable the linux iso download tools";
     };
-
     mediaDir = lib.mkOption {
       type = lib.types.str;
       default = "/storage/data";
+    };
+    navidromeEnvFile = lib.mkOption {
+      type = lib.types.path;
+      example = lib.literalExpression ''
+        pkgs.writeText "navidrome-env" '''
+          ND_LASTFM_APIKEY=abcabc
+          ND_LASTFM_SECRET=abcabc
+        '''
+      '';
     };
   };
 
@@ -43,8 +51,11 @@ in
       bazarr.enable = lib.mkDefault true;
       jellyseerr.enable = lib.mkDefault true;
       qbittorrent.enable = lib.mkDefault true;
-      navidrome.enable = lib.mkDefault true;
-      navidrome.mediaDir = cfg.mediaDir;
+      navidrome = {
+        enable = lib.mkDefault true;
+        inherit (cfg) mediaDir;
+        environmentFile = cfg.navidromeEnvFile;
+      };
     };
   };
 
