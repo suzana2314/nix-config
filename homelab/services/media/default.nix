@@ -43,6 +43,7 @@ in
       bazarr.enable = lib.mkDefault true;
       jellyseerr.enable = lib.mkDefault true;
       qbittorrent.enable = lib.mkDefault true;
+      navidrome.enable = lib.mkDefault true;
     };
   };
 
@@ -54,5 +55,6 @@ in
     ./jellyfin
     ./jellyseerr
     ./qbittorrent
+    ./navidrome
   ];
 }
