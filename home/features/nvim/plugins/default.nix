@@ -19,6 +19,7 @@
     ./web-devicons.nix
     ./comment.nix
     ./nvim-jdtls.nix
+    ./neo-tree.nix
   ];
 
   config = {
@@ -50,7 +51,8 @@
       fidget.enable = lib.mkDefault true;
 
       # ======================= FILES =======================
-      oil.enable = lib.mkDefault true;
+      oil.enable = lib.mkDefault false;
+      neo-tree.enable = lib.mkDefault true;
 
       # ======================= UI =======================
       web-devicons.enable = lib.mkDefault true;

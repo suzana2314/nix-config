@@ -5,7 +5,10 @@
     keymaps = [
       # movement
       {
-        mode = [ "n" ];
+        mode = [
+          "n"
+          "v"
+        ];
         key = "<C-j>";
         action = "<C-d>";
         options = {
@@ -15,7 +18,10 @@
       }
 
       {
-        mode = [ "n" ];
+        mode = [
+          "n"
+          "v"
+        ];
         key = "<C-k>";
         action = "<C-u>";
         options = {
