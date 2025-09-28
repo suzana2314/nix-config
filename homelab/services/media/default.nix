@@ -51,6 +51,7 @@ in
       bazarr.enable = lib.mkDefault true;
       jellyseerr.enable = lib.mkDefault true;
       qbittorrent.enable = lib.mkDefault true;
+      lidarr.enable = lib.mkDefault true;
       navidrome = {
         enable = lib.mkDefault true;
         inherit (cfg) mediaDir;
@@ -68,5 +69,6 @@ in
     ./jellyseerr
     ./qbittorrent
     ./navidrome
+    ./lidarr
   ];
 }
