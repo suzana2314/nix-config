@@ -240,6 +240,11 @@ in
                         icon = "di:jellyseerr";
                       }
                       {
+                        title = "Navidrome";
+                        url = "https://navidrome.${config.homelab.baseDomain}";
+                        icon = "di:navidrome";
+                      }
+                      {
                         title = "qBitTorrent";
                         url = "https://qbittorrent.${config.homelab.baseDomain}";
                         icon = "di:qbittorrent";
@@ -260,6 +265,11 @@ in
                         title = "Radarr";
                         url = "https://radarr.${config.homelab.baseDomain}";
                         icon = "di:radarr";
+                      }
+                      {
+                        title = "Lidarr";
+                        url = "https://lidarr.${config.homelab.baseDomain}";
+                        icon = "di:lidarr";
                       }
                       {
                         title = "Prowlarr";
