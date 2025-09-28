@@ -21,12 +21,18 @@ in
       type = lib.types.port;
       default = 4533;
     };
+    mediaDir = lib.mkOption {
+      type = lib.types.str;
+    };
   };
 
   config = lib.mkIf cfg.enable {
     services.${service} = {
       enable = true;
       inherit (homelab) user group;
+      settings = {
+        MusicFolder = "${cfg.mediaDir}/media/music";
+      };
     };
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;

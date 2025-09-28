@@ -44,6 +44,7 @@ in
       jellyseerr.enable = lib.mkDefault true;
       qbittorrent.enable = lib.mkDefault true;
       navidrome.enable = lib.mkDefault true;
+      navidrome.mediaDir = cfg.mediaDir;
     };
   };
 
