@@ -10,7 +10,6 @@
     ./hyprlock.nix
     ./hyprpaper.nix
     ./screenshot.nix
-    ./bitwarden-resize-script.nix
     ./monitor-listener.nix
   ];
 
@@ -92,7 +91,6 @@
           "hypridle"
           "systemctl --user start hyprpolkitagent"
           "hyprctl setcursor ${config.gtk.cursorTheme.name} 1"
-          "bitwarden-resize"
           "monitor-listener"
         ];
 
