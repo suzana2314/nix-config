@@ -108,8 +108,6 @@
         end,
       })
 
-      local lspconfig = require("lspconfig")
-
       local on_attach = function(_, bufnr)
           local codelens_group = vim.api.nvim_create_augroup("LSPCodeLens", { clear = true })
           vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "CursorHold" }, {
@@ -120,12 +118,12 @@
               end,
           })
       end
-      lspconfig.ocamllsp.setup {
-        settings = {
-          codelens = { enable = true },
-        },
-        on_attach = on_attach,
-      }
+      -- vim.lsp.config.ocamllsp.setup {
+      --   settings = {
+      --     codelens = { enable = true },
+      --   },
+      --   on_attach = on_attach,
+      -- }
     '';
   };
 }
