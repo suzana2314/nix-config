@@ -13,7 +13,6 @@
     ../features/desktop/wofi
     ../features/desktop/audio
     ../features/git
-    ../features/nvim
     ../features/direnv
     ./core
   ];
@@ -94,6 +93,6 @@
     unstable.prusa-slicer
     unstable.freecad-wayland
     libreoffice
-
+    nvim-pkg
   ];
 }
