@@ -5,7 +5,6 @@
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-old.url = "github:nixos/nixpkgs/nixos-24.11";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
@@ -33,10 +32,7 @@
 
     nix-colors.url = "github:misterio77/nix-colors";
 
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    nix-vim.url = "git+ssh://git@github.com/suzana2314/nix-vim.git";
 
     pre-commit-hooks = {
       url = "github:cachix/git-hooks.nix";
