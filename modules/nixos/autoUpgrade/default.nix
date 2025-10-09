@@ -115,22 +115,15 @@ in
       restartIfChanged = false;
       onSuccess = [ "rebuild.service" ];
       startAt = "${cfg.schedule.dayOfWeek} *-*-* ${cfg.schedule.time}:00";
-      path =
-        [
-          pkgs.git
-          pkgs.openssh
-        ]
-        ++ lib.optionals cfg.telegram.enable [
-          sendTelegramScript
-        ];
+      path = [
+        pkgs.git
+        pkgs.openssh
+      ]
+      ++ lib.optionals cfg.telegram.enable [
+        sendTelegramScript
+      ];
       script = ''
         set -euo pipefail
-
-        # FIXME: remove when repo public
-        if [ -f "$HOME/.ssh/github" ]; then
-          eval "$(ssh-agent -s)"
-          ssh-add "$HOME/.ssh/github"
-        fi
 
         send_notification() {
           local status="$1"
@@ -189,24 +182,18 @@ in
         User = cfg.user;
         Type = "oneshot";
       };
-      # FIXME: remove when repo public
-      environment = {
-        HOME = config.users.users.${cfg.user}.home;
-        SSH_AUTH_SOCK = "/run/user/${toString config.users.users.${cfg.user}.uid}/ssh-agent";
-      };
     };
 
     systemd.services.rebuild = {
       description = "Rebuilds and activates system config";
       restartIfChanged = false;
-      path =
-        [
-          pkgs.nixos-rebuild
-          pkgs.systemd
-        ]
-        ++ lib.optionals cfg.telegram.enable [
-          sendTelegramScript
-        ];
+      path = [
+        pkgs.nixos-rebuild
+        pkgs.systemd
+      ]
+      ++ lib.optionals cfg.telegram.enable [
+        sendTelegramScript
+      ];
       script = ''
         set -euo pipefail
 
