@@ -316,6 +316,11 @@ in
                         icon = "di:mainsail";
                       }
                       {
+                        title = "Miniflux";
+                        url = "https://miniflux.${config.homelab.baseDomain}";
+                        icon = "di:miniflux-light";
+                      }
+                      {
                         title = "Uptime Kuma";
                         url = "https://kuma.${config.homelab.baseDomain}";
                         icon = "di:uptime-kuma";

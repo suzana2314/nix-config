@@ -55,25 +55,26 @@
   };
 
   imports = [
-    ./media
-    ./homeassistant
-    ./mqtt
-    ./esphome
     ./ddns
-    ./gotify
     ./dns
-    ./prometheus-node
-    ./prometheus-server
-    ./grafana
-    ./hoarder
+    ./esphome
+    ./extracaddyhosts
+    ./frigate
     ./glance
     ./glance-agent
+    ./gotify
+    ./grafana
     ./gree-server
+    ./hoarder
+    ./homeassistant
     ./immich
-    ./extracaddyhosts
+    ./media
+    ./miniflux
+    ./mqtt
+    ./prometheus-node
+    ./prometheus-server
     ./uptime-kuma
-    ./frigate
-    ./wireguard-server
     ./wireguard-netns
+    ./wireguard-server
   ];
 }

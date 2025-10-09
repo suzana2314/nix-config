@@ -58,6 +58,11 @@ in
           };
         };
       };
+
+      miniflux = {
+        enable = true;
+        environmentFile = config.sops.secrets."miniflux/environmentFile".path;
+      };
     };
   };
 
@@ -81,6 +86,10 @@ in
       mode = "0400";
     };
     "glance/environmentFile" = {
+      inherit sopsFile;
+      mode = "0400";
+    };
+    "miniflux/environmentFile" = {
       inherit sopsFile;
       mode = "0400";
     };
