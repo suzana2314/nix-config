@@ -335,13 +335,6 @@ in
       };
     };
 
-    # FIXME I think this was solved: https://github.com/NixOS/nixpkgs/pull/395859
-    systemd.services.glance = {
-      serviceConfig = {
-        ProcSubset = lib.mkForce "all";
-      };
-    };
-
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''
