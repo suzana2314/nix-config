@@ -280,11 +280,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1760024483,
-        "narHash": "sha256-P74f34DqJKe624eytaThg6XMnkaebxCIbKp8bWqLwRA=",
+        "lastModified": 1760032256,
+        "narHash": "sha256-r+e4VfeSldCfGmfTOcuJlrrtXA61k9ixktQ66fq0dmY=",
         "ref": "refs/heads/master",
-        "rev": "53f3d725825980ded707d22fab6ed36bdbc66917",
-        "revCount": 25,
+        "rev": "40c88930d11746f70f503434871d3594dee745d4",
+        "revCount": 26,
         "type": "git",
         "url": "ssh://git@github.com/suzana2314/nix-vim.git"
       },
