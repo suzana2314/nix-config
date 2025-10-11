@@ -32,7 +32,7 @@
 
     nix-colors.url = "github:misterio77/nix-colors";
 
-    nix-vim.url = "git+ssh://git@github.com/suzana2314/nix-vim.git";
+    nix-vim.url = "github:suzana2314/nix-vim";
 
     pre-commit-hooks = {
       url = "github:cachix/git-hooks.nix";
