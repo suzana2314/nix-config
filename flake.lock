@@ -282,15 +282,15 @@
       "locked": {
         "lastModified": 1760117319,
         "narHash": "sha256-j5jHtG7XzCYRodtbS3ROlCX3sh5W0R2o26LANsn7cDI=",
-        "ref": "refs/heads/master",
+        "owner": "suzana2314",
+        "repo": "nix-vim",
         "rev": "30d8a5e95d90479ec07cbed6eeb8622d9e81a3b0",
-        "revCount": 28,
-        "type": "git",
-        "url": "ssh://git@github.com/suzana2314/nix-vim.git"
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://git@github.com/suzana2314/nix-vim.git"
+        "owner": "suzana2314",
+        "repo": "nix-vim",
+        "type": "github"
       }
     },
     "nixos-hardware": {
