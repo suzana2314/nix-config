@@ -60,6 +60,10 @@
           "battery"
           "custom/r_end"
           "custom/padd"
+          "custom/l_end"
+          "custom/notification-icon"
+          "custom/r_end"
+          "custom/padd"
         ];
 
         "custom/nixos" = {
@@ -266,6 +270,27 @@
             on-click-right = "mode";
           };
         };
+
+        "custom/notification-icon" = {
+          tooltip = false;
+          format = "{icon}";
+          format-icons = {
+            notification = "󱅫";
+            none = "󰂚";
+            dnd-notification = "󰂛";
+            dnd-none = "󰂛";
+            inhibited-notification = "󱅫";
+            inhibited-none = "󰂚";
+            dnd-inhibited-notification = "󰂛";
+            dnd-inhibited-none = "󰂛";
+          };
+          return-type = "json";
+          exec-if = "which swaync-client";
+          exec = "swaync-client -swb";
+          on-click = "swaync-client -t -sw";
+          on-click-right = "swaync-client -d -sw";
+          escape = true;
+        };
       };
     };
     style =
@@ -340,6 +365,7 @@
         #custom-cpu-icon,
         #custom-memory-icon,
         #custom-nixos,
+        #custom-notification-icon,
         #custom-r_end {
           color: #${palette.base0C};
           background: #282828;
@@ -353,6 +379,7 @@
         #custom-keyboard-icon,
         #custom-network-icon,
         #custom-battery-icon,
+        #custom-notification-icon,
         #custom-memory-icon {
           font-size: 16px;
           color: #${palette.base0D};
