@@ -63,6 +63,8 @@ in
         enable = true;
         environmentFile = config.sops.secrets."miniflux/environmentFile".path;
       };
+
+      scanservjs.enable = true;
     };
   };
 

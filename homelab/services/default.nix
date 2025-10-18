@@ -76,5 +76,6 @@
     ./uptime-kuma
     ./wireguard-netns
     ./wireguard-server
+    ./scanservjs
   ];
 }

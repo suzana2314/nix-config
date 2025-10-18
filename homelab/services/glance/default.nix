@@ -321,6 +321,11 @@ in
                         icon = "di:miniflux-light";
                       }
                       {
+                        title = "Scanservjs";
+                        url = "https://scan.${config.homelab.baseDomain}";
+                        icon = "di:printer";
+                      }
+                      {
                         title = "Uptime Kuma";
                         url = "https://kuma.${config.homelab.baseDomain}";
                         icon = "di:uptime-kuma";
