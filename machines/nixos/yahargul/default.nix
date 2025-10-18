@@ -18,6 +18,10 @@
     enableIPv6 = false;
     useDHCP = true;
     firewall.enable = false;
+    nameservers = [
+      "1.1.1.1"
+      "1.0.0.1"
+    ];
   };
 
   services.avahi = {
