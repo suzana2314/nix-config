@@ -94,5 +94,6 @@
     unstable.freecad-wayland
     libreoffice
     nvim-pkg
+    sqldeveloper
   ];
 }

@@ -3,4 +3,5 @@
 pkgs: {
   lenopow = pkgs.callPackage ./lenopow { };
   glance-agent = pkgs.callPackage ./glance-agent { };
+  sqldeveloper = pkgs.callPackage ./oracle-sql-developer { };
 }
