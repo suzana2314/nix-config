@@ -27,13 +27,22 @@ in
       type = lib.types.port;
       default = 8080;
     };
-
+    torrentingPort = lib.mkOption {
+      type = lib.types.port;
+      default = 9999;
+    };
   };
 
   config = lib.mkIf cfg.enable {
     services.${service} = {
       enable = true;
       inherit (homelab) user group;
+      inherit (cfg) torrentingPort;
+    };
+
+    networking.firewall = lib.mkIf (!homelab.services.wireguard-netns.enable) {
+      allowedTCPPorts = [ cfg.torrentingPort ];
+      allowedUDPPorts = [ cfg.torrentingPort ];
     };
 
     services.caddy.virtualHosts."${cfg.url}" = {

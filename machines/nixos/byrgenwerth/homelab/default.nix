@@ -25,9 +25,10 @@ in
       media = {
         enable = true;
         navidromeEnvFile = config.sops.secrets.navidrome.path;
+        torrentingPort = inputs.nix-secrets.torrentingPort;
       };
       wireguard-netns = {
-        enable = true;
+        enable = false;
         configFile = config.sops.secrets."vpn/credentialsFile".path;
         privateIP = inputs.nix-secrets.vpnPrivateIP;
         dnsIP = inputs.nix-secrets.vpnDnsIP;

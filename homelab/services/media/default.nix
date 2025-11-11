@@ -21,6 +21,10 @@ in
         '''
       '';
     };
+    torrentingPort = lib.mkOption {
+      type = lib.types.port;
+      default = 9999;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -50,8 +54,11 @@ in
       prowlarr.enable = lib.mkDefault true;
       bazarr.enable = lib.mkDefault true;
       jellyseerr.enable = lib.mkDefault true;
-      qbittorrent.enable = lib.mkDefault true;
       lidarr.enable = lib.mkDefault true;
+      qbittorrent = {
+        enable = lib.mkDefault true;
+        inherit (cfg) torrentingPort;
+      };
       navidrome = {
         enable = lib.mkDefault true;
         inherit (cfg) mediaDir;
