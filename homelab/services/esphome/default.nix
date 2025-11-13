@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   inherit (config) homelab;
   service = "esphome";
@@ -33,6 +38,7 @@ in
 
     services.${service} = {
       enable = true;
+      package = pkgs.unstable.esphome; # stable had an unsecure python pkg FIXME when this version goes into stable
       usePing = false;
       allowedDevices = [ ];
     };
