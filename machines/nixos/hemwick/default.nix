@@ -30,9 +30,7 @@ in
     ];
     defaultGateway = networkCfg.subnets.default.gateway;
     nameservers = hostCfg.dns;
-
-    # TODO homeassistant might start acting weird if I enable the firewall, need to check what ports need to be open
-    firewall.enable = false;
+    firewall.enable = true;
   };
 
   services.avahi = {

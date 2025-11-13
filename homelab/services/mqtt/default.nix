@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
   service = "mosquitto";
-  conf = config.homelab.services.${service};
+  cfg = config.homelab.services.${service};
   inherit (config) homelab;
 in
 {
@@ -23,29 +23,23 @@ in
       description = "Port for Mosquitto to listen on locally";
     };
   };
-  config = lib.mkIf conf.enable {
+  config = lib.mkIf cfg.enable {
     services.${service} = {
       enable = true;
-      # Main listener for local connections
       listeners = [
+        # FIXME: don't forget the protection :)
         {
-          inherit (conf) port;
-          # Only allow connections from localhost
+          inherit (cfg) port;
           address = "0.0.0.0";
           acl = [ "pattern readwrite #" ];
           omitPasswordAuth = true;
           settings.allow_anonymous = true;
         }
-        {
-          port = 8883; # Standard MQTT TLS port
-          settings = {
-            allow_anonymous = true;
-          };
-          address = "127.0.0.1";
-          acl = [ "pattern readwrite #" ];
-          omitPasswordAuth = true;
-        }
       ];
+    };
+
+    networking.firewall = lib.mkIf homelab.services.mosquitto.enable {
+      allowedTCPPorts = [ cfg.port ];
     };
   };
 }
