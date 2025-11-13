@@ -74,13 +74,6 @@ in
                       }
                     ];
                   }
-                  {
-                    type = "custom-api";
-                    title = "Random Fact";
-                    cache = "3h";
-                    url = "https://uselessfacts.jsph.pl/api/v2/facts/random";
-                    template = "<p class=\"size-h4 color-paragraph\">{{ .JSON.String \"text\" }}</p>";
-                  }
                 ];
               }
               {
@@ -92,6 +85,17 @@ in
                       {
                         type = "reddit";
                         subreddit = "portugal";
+                      }
+                      {
+                        type = "lobsters";
+                        sort-by = "hot";
+                        limit = 15;
+                        collapse-after = 5;
+                      }
+                      {
+                        type = "hacker-news";
+                        limit = 15;
+                        collapse-after = 5;
                       }
                     ];
                   }
@@ -122,54 +126,13 @@ in
                       }
                       {
                         title = "3D Printer";
-                        url = "http://sovol.${config.homelab.baseDomain}";
+                        url = "https://sovol.${config.homelab.baseDomain}";
                         icon = "di:mainsail";
                       }
                       {
-                        title = "AdGuard";
-                        url = "http://${networkCfg.services.adguard}";
-                        icon = "di:adguard-home";
-                      }
-                    ];
-                  }
-                  {
-                    type = "videos";
-                    channels = [
-                      "UCsBjURrPoezykLs9EqgamOA" # fireship
-                      "UCgdTVe88YVSrOZ9qKumhULQ" # hardware haven
-                      "UCiczXOhGpvoQGhOL16EZiTg" # cnc kitchen
-                      "UCpXwMqnXfJzazKS5fJ8nrVw" # shiey
-                      "UC2avWDLN1EI3r1RZ_dlSxCw" # integza
-                      "UC_zBdZ0_H_jn41FDRG7q4Tw" # vimjoyer
-                      "UCb6kgJyChDCR4aK0-GEsZKQ" # chris borge
-                      "UCR-DXc1voovS8nhAvccRZhg" # jeff geerling
-                      "UCsnGwSIHyoYN0kiINAGUKxg" # wolfgang
-                      "UCAbAsEZ-0LccTNbl8r-3EaQ" # scott yj
-                      "UC67gfx2Fg7K2NSHqoENVgwA" # tom stanton
-                    ];
-                  }
-                ];
-              }
-              {
-                size = "small";
-                widgets = [
-                  {
-                    type = "weather";
-                    location = "Lisbon, Portugal";
-                  }
-                  {
-                    type = "group";
-                    widgets = [
-                      {
-                        type = "lobsters";
-                        sort-by = "hot";
-                        limit = 15;
-                        collapse-after = 5;
-                      }
-                      {
-                        type = "hacker-news";
-                        limit = 15;
-                        collapse-after = 5;
+                        title = "Miniflux";
+                        url = "https://miniflux.${config.homelab.baseDomain}";
+                        icon = "di:miniflux-light";
                       }
                     ];
                   }
@@ -295,7 +258,7 @@ in
                       }
                       {
                         title = "Adguard Main";
-                        url = "http://${networkCfg.services.adguard}";
+                        url = "https://dns.${config.homelab.baseDomain}";
                         icon = "di:adguard-home";
                       }
                       {
