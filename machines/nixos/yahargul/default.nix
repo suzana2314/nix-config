@@ -17,7 +17,7 @@
     hostName = "yahargul";
     enableIPv6 = false;
     useDHCP = true;
-    firewall.enable = false;
+    firewall.enable = true;
     nameservers = [
       "9.9.9.9"
       "149.112.112.112"
