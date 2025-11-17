@@ -35,6 +35,26 @@
         };
       };
 
+      lua-ls = {
+        enable = true;
+        settings.configuration = {
+          Lua = {
+            runtime = {
+              version = "LuaJIT";
+            };
+            diagnostics = {
+              globals = [ "vim" ];
+            };
+            workspace = {
+              library = [
+                "\${3rd}/luv/library"
+              ];
+              checkThirdParty = false;
+            };
+          };
+        };
+      };
+
     };
   };
 }
