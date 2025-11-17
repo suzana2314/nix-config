@@ -78,15 +78,14 @@ in
         "/dev/dri/renderD128:/dev/dri/renderD128" # Intel hardware acceleration
       ];
 
-      extraOptions =
-        [
-          "--shm-size=512m"
-          "--tmpfs=/tmp/cache:size=1000000000"
-          "--stop-timeout=30"
-        ]
-        ++ lib.optionals (cfg.envFile != "") [
-          "--env-file=${cfg.envFile}"
-        ];
+      extraOptions = [
+        "--shm-size=512m"
+        "--tmpfs=/tmp/cache:size=1000000000"
+        "--stop-timeout=30"
+      ]
+      ++ lib.optionals (cfg.envFile != "") [
+        "--env-file=${cfg.envFile}"
+      ];
 
       autoStart = true;
     };

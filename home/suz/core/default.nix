@@ -11,7 +11,8 @@ in
 {
   imports = [
     ../../features/zsh
-  ] ++ (builtins.attrValues outputs.homeModules);
+  ]
+  ++ (builtins.attrValues outputs.homeModules);
 
   programs = {
     home-manager.enable = true;

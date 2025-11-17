@@ -14,7 +14,8 @@
     ./locale.nix
     ./xdg.nix
     ./editor.nix
-  ] ++ (builtins.attrValues outputs.nixosModules);
+  ]
+  ++ (builtins.attrValues outputs.nixosModules);
 
   home-manager.useGlobalPkgs = true;
   home-manager.extraSpecialArgs = {
