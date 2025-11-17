@@ -13,6 +13,4 @@
     };
   };
 
-  nix-vim = inputs.nix-vim.overlays.default;
-
 }

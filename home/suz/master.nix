@@ -12,6 +12,7 @@
     ../features/desktop/wayland
     ../features/desktop/wofi
     ../features/desktop/audio
+    ../features/desktop/neovim
     ../features/git
     ../features/direnv
     ./core
@@ -93,7 +94,7 @@
     unstable.prusa-slicer
     unstable.freecad-wayland
     libreoffice
-    nvim-pkg
+    # nvim-pkg
     sqldeveloper
   ];
 }

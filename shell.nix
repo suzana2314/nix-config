@@ -14,6 +14,8 @@
         ssh-to-age
         pre-commit
         deadnix
+        lua-language-server
+        nixd
         ;
     };
   };
