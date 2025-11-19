@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  home.packages = with pkgs; [ vesktop ];
+  home.packages = with pkgs; [ unstable.vesktop ];
 
   xdg.configFile."vesktop/themes/suz-gruvbox.theme.css".text = ''
     /**
