@@ -46,6 +46,12 @@ in
         peers = inputs.nix-secrets.yahargulWgPeers;
         networkInterface = "eno1";
       };
+
+      esphome = {
+        enable = true;
+        openFirewall = true;
+        auth = config.sops.secrets.esphome.path;
+      };
     };
   };
 
@@ -72,6 +78,11 @@ in
     };
     "wireguard/privateKey" = {
       inherit sopsFile;
+      mode = "0400";
+    };
+    esphome = {
+      inherit sopsFile;
+      owner = config.users.users.esphome.name;
       mode = "0400";
     };
   };
