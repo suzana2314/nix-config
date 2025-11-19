@@ -77,17 +77,3 @@ vim.diagnostic.config {
     prefix = '',
   },
 }
-
--- Netrw
-
--- syncs the current dir and browsing dir
-vim.g.netrw_keepdir = 0
-
--- hides banner
-vim.g.netrw_banner = 0
-
--- hide dotfiles
-vim.g.netrw_list_hide = [[\(^\|\s\s\)\zs\.\S\+]]
-
--- better copy command
-vim.g.netrw_localcopydircmd = 'cp -r'

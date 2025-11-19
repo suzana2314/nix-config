@@ -24,6 +24,7 @@
       cmp-cmdline-history
       cmp_luasnip
       luasnip
+      oil-nvim
 
       # ui
       gruvbox-nvim
@@ -41,6 +42,7 @@
       ${builtins.readFile config/plugins/telescope.lua}
       ${builtins.readFile config/plugins/completion.lua}
       ${builtins.readFile config/plugins/lualine.lua}
+      ${builtins.readFile config/plugins/oil.lua}
     '';
   };
 
