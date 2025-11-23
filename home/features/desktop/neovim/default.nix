@@ -13,6 +13,11 @@
       nvim-treesitter
       telescope-nvim
       nvim-lspconfig
+      oil-nvim
+      nvim-autopairs
+      gitsigns-nvim
+
+      # completion
       nvim-cmp
       lspkind-nvim
       cmp-nvim-lsp
@@ -24,13 +29,17 @@
       cmp-cmdline-history
       cmp_luasnip
       luasnip
-      oil-nvim
 
       # ui
       gruvbox-nvim
       lualine-nvim
       nvim-web-devicons
     ];
+
+    # don't use plugins that use these providers
+    withPython3 = false;
+    withRuby = false;
+    withNodeJs = false;
 
     extraConfig = ''
       lua << EOF
@@ -43,6 +52,8 @@
       ${builtins.readFile config/plugins/completion.lua}
       ${builtins.readFile config/plugins/lualine.lua}
       ${builtins.readFile config/plugins/oil.lua}
+      ${builtins.readFile config/plugins/autopairs.lua}
+      ${builtins.readFile config/plugins/gitsigns.lua}
     '';
   };
 

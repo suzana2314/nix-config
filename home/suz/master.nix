@@ -94,7 +94,6 @@
     unstable.prusa-slicer
     unstable.freecad-wayland
     libreoffice
-    # nvim-pkg
     sqldeveloper
   ];
 }
