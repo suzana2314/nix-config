@@ -29,7 +29,6 @@ in
     };
     torrentingPort = lib.mkOption {
       type = lib.types.port;
-      default = 9999;
     };
   };
 
