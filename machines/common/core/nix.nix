@@ -2,6 +2,7 @@
   inputs,
   lib,
   config,
+  pkgs,
   ...
 }:
 {
@@ -10,6 +11,8 @@
       flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
     in
     {
+      # FIXME: remove when merged into stable
+      package = pkgs.unstable.nix;
       settings = {
         experimental-features = [
           "nix-command"
