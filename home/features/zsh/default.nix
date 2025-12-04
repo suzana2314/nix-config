@@ -24,24 +24,6 @@
           "$character"
         ];
 
-        palette = "colors";
-        palettes = {
-          "colors" =
-            let
-              inherit (config.colorScheme) palette;
-            in
-            {
-              black = "#${palette.base00}";
-              red = "#${palette.base08}";
-              green = "#${palette.base0B}";
-              yellow = "#${palette.base0A}";
-              blue = "#${palette.base0D}";
-              purple = "#${palette.base0E}";
-              cyan = "#${palette.base0C}";
-              white = "#${palette.base05}";
-            };
-        };
-
         hostname = {
           disabled = false;
           format = "[$hostname]($style) ";
