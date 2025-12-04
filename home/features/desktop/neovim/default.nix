@@ -10,7 +10,7 @@
     vimAlias = true;
 
     plugins = with pkgs.vimPlugins; [
-      nvim-treesitter
+      nvim-treesitter.withAllGrammars
       telescope-nvim
       nvim-lspconfig
       oil-nvim
@@ -32,7 +32,6 @@
 
       # ui
       gruvbox-nvim
-      lualine-nvim
       nvim-web-devicons
     ];
 
@@ -47,10 +46,10 @@
       ${builtins.readFile config/mappings.lua}
       ${builtins.readFile config/lsp.lua}
       ${builtins.readFile config/autocmd.lua}
+      ${builtins.readFile config/statusline.lua}
       ${builtins.readFile config/plugins/treesitter.lua}
       ${builtins.readFile config/plugins/telescope.lua}
       ${builtins.readFile config/plugins/completion.lua}
-      ${builtins.readFile config/plugins/lualine.lua}
       ${builtins.readFile config/plugins/oil.lua}
       ${builtins.readFile config/plugins/autopairs.lua}
       ${builtins.readFile config/plugins/gitsigns.lua}
