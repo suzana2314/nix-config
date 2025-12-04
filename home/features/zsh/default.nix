@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   programs = {
     starship = {
@@ -6,6 +11,37 @@
       enableZshIntegration = true;
       settings = {
         add_newline = false;
+
+        format = lib.concatStrings [
+          "$username"
+          "$hostname"
+          "$directory"
+          "$git_branch"
+          "$git_state"
+          "$git_status"
+          "$nix_shell"
+          "$line_break"
+          "$character"
+        ];
+
+        palette = "colors";
+        palettes = {
+          "colors" =
+            let
+              inherit (config.colorScheme) palette;
+            in
+            {
+              black = "#${palette.base00}";
+              red = "#${palette.base08}";
+              green = "#${palette.base0B}";
+              yellow = "#${palette.base0A}";
+              blue = "#${palette.base0D}";
+              purple = "#${palette.base0E}";
+              cyan = "#${palette.base0C}";
+              white = "#${palette.base05}";
+            };
+        };
+
         hostname = {
           disabled = false;
           format = "[$hostname]($style) ";
@@ -18,35 +54,30 @@
           fish_style_pwd_dir_length = 0;
           format = "[$path]($style)[$read_only]($read_only_style) ";
           read_only_style = "red";
-          read_only = "";
+          read_only = " !r";
           truncation_length = 10;
           use_logical_path = true;
         };
         git_branch = {
-          symbol = " ";
+          format = "[$branch]($style)";
+          style = "bright-black";
         };
-        nix_shell = {
-          format = "with [$symbol]($style) ";
-          disabled = false;
-          impure_msg = "[impure](bold red)";
-          pure_msg = "[pure](bold green)";
-          style = "blue bold";
-          symbol = "󱄅 ";
+        git_status = {
+          format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](purple)($ahead_behind$stashed)]($style) ";
+          style = "cyan";
+          conflicted = "​";
+          untracked = "​";
+          modified = "​";
+          staged = "​";
+          renamed = "​";
+          deleted = "​";
+          stashed = "≡";
         };
-        golang.disabled = true;
-        rust.disabled = true;
-        python.disabled = true;
-        java.disabled = true;
-        cmake.disabled = true;
-        c.disabled = true;
-        ocaml.disabled = true;
-        battery.disabled = true;
-        package.disabled = true;
-        gradle.disabled = true;
-        vlang.disabled = true;
 
-        cmd_duration = {
-          disabled = true;
+        nix_shell = {
+          format = "[nix]($style) ";
+          disabled = false;
+          style = "blue";
         };
       };
     };
