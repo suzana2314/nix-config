@@ -7,21 +7,22 @@ in
 {
   programs.git = {
     enable = true;
-    aliases = {
-      graph = "log --decorate --oneline --graph";
-    };
-    userName = "suzana2314";
-    userEmail = inputs.nix-secrets.email.github;
-    extraConfig = {
-      init.defaultBranch = "master";
-      user = {
-        signByDefault = true;
-        inherit signingkey;
+    settings = {
+      alias = {
+        graph = "log --decorate --oneline --graph";
       };
+      user = {
+        inherit signingkey;
+        name = "suzana2314";
+        email = inputs.nix-secrets.email.github;
+        signByDefault = true;
+      };
+
       commit.gpgsign = true;
       gpg.format = "ssh";
       gpg.ssh.allowedSignersFile = allowedSignersFile;
 
+      init.defaultBranch = "master";
       pull = {
         rebase = true;
       };

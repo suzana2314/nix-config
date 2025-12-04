@@ -40,7 +40,7 @@ sync $host:
 
 [group('deploy')]
 deploy $host:
-  just sync {{ host }}; nixos-rebuild switch --flake .#{{host}} --target-host {{host}} --build-host {{host}} --fast --use-remote-sudo --show-trace
+  just sync {{ host }}; nixos-rebuild switch --flake .#{{host}} --target-host {{host}} --build-host {{host}} --no-reexec --sudo --show-trace
 
 deploy-nh $host:
   just sync {{ host }}; nh os switch --target-host {{host}} --build-host {{host}} .#nixosConfigurations.{{host}} --ask

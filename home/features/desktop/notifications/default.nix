@@ -1,8 +1,7 @@
-{ config, pkgs, ... }:
+{ config, ... }:
 {
   services.swaync = {
     enable = true;
-    package = pkgs.unstable.swaynotificationcenter;
     settings = {
       ignore-gtk-theme = true;
       layer = "overlay";

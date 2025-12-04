@@ -4,7 +4,7 @@
     inputs.nix-colors.homeManagerModules.default
     ../features/desktop/alacritty
     ../features/desktop/discord
-    ../features/desktop/notifications
+    # ../features/desktop/notifications FIXME: broken
     ../features/desktop/gtk
     ../features/desktop/hyprland
     ../features/desktop/qt
