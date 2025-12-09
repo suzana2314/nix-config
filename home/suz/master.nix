@@ -4,7 +4,7 @@
     inputs.nix-colors.homeManagerModules.default
     ../features/desktop/alacritty
     ../features/desktop/discord
-    # ../features/desktop/notifications FIXME: broken
+    ../features/desktop/notifications
     ../features/desktop/gtk
     ../features/desktop/hyprland
     ../features/desktop/qt
@@ -42,8 +42,8 @@
       width = 1920;
       height = 1080;
       refreshRate = 120;
-      x = 2550;
-      y = 722;
+      x = 2560;
+      y = 834;
       scale = 1.0;
       workspaces = [
         "6"

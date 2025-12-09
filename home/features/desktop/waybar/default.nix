@@ -17,10 +17,6 @@
         modules-left = [
           "custom/padd"
           "custom/l_end"
-          "custom/nixos"
-          "custom/r_end"
-          "custom/padd"
-          "custom/l_end"
           "hyprland/workspaces"
           "custom/r_end"
           "custom/padd"
@@ -58,10 +54,6 @@
           "custom/l_end"
           "custom/battery-icon"
           "battery"
-          "custom/r_end"
-          "custom/padd"
-          "custom/l_end"
-          "custom/notification-icon"
           "custom/r_end"
           "custom/padd"
         ];

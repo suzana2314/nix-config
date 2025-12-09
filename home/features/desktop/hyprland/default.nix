@@ -64,13 +64,6 @@
         sensitivity = 0;
       };
 
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_forever = true;
-        workspace_swipe_create_new = false;
-        workspace_swipe_invert = false;
-      };
-
       misc = {
         force_default_wallpaper = 0;
         animate_manual_resizes = true;
