@@ -25,7 +25,10 @@ in
       type = lib.types.str;
       default = "${service}.${homelab.baseDomain}";
     };
-
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 5678;
+    };
     apiToken = lib.mkOption {
       type = lib.types.path;
       description = "The path to the apiToken of the remote machine";
@@ -37,7 +40,11 @@ in
       enable = true;
       package = pkgs.unstable.glance;
       settings = {
-        server.port = 5678;
+        server = {
+          host = "localhost";
+          port = cfg.port;
+          proxied = true;
+        };
         theme = {
           # gruvbox hard
           "background-color" = "195 6 12";
@@ -67,7 +74,7 @@ in
                       }
                       {
                         type = "remote";
-                        url = "https://hemwick-glance.${homelab.baseDomain}";
+                        url = "https://byrgenwerth-glance.${homelab.baseDomain}";
                         token = {
                           _secret = cfg.apiToken;
                         };
@@ -147,10 +154,6 @@ in
               {
                 size = "full";
                 widgets = [
-                  {
-                    type = "search";
-                    autofocus = true;
-                  }
                   {
                     type = "monitor";
                     cache = "1m";
@@ -249,22 +252,22 @@ in
                   {
                     type = "monitor";
                     cache = "1m";
-                    title = "Network";
+                    title = "Monitoring";
                     sites = [
                       {
-                        title = "Gateway";
-                        url = "http://${networkCfg.subnets.default.gateway}";
-                        icon = "di:tp-link";
+                        title = "Uptime Kuma";
+                        url = "https://kuma.${config.homelab.baseDomain}";
+                        icon = "di:uptime-kuma";
                       }
                       {
-                        title = "Adguard Main";
-                        url = "https://dns.${config.homelab.baseDomain}";
-                        icon = "di:adguard-home";
+                        title = "Grafana";
+                        url = "https://grafana.${config.homelab.baseDomain}";
+                        icon = "di:grafana";
                       }
                       {
-                        title = "Adguard Backup";
-                        url = "http://${networkCfg.services.adguardbak}";
-                        icon = "di:adguard-home";
+                        title = "Prometheus";
+                        url = "https://metrics.${config.homelab.baseDomain}";
+                        icon = "di:prometheus";
                       }
                     ];
                   }
@@ -288,10 +291,27 @@ in
                         url = "https://scan.${config.homelab.baseDomain}";
                         icon = "di:printer";
                       }
+                    ];
+                  }
+                  {
+                    type = "monitor";
+                    cache = "1m";
+                    title = "Network";
+                    sites = [
                       {
-                        title = "Uptime Kuma";
-                        url = "https://kuma.${config.homelab.baseDomain}";
-                        icon = "di:uptime-kuma";
+                        title = "Gateway";
+                        url = "http://${networkCfg.subnets.default.gateway}";
+                        icon = "di:tp-link";
+                      }
+                      {
+                        title = "Adguard Main";
+                        url = "https://dns.${config.homelab.baseDomain}";
+                        icon = "di:adguard-home";
+                      }
+                      {
+                        title = "Adguard Backup";
+                        url = "http://${networkCfg.services.adguardbak}";
+                        icon = "di:adguard-home";
                       }
                     ];
                   }
