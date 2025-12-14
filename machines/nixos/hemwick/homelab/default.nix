@@ -22,14 +22,24 @@ in
 
     services = {
       enable = true;
+
       adguardhome.enable = true;
+
+      ddns-updater = {
+        enable = true;
+        configFile = config.sops.secrets."cloudflare/ddnsCredentials".path;
+        notifications = config.sops.secrets."cloudflare/ddnsNotification".path;
+      };
+
       mosquitto = {
         enable = true;
       };
+
       esphome = {
         enable = true;
         auth = config.sops.secrets.esphome.path;
       };
+
       homeassistant = {
         enable = true;
         cloudflared = {
@@ -37,12 +47,12 @@ in
           credentialsFile = config.sops.secrets."cloudflare/tunnelCredentials".path;
         };
       };
+
       gree-server.enable = true;
 
-      glance-agent = {
+      glance = {
         enable = true;
-        environmentFile = config.sops.secrets."glance/environmentFile".path;
-        url = "${config.networking.hostName}-glance.${config.homelab.baseDomain}";
+        apiToken = config.sops.secrets."glance/byrgenwerthApitoken".path;
       };
 
       extraCaddyHosts = {
@@ -65,6 +75,30 @@ in
       };
 
       scanservjs.enable = true;
+
+      grafana = {
+        enable = true;
+      };
+
+      prometheus-node.enable = true;
+
+      prometheus = {
+        enable = true;
+        scrapeConfigs = [
+          {
+            job_name = "hosts";
+            static_configs = [
+              {
+                targets = [
+                  "hemwick.${config.homelab.baseDomain}"
+                  "byrgenwerth.${config.homelab.baseDomain}"
+                ];
+              }
+            ];
+          }
+        ];
+      };
+
     };
   };
 
@@ -78,6 +112,18 @@ in
       owner = config.users.users.acme.name;
       mode = "0400";
     };
+    "cloudflare/ddnsCredentials" = {
+      inherit sopsFile;
+      owner = config.users.users.ddns-updater.name;
+      group = config.users.users.ddns-updater.name;
+      mode = "0400";
+    };
+    "cloudflare/ddnsNotification" = {
+      inherit sopsFile;
+      owner = config.users.users.ddns-updater.name;
+      group = config.users.users.ddns-updater.name;
+      mode = "0400";
+    };
     esphome = {
       inherit sopsFile;
       owner = config.users.users.esphome.name;
@@ -87,7 +133,7 @@ in
       inherit sopsFile;
       mode = "0400";
     };
-    "glance/environmentFile" = {
+    "glance/byrgenwerthApitoken" = {
       inherit sopsFile;
       mode = "0400";
     };

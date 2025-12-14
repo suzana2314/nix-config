@@ -22,34 +22,36 @@ in
 
     services = {
       enable = true;
+
       media = {
         enable = true;
         navidromeEnvFile = config.sops.secrets.navidrome.path;
         torrentingPort = inputs.nix-secrets.torrentingPort;
       };
+
       wireguard-netns = {
         enable = false;
         configFile = config.sops.secrets."vpn/credentialsFile".path;
         privateIP = inputs.nix-secrets.vpnPrivateIP;
         dnsIP = inputs.nix-secrets.vpnDnsIP;
       };
-      ddns-updater = {
+
+      glance-agent = {
         enable = true;
-        configFile = config.sops.secrets."cloudflare/ddnsCredentials".path;
-        notifications = config.sops.secrets."cloudflare/ddnsNotification".path;
+        environmentFile = config.sops.secrets."glance/environmentFile".path;
+        url = "${config.networking.hostName}-glance.${config.homelab.baseDomain}";
       };
 
-      glance = {
-        enable = true;
-        apiToken = config.sops.secrets."glance/hemwickApitoken".path;
-      };
       immich.enable = true;
+
       uptime-kuma.enable = true;
 
       frigate = {
         enable = true;
         envFile = config.sops.secrets.frigate.path;
       };
+
+      prometheus-node.enable = true;
     };
   };
 
@@ -58,18 +60,6 @@ in
     "cloudflare/dnsCredentials" = {
       inherit sopsFile;
       owner = config.users.users.acme.name;
-      mode = "0400";
-    };
-    "cloudflare/ddnsCredentials" = {
-      inherit sopsFile;
-      owner = config.users.users.ddns-updater.name;
-      group = config.users.users.ddns-updater.name;
-      mode = "0400";
-    };
-    "cloudflare/ddnsNotification" = {
-      inherit sopsFile;
-      owner = config.users.users.ddns-updater.name;
-      group = config.users.users.ddns-updater.name;
       mode = "0400";
     };
     "vpn/credentialsFile" = {
@@ -83,7 +73,7 @@ in
       inherit sopsFile;
       mode = "0400";
     };
-    "glance/hemwickApitoken" = {
+    "glance/environmentFile" = {
       inherit sopsFile;
       mode = "0400";
     };
