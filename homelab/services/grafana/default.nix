@@ -33,10 +33,33 @@ in
           serve_from_sub_path = false;
           enforce_domain = true;
         };
+        dashboards.default_home_dashboard_path = "${./dashboards}/system_status.json";
         security = {
           allow_embedding = true;
           cookie_secure = true;
           cookie_samesite = "lax";
+        };
+      };
+      provision = {
+        enable = true;
+        dashboards.settings.providers = [
+          {
+            options.path = ./dashboards;
+          }
+        ];
+
+        datasources.settings = {
+          apiVersion = 1;
+          datasources = [
+            {
+              name = "Prometheus";
+              type = "prometheus";
+              access = "proxy";
+              url = "https://metrics.${homelab.baseDomain}";
+              uid = "prometheus-default";
+              isDefault = true;
+            }
+          ];
         };
       };
     };

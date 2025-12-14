@@ -11,7 +11,7 @@ in
     };
     url = lib.mkOption {
       type = lib.types.str;
-      default = "${service}.${homelab.baseDomain}";
+      default = "metrics.${homelab.baseDomain}";
     };
     scrapeConfigs = lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
