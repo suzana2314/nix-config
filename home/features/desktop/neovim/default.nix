@@ -17,18 +17,8 @@
       nvim-autopairs
       gitsigns-nvim
 
-      # completion
-      nvim-cmp
-      lspkind-nvim
-      cmp-nvim-lsp
-      cmp-nvim-lsp-signature-help
-      cmp-buffer
-      cmp-path
-      cmp-nvim-lua
-      cmp-cmdline
-      cmp-cmdline-history
-      cmp_luasnip
       luasnip
+      blink-cmp
 
       # ui
       gruvbox-nvim
