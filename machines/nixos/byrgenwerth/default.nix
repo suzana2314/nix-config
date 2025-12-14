@@ -1,4 +1,9 @@
-{ inputs, config, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 let
   networkCfg = inputs.nix-secrets.networking;
   hostCfg = networkCfg.subnets.default.hosts.byrgenwerth;
@@ -16,6 +21,11 @@ in
     ../../common/options/systemd-bootloader
     ../../common/options/ssh
     ../../common/users/suz
+  ];
+
+  hardware.graphics.extraPackages = with pkgs; [
+    vaapiIntel
+    intel-media-driver
   ];
 
   networking = {
