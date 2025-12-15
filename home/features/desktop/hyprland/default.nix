@@ -9,8 +9,7 @@
     ./hypridle.nix
     ./hyprlock.nix
     ./hyprpaper.nix
-    ./screenshot.nix
-    ./monitor-listener.nix
+    ./scripts
   ];
 
   xdg.portal = {
@@ -149,6 +148,7 @@
           "SUPER, D, exec, wofi --show drun"
           "SUPER, E, exec, nautilus"
           "SUPER, P, exec, hyprlock"
+          "SUPER, T, exec, monitor-switcher"
 
           "SUPER, 0, workspace, 10"
           "SUPERSHIFT, 0, movetoworkspacesilent, name:10"
