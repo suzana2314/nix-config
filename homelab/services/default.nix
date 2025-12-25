@@ -77,5 +77,6 @@
     ./wireguard-netns
     ./wireguard-server
     ./scanservjs
+    ./newt
   ];
 }

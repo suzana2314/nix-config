@@ -92,11 +92,21 @@ in
                 targets = [
                   "hemwick.${config.homelab.baseDomain}"
                   "byrgenwerth.${config.homelab.baseDomain}"
+                  "kos.${config.homelab.baseDomain}"
                 ];
               }
             ];
+            basic_auth = {
+              username = "prometheus-oedon";
+              password_file = config.sops.secrets."prometheus/hostsPasswordFile".path;
+            };
           }
         ];
+      };
+
+      newt = {
+        enable = true;
+        environmentFile = config.sops.secrets."newt/environmentFile".path;
       };
 
     };
@@ -141,6 +151,14 @@ in
       inherit sopsFile;
       mode = "0400";
     };
+    "prometheus/hostsPasswordFile" = {
+      inherit sopsFile;
+      owner = config.users.users.prometheus.name;
+      mode = "0400";
+    };
+    "newt/environmentFile" = {
+      inherit sopsFile;
+      mode = "0400";
+    };
   };
-
 }
