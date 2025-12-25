@@ -304,6 +304,11 @@ in
                         icon = "di:tp-link";
                       }
                       {
+                        title = "Pangolin";
+                        url = "https://pangolin.${config.homelab.baseDomain}";
+                        icon = "di:pangolin";
+                      }
+                      {
                         title = "Adguard Main";
                         url = "https://dns.${config.homelab.baseDomain}";
                         icon = "di:adguard-home";
