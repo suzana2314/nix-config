@@ -1,4 +1,18 @@
 { inputs, pkgs, ... }:
+let
+  freecadWayland = pkgs.symlinkJoin {
+    name = "freecad-wayland-fix";
+    paths = [
+      pkgs.freecad-wayland
+    ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/FreeCAD \
+        --prefix MESA_LOADER_DRIVER_OVERRIDE : zink \
+        --prefix __EGL_VENDOR_LIBRARY_FILENAMES : ${pkgs.mesa}/share/glvnd/egl_vendor.d/50_mesa.json \
+    '';
+  };
+in
 {
   imports = [
     inputs.nix-colors.homeManagerModules.default
@@ -92,7 +106,8 @@
     unstable.vscode
     unstable.obsidian
     unstable.prusa-slicer
-    unstable.freecad-wayland
+    # unstable.freecad-wayland
+    freecadWayland
     libreoffice
     sqldeveloper
   ];

@@ -17,6 +17,7 @@
     ../../common/options/wayland
     ../../common/options/printing
     ../../common/options/virtualisation
+    ../../common/options/steam
   ];
 
   systemd.network.wait-online.enable = false;
