@@ -33,10 +33,7 @@ in
         enable = true;
         zigbee.enable = false;
         shelly.enable = false;
-        cloudflared = {
-          tunnelId = inputs.nix-secrets.yahargulTunnelId;
-          credentialsFile = config.sops.secrets."cloudflare/tunnelCredentials".path;
-        };
+        cloudflared.enable = false;
       };
 
       wireguard-server = {
@@ -52,14 +49,16 @@ in
         openFirewall = true;
         auth = config.sops.secrets.esphome.path;
       };
+
+      newt = {
+        enable = true;
+        environmentFile = config.sops.secrets."newt/environmentFile".path;
+      };
     };
   };
 
   # secrets for the homelab config
   sops.secrets = {
-    "cloudflare/tunnelCredentials" = {
-      inherit sopsFile;
-    };
     "cloudflare/ddnsCredentials" = {
       inherit sopsFile;
       owner = config.users.users.ddns-updater.name;
@@ -85,6 +84,9 @@ in
       owner = config.users.users.esphome.name;
       mode = "0400";
     };
+    "newt/environmentFile" = {
+      inherit sopsFile;
+      mode = "0400";
+    };
   };
-
 }

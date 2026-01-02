@@ -40,6 +40,10 @@ in
         description = "Enable Shelly CoIoT support";
       };
     };
+    cloudflared.enable = lib.mkEnableOption {
+      description = "Enable cloudflare tunnel";
+      default = true;
+    };
     cloudflared.credentialsFile = lib.mkOption {
       type = lib.types.str;
       example = lib.literalExpression ''
@@ -62,7 +66,7 @@ in
         reverse_proxy http://127.0.0.1:8123
       '';
     };
-    services.cloudflared = {
+    services.cloudflared = lib.mkIf cfg.cloudflared.enable {
       enable = true;
       tunnels.${cfg.cloudflared.tunnelId} = {
         inherit (cfg.cloudflared) credentialsFile;
