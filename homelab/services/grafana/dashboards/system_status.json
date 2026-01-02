@@ -19,8 +19,21 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 14,
-  "links": [],
+  "id": 21,
+  "links": [
+    {
+      "asDropdown": true,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": false,
+      "title": "Dashboards",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
   "panels": [
     {
       "datasource": {
@@ -1367,7 +1380,7 @@
           "text": "",
           "value": ""
         },
-        "definition": "label_values(go_gc_duration_seconds,instance)",
+        "definition": "label_values(node_cpu_seconds_total,instance)",
         "hide": 1,
         "includeAll": false,
         "label": "Instance",
@@ -1375,7 +1388,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(go_gc_duration_seconds,instance)",
+          "query": "label_values(node_cpu_seconds_total,instance)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,

@@ -23,6 +23,13 @@ in
     services = {
       enable = true;
 
+      dns = {
+        enable = true;
+        url = "dns2.${inputs.nix-secrets.domain}";
+        dnsMappings = inputs.nix-secrets.dnsMappings;
+        dnsRewrites = inputs.nix-secrets.dnsRewrites;
+      };
+
       media = {
         enable = true;
         navidromeEnvFile = config.sops.secrets.navidrome.path;

@@ -23,7 +23,12 @@ in
     services = {
       enable = true;
 
-      adguardhome.enable = true;
+      dns = {
+        enable = true;
+        url = "dns1.${inputs.nix-secrets.domain}";
+        dnsMappings = inputs.nix-secrets.dnsMappings;
+        dnsRewrites = inputs.nix-secrets.dnsRewrites;
+      };
 
       ddns-updater = {
         enable = true;
@@ -100,6 +105,26 @@ in
               username = "prometheus-oedon";
               password_file = config.sops.secrets."prometheus/hostsPasswordFile".path;
             };
+          }
+          {
+            job_name = "DNS Primary";
+            static_configs = [
+              {
+                targets = [
+                  "dns1.${config.homelab.baseDomain}"
+                ];
+              }
+            ];
+          }
+          {
+            job_name = "DNS Secondary";
+            static_configs = [
+              {
+                targets = [
+                  "dns2.${config.homelab.baseDomain}"
+                ];
+              }
+            ];
           }
         ];
       };

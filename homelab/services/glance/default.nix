@@ -308,16 +308,6 @@ in
                         url = "https://pangolin.${config.homelab.baseDomain}";
                         icon = "di:pangolin";
                       }
-                      {
-                        title = "Adguard Main";
-                        url = "https://dns.${config.homelab.baseDomain}";
-                        icon = "di:adguard-home";
-                      }
-                      {
-                        title = "Adguard Backup";
-                        url = "http://${networkCfg.services.adguardbak}";
-                        icon = "di:adguard-home";
-                      }
                     ];
                   }
                 ];
