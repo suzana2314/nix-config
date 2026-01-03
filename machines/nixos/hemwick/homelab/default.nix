@@ -48,6 +48,7 @@ in
       homeassistant = {
         enable = true;
         cloudflared = {
+          enable = true;
           inherit (inputs.nix-secrets) tunnelId;
           credentialsFile = config.sops.secrets."cloudflare/tunnelCredentials".path;
         };
@@ -98,6 +99,7 @@ in
                   "hemwick.${config.homelab.baseDomain}"
                   "byrgenwerth.${config.homelab.baseDomain}"
                   "kos.${config.homelab.baseDomain}"
+                  "mensis.${config.homelab.baseDomain}"
                 ];
               }
             ];

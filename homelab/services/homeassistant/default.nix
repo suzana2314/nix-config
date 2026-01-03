@@ -42,7 +42,6 @@ in
     };
     cloudflared.enable = lib.mkEnableOption {
       description = "Enable cloudflare tunnel";
-      default = true;
     };
     cloudflared.credentialsFile = lib.mkOption {
       type = lib.types.str;
