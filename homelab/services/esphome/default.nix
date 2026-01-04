@@ -38,13 +38,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # fixes sops dynamic user problem
-    users.users.esphome = {
-      isSystemUser = true;
-      group = "esphome";
-    };
-    users.groups.esphome = { };
-
     services.${service} = {
       enable = true;
       inherit (cfg) openFirewall port;

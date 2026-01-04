@@ -1,16 +1,21 @@
 { inputs, config, ... }:
 let
   sopsFile = "${builtins.toString inputs.nix-secrets}/sops/${config.networking.hostName}.yaml";
-  networkConf = inputs.nix-secrets.networking;
-  hostConf = networkConf.subnets.default.hosts.byrgenwerth;
+  secrets = inputs.nix-secrets;
+  hostConf = secrets.networking.subnets.default.hosts.byrgenwerth;
+
+  mkSecret = {
+    inherit sopsFile;
+    mode = "0400";
+  };
+  mkUserSecret = owner: mkSecret // { inherit owner; };
 in
 {
   homelab = {
     enable = true;
     inherit (config.time) timeZone;
-    email = inputs.nix-secrets.email.default;
-    baseDomain = inputs.nix-secrets.domain;
-    cloudflare.dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
+    email = secrets.email.default;
+    baseDomain = secrets.domain;
     externalIP = hostConf.ip;
 
     motd = {
@@ -30,27 +35,29 @@ in
       credentialsFile = config.sops.secrets."telegram/ssh".path;
     };
 
+    cloudflare.dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
+
     services = {
       enable = true;
 
       dns = {
         enable = true;
-        url = "dns2.${inputs.nix-secrets.domain}";
-        dnsMappings = inputs.nix-secrets.dnsMappings;
-        dnsRewrites = inputs.nix-secrets.dnsRewrites;
+        url = "dns2.${secrets.domain}";
+        dnsMappings = secrets.dnsMappings;
+        dnsRewrites = secrets.dnsRewrites;
       };
 
       media = {
         enable = true;
         navidromeEnvFile = config.sops.secrets.navidrome.path;
-        torrentingPort = inputs.nix-secrets.torrentingPort;
+        torrentingPort = secrets.torrentingPort;
       };
 
-      wireguard-netns = {
-        enable = false;
-        configFile = config.sops.secrets."vpn/credentialsFile".path;
-        privateIP = inputs.nix-secrets.vpnPrivateIP;
-        dnsIP = inputs.nix-secrets.vpnDnsIP;
+      immich.enable = true;
+
+      frigate = {
+        enable = true;
+        envFile = config.sops.secrets.frigate.path;
       };
 
       glance-agent = {
@@ -59,45 +66,17 @@ in
         url = "${config.networking.hostName}-glance.${config.homelab.baseDomain}";
       };
 
-      immich.enable = true;
-
       uptime-kuma.enable = true;
-
-      frigate = {
-        enable = true;
-        envFile = config.sops.secrets.frigate.path;
-      };
-
       prometheus-node.enable = true;
     };
   };
 
   # secrets for the homelab config
   sops.secrets = {
-    "cloudflare/dnsCredentials" = {
-      inherit sopsFile;
-      owner = config.users.users.acme.name;
-      mode = "0400";
-    };
-    "vpn/credentialsFile" = {
-      inherit sopsFile;
-    };
-    frigate = {
-      inherit sopsFile;
-      mode = "0400";
-    };
-    "telegram/ssh" = {
-      inherit sopsFile;
-      mode = "0400";
-    };
-    "glance/environmentFile" = {
-      inherit sopsFile;
-      mode = "0400";
-    };
-    navidrome = {
-      inherit sopsFile;
-      mode = "0400";
-    };
+    "cloudflare/dnsCredentials" = mkUserSecret config.users.users.acme.name;
+    frigate = mkSecret;
+    "telegram/ssh" = mkSecret;
+    "glance/environmentFile" = mkSecret;
+    navidrome = mkSecret;
   };
-
 }

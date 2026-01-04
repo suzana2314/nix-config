@@ -1,17 +1,21 @@
 { inputs, config, ... }:
 let
   sopsFile = "${builtins.toString inputs.nix-secrets}/sops/${config.networking.hostName}.yaml";
-  networkCfg = inputs.nix-secrets.networking;
-  hostCfg = networkCfg.subnets.default.hosts.hemwick;
-  serviceCfg = networkCfg.services;
+  secrets = inputs.nix-secrets;
+  hostCfg = secrets.networking.subnets.default.hosts.hemwick;
+
+  mkSecret = {
+    inherit sopsFile;
+    mode = "0400";
+  };
+  mkUserSecret = owner: mkSecret // { inherit owner; };
 in
 {
   homelab = {
     enable = true;
     inherit (config.time) timeZone;
-    email = inputs.nix-secrets.email.default;
-    baseDomain = inputs.nix-secrets.domain;
-    cloudflare.dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
+    email = secrets.email.default;
+    baseDomain = secrets.domain;
     externalIP = hostCfg.ip;
 
     motd = {
@@ -31,14 +35,16 @@ in
       credentialsFile = config.sops.secrets."telegram/ssh".path;
     };
 
+    cloudflare.dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
+
     services = {
       enable = true;
 
       dns = {
         enable = true;
-        url = "dns1.${inputs.nix-secrets.domain}";
-        dnsMappings = inputs.nix-secrets.dnsMappings;
-        dnsRewrites = inputs.nix-secrets.dnsRewrites;
+        url = "dns1.${secrets.domain}";
+        dnsMappings = secrets.dnsMappings;
+        dnsRewrites = secrets.dnsRewrites;
       };
 
       ddns-updater = {
@@ -47,8 +53,13 @@ in
         notifications = config.sops.secrets."cloudflare/ddnsNotification".path;
       };
 
-      mosquitto = {
+      homeassistant = {
         enable = true;
+        cloudflared = {
+          enable = true;
+          inherit (secrets) tunnelId;
+          credentialsFile = config.sops.secrets."cloudflare/tunnelCredentials".path;
+        };
       };
 
       esphome = {
@@ -56,34 +67,13 @@ in
         auth = config.sops.secrets.esphome.path;
       };
 
-      homeassistant = {
-        enable = true;
-        cloudflared = {
-          enable = true;
-          inherit (inputs.nix-secrets) tunnelId;
-          credentialsFile = config.sops.secrets."cloudflare/tunnelCredentials".path;
-        };
-      };
-
+      mosquitto.enable = true;
       gree-server.enable = true;
+      scanservjs.enable = true;
 
       glance = {
         enable = true;
         apiToken = config.sops.secrets."glance/byrgenwerthApitoken".path;
-      };
-
-      extraCaddyHosts = {
-        enable = true;
-        hosts = {
-          sovol = {
-            enable = true;
-            host = serviceCfg.sovol;
-          };
-          freeds = {
-            enable = true;
-            host = serviceCfg.freeds;
-          };
-        };
       };
 
       miniflux = {
@@ -91,55 +81,14 @@ in
         environmentFile = config.sops.secrets."miniflux/environmentFile".path;
       };
 
-      scanservjs.enable = true;
-
-      grafana = {
+      extraCaddyHosts = {
         enable = true;
-      };
-
-      prometheus-node.enable = true;
-
-      prometheus = {
-        enable = true;
-        scrapeConfigs = [
-          {
-            job_name = "hosts";
-            static_configs = [
-              {
-                targets = [
-                  "hemwick.${config.homelab.baseDomain}"
-                  "byrgenwerth.${config.homelab.baseDomain}"
-                  "kos.${config.homelab.baseDomain}"
-                  "mensis.${config.homelab.baseDomain}"
-                ];
-              }
-            ];
-            basic_auth = {
-              username = "prometheus-oedon";
-              password_file = config.sops.secrets."prometheus/hostsPasswordFile".path;
-            };
-          }
-          {
-            job_name = "DNS Primary";
-            static_configs = [
-              {
-                targets = [
-                  "dns1.${config.homelab.baseDomain}"
-                ];
-              }
-            ];
-          }
-          {
-            job_name = "DNS Secondary";
-            static_configs = [
-              {
-                targets = [
-                  "dns2.${config.homelab.baseDomain}"
-                ];
-              }
-            ];
-          }
-        ];
+        hosts = {
+          sovol.enable = true;
+          sovol.host = secrets.networking.services.sovol;
+          freeds.enable = true;
+          freeds.host = secrets.networking.services.freeds;
+        };
       };
 
       newt = {
@@ -147,56 +96,26 @@ in
         environmentFile = config.sops.secrets."newt/environmentFile".path;
       };
 
+      grafana.enable = true;
+      prometheus-node.enable = true;
+      prometheus = {
+        enable = true;
+        scrapeConfigs = import ./scrape-configs.nix { inherit config; };
+      };
     };
   };
 
   # secrets for the homelab config
   sops.secrets = {
-    "cloudflare/tunnelCredentials" = {
-      inherit sopsFile;
-    };
-    "cloudflare/dnsCredentials" = {
-      inherit sopsFile;
-      owner = config.users.users.acme.name;
-      mode = "0400";
-    };
-    "cloudflare/ddnsCredentials" = {
-      inherit sopsFile;
-      owner = config.users.users.ddns-updater.name;
-      group = config.users.users.ddns-updater.name;
-      mode = "0400";
-    };
-    "cloudflare/ddnsNotification" = {
-      inherit sopsFile;
-      owner = config.users.users.ddns-updater.name;
-      group = config.users.users.ddns-updater.name;
-      mode = "0400";
-    };
-    esphome = {
-      inherit sopsFile;
-      owner = config.users.users.esphome.name;
-      mode = "0400";
-    };
-    "telegram/ssh" = {
-      inherit sopsFile;
-      mode = "0400";
-    };
-    "glance/byrgenwerthApitoken" = {
-      inherit sopsFile;
-      mode = "0400";
-    };
-    "miniflux/environmentFile" = {
-      inherit sopsFile;
-      mode = "0400";
-    };
-    "prometheus/hostsPasswordFile" = {
-      inherit sopsFile;
-      owner = config.users.users.prometheus.name;
-      mode = "0400";
-    };
-    "newt/environmentFile" = {
-      inherit sopsFile;
-      mode = "0400";
-    };
+    "cloudflare/tunnelCredentials" = mkSecret;
+    "cloudflare/dnsCredentials" = mkUserSecret config.users.users.acme.name;
+    "cloudflare/ddnsCredentials" = mkUserSecret config.users.users.ddns-updater.name;
+    "cloudflare/ddnsNotification" = mkUserSecret config.users.users.ddns-updater.name;
+    esphome = mkSecret;
+    "telegram/ssh" = mkSecret;
+    "glance/byrgenwerthApitoken" = mkSecret;
+    "miniflux/environmentFile" = mkSecret;
+    "newt/environmentFile" = mkSecret;
+    "prometheus/hostsPasswordFile" = mkUserSecret config.users.users.prometheus.name;
   };
 }

@@ -1,13 +1,20 @@
 { inputs, config, ... }:
 let
   sopsFile = "${builtins.toString inputs.nix-secrets}/sops/${config.networking.hostName}.yaml";
+  secrets = inputs.nix-secrets;
+
+  mkSecret = {
+    inherit sopsFile;
+    mode = "0400";
+  };
+  mkUserSecret = owner: mkSecret // { inherit owner; };
 in
 {
   homelab = {
     enable = true;
     inherit (config.time) timeZone;
-    email = inputs.nix-secrets.email.default;
-    baseDomain = inputs.nix-secrets.domain;
+    email = secrets.email.default;
+    baseDomain = secrets.domain;
     enableCaddy = false;
 
     motd = {
@@ -36,23 +43,11 @@ in
         notifications = config.sops.secrets."cloudflare/ddnsNotification".path;
       };
 
-      mosquitto = {
-        enable = true;
-      };
-
       homeassistant = {
         enable = true;
         zigbee.enable = false;
         shelly.enable = false;
         cloudflared.enable = false;
-      };
-
-      wireguard-server = {
-        enable = true;
-        port = inputs.nix-secrets.yahargulWgPort;
-        privateKeyFile = config.sops.secrets."wireguard/privateKey".path;
-        peers = inputs.nix-secrets.yahargulWgPeers;
-        networkInterface = "eno1";
       };
 
       esphome = {
@@ -61,43 +56,32 @@ in
         auth = config.sops.secrets.esphome.path;
       };
 
+      mosquitto = {
+        enable = true;
+      };
+
       newt = {
         enable = true;
         environmentFile = config.sops.secrets."newt/environmentFile".path;
+      };
+
+      wireguard-server = {
+        enable = true;
+        port = secrets.yahargulWgPort;
+        privateKeyFile = config.sops.secrets."wireguard/privateKey".path;
+        peers = secrets.yahargulWgPeers;
+        networkInterface = "eno1";
       };
     };
   };
 
   # secrets for the homelab config
   sops.secrets = {
-    "cloudflare/ddnsCredentials" = {
-      inherit sopsFile;
-      owner = config.users.users.ddns-updater.name;
-      group = config.users.users.ddns-updater.name;
-      mode = "0400";
-    };
-    "cloudflare/ddnsNotification" = {
-      inherit sopsFile;
-      owner = config.users.users.ddns-updater.name;
-      group = config.users.users.ddns-updater.name;
-      mode = "0400";
-    };
-    "telegram/ssh" = {
-      inherit sopsFile;
-      mode = "0400";
-    };
-    "wireguard/privateKey" = {
-      inherit sopsFile;
-      mode = "0400";
-    };
-    esphome = {
-      inherit sopsFile;
-      owner = config.users.users.esphome.name;
-      mode = "0400";
-    };
-    "newt/environmentFile" = {
-      inherit sopsFile;
-      mode = "0400";
-    };
+    "cloudflare/ddnsCredentials" = mkUserSecret config.users.users.ddns-updater.name;
+    "cloudflare/ddnsNotification" = mkUserSecret config.users.users.ddns-updater.name;
+    "telegram/ssh" = mkSecret;
+    "wireguard/privateKey" = mkSecret;
+    esphome = mkSecret;
+    "newt/environmentFile" = mkSecret;
   };
 }
