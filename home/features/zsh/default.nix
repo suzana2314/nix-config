@@ -78,7 +78,6 @@
       shellAliases = {
         ls = "ls --color";
         nix-shell = "nix-shell --run $SHELL";
-        vpn = "vpn-function";
       };
 
       initContent = ''
@@ -86,11 +85,6 @@
         zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
         export GOPATH=$HOME/.config/go/golang
         export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
-
-        if command -v motd &> /dev/null
-        then
-          motd
-        fi
       '';
 
       plugins = [

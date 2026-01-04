@@ -14,7 +14,18 @@ in
     cloudflare.dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
     externalIP = hostCfg.ip;
 
-    motd.enable = true;
+    motd = {
+      enable = true;
+      asciiArt = ''
+        ██╗  ██╗███████╗███╗   ███╗██╗    ██╗██╗ ██████╗██╗  ██╗
+        ██║  ██║██╔════╝████╗ ████║██║    ██║██║██╔════╝██║ ██╔╝
+        ███████║█████╗  ██╔████╔██║██║ █╗ ██║██║██║     █████╔╝
+        ██╔══██║██╔══╝  ██║╚██╔╝██║██║███╗██║██║██║     ██╔═██╗
+        ██║  ██║███████╗██║ ╚═╝ ██║╚███╔███╔╝██║╚██████╗██║  ██╗
+        ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚══╝╚══╝ ╚═╝ ╚═════╝╚═╝  ╚═╝
+      '';
+    };
+
     notify-ssh = {
       enable = true;
       credentialsFile = config.sops.secrets."telegram/ssh".path;
