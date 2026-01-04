@@ -19,7 +19,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 20,
+  "id": 23,
   "links": [
     {
       "asDropdown": true,
@@ -1429,6 +1429,7 @@
           "value": "DNS Primary"
         },
         "definition": "label_values(blocky_build_info,job)",
+        "hide": 1,
         "label": "job",
         "name": "job",
         "options": [],
