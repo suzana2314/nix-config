@@ -54,6 +54,7 @@ in
       bazarr.enable = lib.mkDefault true;
       jellyseerr.enable = lib.mkDefault true;
       lidarr.enable = lib.mkDefault true;
+      flaresolverr.enable = lib.mkDefault true;
       qbittorrent = {
         enable = lib.mkDefault true;
         inherit (cfg) torrentingPort;
@@ -76,5 +77,6 @@ in
     ./qbittorrent
     ./navidrome
     ./lidarr
+    ./flaresolverr
   ];
 }
