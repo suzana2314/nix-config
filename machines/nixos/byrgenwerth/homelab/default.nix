@@ -30,11 +30,6 @@ in
       '';
     };
 
-    notify-ssh = {
-      enable = true;
-      credentialsFile = config.sops.secrets."telegram/ssh".path;
-    };
-
     cloudflare.dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
 
     services = {
@@ -75,7 +70,6 @@ in
   sops.secrets = {
     "cloudflare/dnsCredentials" = mkUserSecret config.users.users.acme.name;
     frigate = mkSecret;
-    "telegram/ssh" = mkSecret;
     "glance/environmentFile" = mkSecret;
     navidrome = mkSecret;
   };

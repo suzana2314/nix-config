@@ -29,11 +29,6 @@ in
       '';
     };
 
-    notify-ssh = {
-      enable = true;
-      credentialsFile = config.sops.secrets."telegram/ssh".path;
-    };
-
     services = {
       enable = true;
 
@@ -79,7 +74,6 @@ in
   sops.secrets = {
     "cloudflare/ddnsCredentials" = mkUserSecret config.users.users.ddns-updater.name;
     "cloudflare/ddnsNotification" = mkUserSecret config.users.users.ddns-updater.name;
-    "telegram/ssh" = mkSecret;
     "wireguard/privateKey" = mkSecret;
     esphome = mkSecret;
     "newt/environmentFile" = mkSecret;

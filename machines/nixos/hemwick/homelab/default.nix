@@ -30,11 +30,6 @@ in
       '';
     };
 
-    notify-ssh = {
-      enable = true;
-      credentialsFile = config.sops.secrets."telegram/ssh".path;
-    };
-
     cloudflare.dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
 
     services = {
@@ -112,7 +107,6 @@ in
     "cloudflare/ddnsCredentials" = mkUserSecret config.users.users.ddns-updater.name;
     "cloudflare/ddnsNotification" = mkUserSecret config.users.users.ddns-updater.name;
     esphome = mkSecret;
-    "telegram/ssh" = mkSecret;
     "glance/byrgenwerthApitoken" = mkSecret;
     "miniflux/environmentFile" = mkSecret;
     "newt/environmentFile" = mkSecret;
