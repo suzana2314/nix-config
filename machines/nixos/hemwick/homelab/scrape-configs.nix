@@ -16,6 +16,7 @@ in
           "byrgenwerth"
           "kos"
           "mensis"
+          "yahargul"
         ];
       }
     ];
@@ -30,5 +31,9 @@ in
   {
     job_name = "DNS Secondary";
     static_configs = [ { targets = [ (mkHostTarget "dns2") ]; } ];
+  }
+  {
+    job_name = "Prometheus";
+    static_configs = [ { targets = [ "localhost:9090" ]; } ];
   }
 ]

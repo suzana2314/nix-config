@@ -67,6 +67,8 @@ in
         peers = secrets.yahargulWgPeers;
         networkInterface = "eno1";
       };
+
+      prometheus-node.enable = true;
     };
   };
 
