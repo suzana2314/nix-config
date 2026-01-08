@@ -46,8 +46,11 @@
     '';
   };
 
+  # these need to be available at all times
   home.packages = with pkgs; [
     ripgrep
+    nixd
+    nixfmt-rfc-style
   ];
 
 }
