@@ -10,6 +10,8 @@
       XDG_SESSION_TYPE = "wayland";
       GDK_BACKEND = "wayland";
       GTK_USE_PORTAL = "1";
+      XCOMPOSEFILE = "${config.xdg.configHome}/X11/xcompose";
+      XCOMPOSECACHE = "${config.xdg.cacheHome}/X11/xcompose";
     };
 
     packages = with pkgs; [
@@ -28,5 +30,6 @@
       dotIcons.enable = false;
     };
   };
-  xresources.path = "${config.home.homeDirectory}/.config/X11/xresources";
+  xresources.path = "${config.xdg.configHome}/X11/xresources";
+
 }

@@ -13,7 +13,7 @@ in
   gtk = {
     enable = true;
     gtk2 = {
-      configLocation = "${config.home.homeDirectory}/.config/gtk-2.0/gtkrc";
+      configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     };
 
     cursorTheme = {

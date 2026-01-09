@@ -73,7 +73,7 @@
     zsh = {
       enable = true;
       enableCompletion = true;
-      dotDir = "${config.home.homeDirectory}/.config/zsh";
+      dotDir = "${config.xdg.configHome}/zsh";
 
       shellAliases = {
         ls = "ls --color";
@@ -83,8 +83,7 @@
       initContent = ''
         zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
         zstyle ':completion:*' list-colors "''${(s.:.)LS_COLORS}"
-        export GOPATH=$HOME/.config/go/golang
-        export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
+        zstyle ':completion:*' cache-path "${config.xdg.cacheHome}/zsh/zcompcache"
       '';
 
       plugins = [
@@ -97,6 +96,10 @@
           inherit (pkgs.zsh-syntax-highlighting) src;
         }
         {
+          name = pkgs.zsh-completions.pname;
+          inherit (pkgs.zsh-completions) src;
+        }
+        {
           name = pkgs.zsh-vi-mode.pname;
           inherit (pkgs.zsh-vi-mode) src;
         }
@@ -107,7 +110,7 @@
         ignoreDups = true;
         ignoreSpace = true;
         share = true;
-        path = "$HOME/.local/share/zsh/zsh_history";
+        path = "${config.xdg.stateHome}/zsh/zsh_history";
       };
     };
   };
