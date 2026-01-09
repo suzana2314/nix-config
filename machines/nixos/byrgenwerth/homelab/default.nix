@@ -61,7 +61,11 @@ in
         url = "${config.networking.hostName}-glance.${config.homelab.baseDomain}";
       };
 
-      uptime-kuma.enable = true;
+      newt = {
+        enable = true;
+        environmentFile = config.sops.secrets."newt/environmentFile".path;
+      };
+
       prometheus-node.enable = true;
     };
   };
@@ -72,5 +76,6 @@ in
     frigate = mkSecret;
     "glance/environmentFile" = mkSecret;
     navidrome = mkSecret;
+    "newt/environmentFile" = mkSecret;
   };
 }
