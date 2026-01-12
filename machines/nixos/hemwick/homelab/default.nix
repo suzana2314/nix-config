@@ -50,11 +50,7 @@ in
 
       homeassistant = {
         enable = true;
-        cloudflared = {
-          enable = true;
-          inherit (secrets) tunnelId;
-          credentialsFile = config.sops.secrets."cloudflare/tunnelCredentials".path;
-        };
+        cloudflared.enable = false;
       };
 
       esphome = {
@@ -102,7 +98,6 @@ in
 
   # secrets for the homelab config
   sops.secrets = {
-    "cloudflare/tunnelCredentials" = mkSecret;
     "cloudflare/dnsCredentials" = mkUserSecret config.users.users.acme.name;
     "cloudflare/ddnsCredentials" = mkUserSecret config.users.users.ddns-updater.name;
     "cloudflare/ddnsNotification" = mkUserSecret config.users.users.ddns-updater.name;
