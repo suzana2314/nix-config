@@ -25,6 +25,13 @@
     };
   };
 
+  # fixes screen sharing asking multiple times
+  xdg.configFile."hypr/xdph.conf".text = ''
+    screencopy {
+      allow_token_by_default = true
+    }
+  '';
+
   home.packages = with pkgs; [
     hyprpaper
     hyprlock
