@@ -30,15 +30,6 @@ This repo uses flakes for reproducible system configurations. The setup includes
 
 Secrets are managed using sops-nix and kept in a separate private repository where everything is encrypted. The private repository holds both "hard" secrets and less sensitive config data, "soft" secrets.
 
-## Automated Updates
-
-*(This section is currently experimental and might change)*
-
-The repo has a semi-auto update system
-- GitHub action runs every Saturday to update the flake lock file;
-- Some hosts (byrgenwerth and hemwick) have a cron job that fetches the new lock file and updates the system;
-- It then sends me a notification with the system status (so I know if anything breaks);
-
 ## Dev Workflow
 Pre-commit hooks and some automated checks help catch some issues before they make it into the config and repo. A dev shell provides all the tools needed to make changes.
 I use [just](https://github.com/casey/just) to run lengthy commands with some helpful recipes for common tasks.
