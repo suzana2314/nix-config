@@ -146,26 +146,27 @@
           };
         in
         [
-
-          "SUPER, W, killactive,"
-
           # apps
           "SUPER, Return, exec, alacritty"
           "SUPER, Z, exec, firefox"
           "SUPER, D, exec, wofi --show drun"
           "SUPER, E, exec, nautilus"
-          "SUPER, P, exec, hyprlock"
+
+          # utils
+          "SUPER, W, killactive,"
           "SUPER, T, exec, monitor-switcher"
+          "SUPER, P, exec, hyprlock"
 
-          "SUPER, 0, workspace, 10"
-          "SUPERSHIFT, 0, movetoworkspacesilent, name:10"
-
+          # windows
           "SUPER,f,fullscreen,1"
           "SUPERSHIFT,f,fullscreen,0"
           "SUPER,space,togglefloating"
           "SUPER,s,togglesplit"
           "SUPER,i,pseudo"
           "SUPERSHIFT,s,exec,screenshot-tool"
+
+          "SUPER, 0, workspace, 10"
+          "SUPERSHIFT, 0, movetoworkspacesilent, name:10"
         ]
         ++
           # Change workspace
@@ -253,7 +254,6 @@
         "idleinhibit focus, title:.*YouTube.*"
         "idleinhibit fullscreen, title:.*"
       ];
-
     };
   };
 }

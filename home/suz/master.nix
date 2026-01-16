@@ -34,7 +34,7 @@ in
 
   colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-hard;
 
-  wallpaper = "~/pictures/wallpaper/ronin.jpg";
+  wallpaper = "~/pictures/wallpaper/road.jpg";
 
   fontProfiles = {
     enable = true;
@@ -96,7 +96,6 @@ in
     # util
     unstable.nautilus
     eog
-    bluetui
     zathura
     vlc
     lenopow

@@ -1,111 +1,62 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   programs.waybar = {
     enable = true;
     settings = {
       mainBar = {
-        layer = "top";
+        layer = "bottom";
         position = "top";
-        height = 50;
+        height = 40;
         exclusive = true;
         passthrough = false;
-        gtk-layer-shell = true;
         margin-left = 10;
         margin-right = 10;
         margin-top = 10;
 
         modules-left = [
           "custom/padd"
-          "custom/l_end"
-          "hyprland/workspaces"
-          "custom/r_end"
+          "clock#date"
+          "custom/separator"
+          "clock#time"
           "custom/padd"
         ];
 
         modules-center = [
-          "custom/padd"
-          "custom/l_end"
-          "clock"
-          "custom/r_end"
-          "custom/padd"
+          "hyprland/workspaces"
         ];
 
         modules-right = [
           "custom/padd"
-          "custom/l_end"
-          "custom/audio-icon"
           "wireplumber"
-          "custom/r_end"
-          "custom/padd"
-          "custom/l_end"
-          "custom/network-icon"
-          "network"
-          "custom/r_end"
-          "custom/padd"
-          "custom/l_end"
-          "custom/keyboard-icon"
+          "custom/separator"
           "hyprland/language"
-          "custom/r_end"
-          "custom/padd"
-          "custom/l_end"
+          "custom/separator"
+          "custom/vpn"
+          "network"
+          "custom/separator"
           "bluetooth"
-          "custom/r_end"
-          "custom/padd"
-          "custom/l_end"
+          "custom/separator"
           "custom/battery-icon"
           "battery"
-          "custom/r_end"
           "custom/padd"
         ];
 
-        "custom/nixos" = {
-          format = "<big> </big>";
-          interval = "once";
-          tooltip = false;
-          on-click = "wofi";
-        };
-
-        "custom/audio-icon" = {
-          format = " ";
-          interval = "once";
-          tooltip = false;
-        };
-
-        "custom/network-icon" = {
+        "custom/vpn" = {
           format = "{}";
-          interval = 5;
+          interval = 2;
           exec = ''
-            WIFI_INTERFACE=$(ip link show | grep -E '^[0-9]+: wl' | cut -d: -f2 | tr -d ' ')
-            ETH_INTERFACE=$(ip link show | grep -E '^[0-9]+: en|^[0-9]+: eth' | cut -d: -f2 | tr -d ' ')
             WG_INTERFACE=$(ip link show | grep -E '^[0-9]+: wg' | cut -d: -f2 | tr -d ' ')
-            if [ -n "$WG_INTERFACE" ] && [ -n "$ETH_INTERFACE" ] && [ "$(cat /sys/class/net/$ETH_INTERFACE/operstate 2>/dev/null)" = "up" ]; then
-              echo "󰌆 󰈀 "
-            elif [ -n "$ETH_INTERFACE" ] && [ "$(cat /sys/class/net/$ETH_INTERFACE/operstate 2>/dev/null)" = "up" ]; then
-              echo "󰈀 "
-            elif [ -n "$WG_INTERFACE" ] && [ -n "$WIFI_INTERFACE" ] && [ "$(cat /sys/class/net/$WIFI_INTERFACE/operstate 2>/dev/null)" = "up" ]; then
-              echo "󰌆 󰤨 "
-            elif [ -n "$WIFI_INTERFACE" ] && [ "$(cat /sys/class/net/$WIFI_INTERFACE/operstate 2>/dev/null)" = "up" ]; then
-              echo "󰤨 "
+            if [ -n "$WG_INTERFACE" ]; then
+              echo "󰿂 "
             fi
           '';
         };
 
-        "custom/keyboard-icon" = {
-          format = "󰌌 ";
-          interval = "once";
-          tooltip = false;
-        };
-
-        "custom/l_end" = {
-          format = " ";
-          interval = "once";
-          tooltip = false;
-        };
-
-        "custom/r_end" = {
-          format = " ";
-          interval = "once";
-          tooltip = false;
+        "bluetooth" = {
+          format = "bt";
+          format-disabled = "bt";
+          format-connected = "bt";
+          on-click = "hyprctl dispatch exec \"[float;size 496 810;move 2053 57] alacritty --class bluetui -e bluetui\"";
         };
 
         "custom/padd" = {
@@ -114,12 +65,18 @@
           tooltip = false;
         };
 
+        "custom/separator" = {
+          format = "|";
+          interval = "once";
+          tooltip = false;
+        };
+
         "hyprland/workspaces" = {
-          format = "<span font='12px'>{icon}</span>";
+          format = "<span>{icon}</span>";
           tooltip = false;
           format-icons = {
-            active = "<big>󱨇</big>";
-            default = "<big></big>";
+            active = "";
+            default = "";
           };
           disable-scroll = true;
           rotate = 0;
@@ -128,9 +85,6 @@
           sort-by = "number";
           on-click = "activate";
           separate-outputs = false;
-          # persistent-workspaces = {
-          #   "*" = 10;
-          # };
           persistent-workspaces = {
             "1" = [ ];
             "2" = [ ];
@@ -140,38 +94,35 @@
           };
         };
 
-        "clock" = {
-          format = "{:%H:%M / %d %B}";
+        "clock#date" = {
+          format = "{:%a, %d of %B}";
           rotate = 0;
-          format-alt = "{:%H:%M / %d %B}";
+          format-alt = "{:%a, %d of %B}";
+          tooltip = false;
+        };
+
+        "clock#time" = {
+          format = "{:%H:%M}";
+          rotate = 0;
+          format-alt = "{:%H:%M}";
           tooltip = false;
         };
 
         "wireplumber" = {
           format = "{volume} %";
           rotate = 0;
-          format-muted = "MUTE";
+          format-muted = "muted";
           on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           tooltip = false;
           scroll-step = 1;
         };
 
-        "bluetooth" = {
-          format = "<span></span> {status}";
-          format-disabled = "<span>󰂲</span>";
-          format-connected = "<span></span> {num_connections}";
-          tooltip-format = "{device_enumerate}";
-          tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
-          tooltip-format-enumerate-connected-battery = "{device_alias}\t{device_battery_percentage}%";
-          on-click = "alacritty -e bluetui";
-        };
-
         "network" = {
           rotate = 0;
           format-wifi = "{essid}";
-          format-ethernet = "{ipaddr}";
-          format-linked = "󰈀 {ifname} (No IP)";
-          format-disconnected = "DISCONNECTED";
+          format-ethernet = "eth";
+          format-linked = "(No IP)";
+          format-disconnected = "down";
           format-alt = "{ifaddr}/{cidr}";
           tooltip = false;
           interval = 2;
@@ -230,59 +181,6 @@
           format = "{capacity}%";
           tooltip = false;
         };
-
-        "cava" = {
-          framerate = 30;
-          autosens = 1;
-          bars = 14;
-          lower_cutoff_freq = 50;
-          higher_cutoff_freq = 10000;
-          hide_on_silence = true;
-          sleep_timer = 1;
-          method = "pipewire";
-          source = "auto";
-          stereo = true;
-          reverse = false;
-          monstercat = false;
-          waves = true;
-          noise_reduction = 0.77;
-          input_delay = 2;
-          bar_delimiter = 0;
-          format-icons = [
-            "▁"
-            "▂"
-            "▃"
-            "▄"
-            "▅"
-            "▆"
-            "▇"
-            "█"
-          ];
-          actions = {
-            on-click-right = "mode";
-          };
-        };
-
-        "custom/notification-icon" = {
-          tooltip = false;
-          format = "{icon}";
-          format-icons = {
-            notification = "󱅫";
-            none = "󰂚";
-            dnd-notification = "󰂛";
-            dnd-none = "󰂛";
-            inhibited-notification = "󱅫";
-            inhibited-none = "󰂚";
-            dnd-inhibited-notification = "󰂛";
-            dnd-inhibited-none = "󰂛";
-          };
-          return-type = "json";
-          exec-if = "which swaync-client";
-          exec = "swaync-client -swb";
-          on-click = "swaync-client -t -sw";
-          on-click-right = "swaync-client -d -sw";
-          escape = true;
-        };
       };
     };
     style =
@@ -293,10 +191,9 @@
       ''
         * {
           border: none;
-          border-radius: 0px;
           font-family: ${monospace.name};
           font-size: 14px;
-          min-height: 10px;
+          min-height: 0px;
         }
 
         window#waybar {
@@ -305,109 +202,72 @@
         }
 
         #workspaces button {
-          box-shadow: none;
-          text-shadow: none;
-          padding: 0px;
-          border-radius: 8px;
-          margin-top: 4px;
-          margin-bottom: 4px;
-          margin-left: 0px;
-          padding-left: 6px;
-          padding-right: 10px;
-          margin-right: 0px;
           color: #${palette.base03};
-          animation: ws_normal 20s ease-in-out 1;
+          padding-left: 6px;
         }
 
         #workspaces button.active {
           color: #${palette.base0A};
-          animation: ws_active 20s ease-in-out 1;
         }
 
         #workspaces button:not(.active):not(.empty):not(:hover) {
           color: #${palette.base06};
         }
 
-        #workspaces button:hover {
-          background: #504945;
-          color: #fbf1c7;
-          animation: ws_hover 20s ease-in-out 1;
-          transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        #workspaces button.active:hover {
-          color: #83a598;
-        }
-
-        #battery,
-        #clock,
-        #language,
+        #clock.date,
+        #clock.time,
         #bluetooth,
-        #memory,
+        #bluetooth.disabled,
+        #bluetooth.connected,
         #network,
-        #wireplumber,
-        #temperature,
+        #network.disconnected,
+        #battery,
+        #language,
         #workspaces,
-        #custom-l_end,
-        #custom-power,
-        #custom-audio-icon,
-        #custom-network-icon,
-        #custom-keyboard-icon,
-        #custom-battery-icon,
-        #custom-cpu-icon,
-        #custom-memory-icon,
-        #custom-nixos,
-        #custom-notification-icon,
-        #custom-r_end {
+        #wireplumber,
+        #custom-separator {
           color: #${palette.base0C};
-          background: #282828;
-          opacity: 1;
-          margin: 8px 0px 8px 0px;
           padding-left: 4px;
           padding-right: 4px;
         }
 
-        #custom-audio-icon,
-        #custom-keyboard-icon,
-        #custom-network-icon,
-        #custom-battery-icon,
-        #custom-notification-icon,
-        #custom-memory-icon {
+        #custom-vpn,
+        #custom-battery-icon {
           font-size: 16px;
+        }
+
+        #language {
+          color: #${palette.base0E};
+        }
+
+        #battery,
+        #bluetooth,
+        #custom-battery-icon {
           color: #${palette.base0D};
         }
 
-        #custom-l_end {
-          border-radius: 7px 0 0 7px;
+        #network,
+        #bluetooth.connected {
+          color: #${palette.base0B};
         }
 
-        #custom-r_end {
-          border-radius: 0 7px 7px 0;
+        #custom-vpn,
+        #bluetooth.disabled,
+        #network.disconnected {
+          color: #${palette.base08};
         }
 
-        #custom-nixos {
-          font-size: 16px;
-          padding-left: 0px;
-          color: #${palette.base0F};
-          padding-left: 8px;
+        #wireplumber {
+          color:  #${palette.base0A}
         }
 
-        #custom-power {
-          font-size: 20px;
-          padding-left: 3px;
-          padding-right: 7px;
-          color: #fb4934;
-        }
-
-        #cava {
-          color: #${palette.base0F};
-          background: #282828;
-          margin: 8px 0px 8px 0px;
-          padding-left: 8px;
-          padding-right: 8px;
-          border-radius: 7px;
-          transition: ease 0.3s;
+        #custom-separator {
+          color: #${palette.base01};
         }
       '';
   };
+
+  home.packages = with pkgs; [
+    bluetui
+  ];
 }
