@@ -1,5 +1,9 @@
 { config, pkgs, ... }:
 {
+  imports = [
+    ./scripts
+  ];
+
   programs.waybar = {
     enable = true;
     settings = {
@@ -56,7 +60,7 @@
           format = "bt";
           format-disabled = "bt";
           format-connected = "bt";
-          on-click = "hyprctl dispatch exec \"[float;size 496 810;move 2053 57] alacritty --class bluetui -e bluetui\"";
+          on-click = "bluetui-widget";
         };
 
         "custom/padd" = {
