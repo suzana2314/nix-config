@@ -25,7 +25,6 @@ in
     ../features/desktop/waybar
     ../features/desktop/wayland
     ../features/desktop/wofi
-    ../features/desktop/audio
     ../features/desktop/neovim
     ../features/git
     ../features/direnv

@@ -116,7 +116,8 @@
           format = "{volume} %";
           rotate = 0;
           format-muted = "muted";
-          on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          on-click = "alacritty -e wiremix";
           tooltip = false;
           scroll-step = 1;
         };
@@ -273,5 +274,6 @@
 
   home.packages = with pkgs; [
     bluetui
+    wiremix
   ];
 }
