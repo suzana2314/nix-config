@@ -14,7 +14,7 @@ in
       user = {
         inherit signingkey;
         name = "suzana2314";
-        email = inputs.nix-secrets.email.github;
+        email = inputs.nix-secrets.email.git;
         signByDefault = true;
       };
 
