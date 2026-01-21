@@ -16,6 +16,7 @@
       oil-nvim
       nvim-autopairs
       gitsigns-nvim
+      vimtex
 
       luasnip
       blink-cmp
@@ -32,6 +33,7 @@
 
     extraConfig = ''
       lua << EOF
+      ${builtins.readFile config/plugins/vimtex.lua}
       ${builtins.readFile config/options.lua}
       ${builtins.readFile config/mappings.lua}
       ${builtins.readFile config/lsp.lua}
