@@ -17,6 +17,7 @@
     ../../common/options/wayland
     ../../common/options/printing
     ../../common/options/virtualisation
+    ../../common/options/nvidia
     ../../common/options/steam
   ];
 
@@ -24,9 +25,6 @@
 
   networking.hostName = "master";
   networking.firewall.enable = true;
-
-  hardware.nvidia.prime.amdgpuBusId = "PCI:6:0:0";
-  hardware.nvidia.dynamicBoost.enable = false; # FIXME broken in 25.11
 
   boot.supportedFilesystems = [ "ntfs" ]; # for external hdd
 
