@@ -28,6 +28,7 @@ in
     ../features/desktop/neovim
     ../features/git
     ../features/direnv
+    ../features/env
     ./core
   ];
 
