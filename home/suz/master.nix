@@ -102,7 +102,6 @@ in
 
     # apps
     unstable.firefox
-    unstable.vscode
     unstable.obsidian
     unstable.prusa-slicer
     # unstable.freecad-wayland

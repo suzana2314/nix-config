@@ -22,7 +22,6 @@
     vlc
     # apps
     unstable.firefox
-    unstable.vscode
     libreoffice
     old.freecad-wayland
     old.prusa-slicer # broke with new release
