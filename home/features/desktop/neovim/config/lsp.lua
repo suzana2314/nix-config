@@ -1,4 +1,4 @@
-vim.lsp.enable({ "lua_ls", "nixd", "jdtls", "gopls", "zls" })
+vim.lsp.enable({ "bashls", "lua_ls", "nixd", "jdtls", "ty", "ruff", "gopls", "rust_analyzer", "zls" })
 
 vim.lsp.config('lua_ls', {
   settings = {
