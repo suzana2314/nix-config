@@ -13,13 +13,13 @@
           monitor = 0;
           follow = "mouse";
           idle_threshold = 60;
-          format = "<small><b>%a :</b>%s</small>\n%b";
+          format = "<small><b>%a : </b>%s</small>\\n%b";
 
           # appearance
           width = 300;
-          height = 300;
+          height = "(0, 300)";
           origin = "top-right";
-          offset = "20x20";
+          offset = "(20, 20)";
           font = config.fontProfiles.monospace.name;
           word_wrap = "yes";
           ignore_newline = "no";
