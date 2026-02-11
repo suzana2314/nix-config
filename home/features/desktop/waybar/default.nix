@@ -40,7 +40,6 @@
           "custom/separator"
           "bluetooth"
           "custom/separator"
-          "custom/battery-icon"
           "battery"
           "custom/padd"
         ];
@@ -142,46 +141,6 @@
           tooltip = false;
         };
 
-        "custom/battery-icon" = {
-          format = "{}";
-          interval = 5;
-          exec = ''
-            BATTERY=$(ls /sys/class/power_supply | grep BAT | head -n 1)
-
-            if [ -n "$BATTERY" ]; then
-              CAPACITY=$(cat /sys/class/power_supply/$BATTERY/capacity 2>/dev/null || echo "0")
-              STATUS=$(cat /sys/class/power_supply/$BATTERY/status 2>/dev/null || echo "Unknown")
-
-              case "$STATUS" in
-                "Charging")
-                  echo "󰂄 "
-                  ;;
-                "Full"|"Not charging")
-                  echo " "
-                  ;;
-                *)
-                  if [ "$CAPACITY" -ge 90 ]; then
-                    echo "󰁹 "
-                  elif [ "$CAPACITY" -ge 80 ]; then
-                    echo "󰂂 "
-                  elif [ "$CAPACITY" -ge 60 ]; then
-                    echo "󰂀 "
-                  elif [ "$CAPACITY" -ge 40 ]; then
-                    echo "󰁾 "
-                  elif [ "$CAPACITY" -ge 20 ]; then
-                    echo "󰁼 "
-                  else
-                    echo "󰁺 "
-                  fi
-                  ;;
-              esac
-            else
-              echo "󰂃 "
-            fi
-          '';
-          tooltip = false;
-        };
-
         "battery" = {
           format = "{capacity}%";
           tooltip = false;
@@ -236,8 +195,7 @@
           padding-right: 4px;
         }
 
-        #custom-vpn,
-        #custom-battery-icon {
+        #custom-vpn {
           font-size: 16px;
         }
 
@@ -245,13 +203,14 @@
           color: #${palette.base0E};
         }
 
-        #battery,
         #bluetooth,
-        #custom-battery-icon {
+        #battery.charging {
           color: #${palette.base0D};
         }
 
         #network,
+        #battery.full,
+        #battery.not-charging,
         #bluetooth.connected {
           color: #${palette.base0B};
         }
@@ -268,6 +227,10 @@
 
         #custom-separator {
           color: #${palette.base01};
+        }
+
+        #battery.discharging {
+          color: #${palette.base09};
         }
       '';
   };
