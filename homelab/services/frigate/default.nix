@@ -32,7 +32,11 @@ in
       type = lib.types.str;
       default = "${service}.${homelab.baseDomain}";
     };
-
+    useCfg = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Use nix generated configuration file";
+    };
     envFile = lib.mkOption {
       type = lib.types.str;
       default = "";
@@ -45,7 +49,7 @@ in
       "d ${cfg.storageDir}/media 0755 root root -"
     ];
 
-    systemd.services.frigate-config = {
+    systemd.services.frigate-config = lib.mkIf cfg.useCfg {
       description = "Generate Frigate configuration";
       wantedBy = [ "multi-user.target" ];
       before = [ "${config.virtualisation.oci-containers.backend}-frigate.service" ];

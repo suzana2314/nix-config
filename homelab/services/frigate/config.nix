@@ -61,11 +61,13 @@ in
           }
         ];
         output_args = {
-          record = "preset-record-generic-audio-copy";
+          record = "preset-record-generic-audio-aac";
         };
       };
       live = {
-        stream_name = "cam1";
+        streams = {
+          cam1 = "cam1";
+        };
       };
 
       detect = {
@@ -111,7 +113,9 @@ in
         ];
       };
       live = {
-        stream_name = "cam2";
+        streams = {
+          cam2 = "cam2";
+        };
       };
       detect = {
         width = 640;
@@ -143,6 +147,7 @@ in
         "dog"
         "cat"
         "person"
+        "bird"
       ];
     };
 
@@ -151,6 +156,7 @@ in
         "dog"
         "cat"
         "person"
+        "bird"
       ];
     };
   };
@@ -160,6 +166,7 @@ in
       "dog"
       "cat"
       "person"
+      "bird"
     ];
   };
 
@@ -210,5 +217,9 @@ in
 
   tls = {
     enabled = false;
+  };
+
+  detect = {
+    enabled = true;
   };
 }
