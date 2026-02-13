@@ -95,7 +95,7 @@ in
   home.packages = with pkgs; [
     # util
     unstable.nautilus
-    eog
+    feh
     zathura
     vlc
     lenopow
@@ -104,7 +104,7 @@ in
     unstable.firefox
     unstable.obsidian
     unstable.prusa-slicer
-    # unstable.freecad-wayland
+    unstable.pixelorama
     freecadWayland
     libreoffice
     sqldeveloper
