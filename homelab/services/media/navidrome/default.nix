@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (config) homelab;
   service = "navidrome";
@@ -38,6 +43,7 @@ in
   config = lib.mkIf cfg.enable {
     services.${service} = {
       enable = true;
+      package = pkgs.navidrome;
       inherit (homelab) user group;
       inherit (cfg) environmentFile;
       settings = {
