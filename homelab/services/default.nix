@@ -26,13 +26,13 @@
 
     services.caddy = lib.mkIf config.homelab.enableCaddy {
       enable = true;
-      globalConfig = ''auto_https off'';
+      globalConfig = "auto_https off";
       virtualHosts = {
         "http://${config.homelab.baseDomain}" = {
-          extraConfig = ''redir https://{host}{uri}'';
+          extraConfig = "redir https://{host}{uri}";
         };
         "http://*.${config.homelab.baseDomain}" = {
-          extraConfig = ''redir https://{host}{uri}'';
+          extraConfig = "redir https://{host}{uri}";
         };
       };
     };
@@ -78,5 +78,6 @@
     ./wireguard-server
     ./scanservjs
     ./newt
+    ./radicale
   ];
 }

@@ -72,6 +72,11 @@ in
         environmentFile = config.sops.secrets."miniflux/environmentFile".path;
       };
 
+      radicale = {
+        enable = true;
+        passwdFile = config.sops.secrets."radicale/passwdFile".path;
+      };
+
       extraCaddyHosts = {
         enable = true;
         hosts = {
@@ -104,6 +109,7 @@ in
     esphome = mkSecret;
     "glance/byrgenwerthApitoken" = mkSecret;
     "miniflux/environmentFile" = mkSecret;
+    "radicale/passwdFile" = mkUserSecret config.users.users.radicale.name;
     "newt/environmentFile" = mkSecret;
     "prometheus/hostsPasswordFile" = mkUserSecret config.users.users.prometheus.name;
   };
