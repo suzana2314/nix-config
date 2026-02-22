@@ -5,4 +5,5 @@
   wallpaper = import ./wallpaper.nix;
   battery-notification = import ./battery-notification.nix;
   battery-notification-bluetooth = import ./battery-notification-bluetooth.nix;
+  yubikey-touch-detector = import ./yubikey-touch-detector.nix;
 }

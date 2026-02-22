@@ -92,6 +92,7 @@ in
   services = {
     batteryNotify.enable = true;
     batteryNotifyBluetooth.enable = true;
+    yubikey-touch-detector.enable = true;
   };
 
   home.packages = with pkgs; [
