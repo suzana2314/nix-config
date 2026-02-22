@@ -1,5 +1,6 @@
 {
   inputs,
+  config,
   ...
 }:
 {
@@ -34,7 +35,13 @@
     udisks2.enable = true;
   };
 
-  programs.ssh.startAgent = true;
+  # FIXME: this should be in a separate file!
+  yubikey = {
+    enable = true;
+    user = config.users.users.suz.name;
+  };
+
+  programs.ssh.startAgent = true; # FIXME: should this be started with the yubikey module already in place?
   programs.nix-ld.enable = true;
 
   system.stateVersion = "24.05";

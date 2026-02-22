@@ -29,6 +29,7 @@ in
     ../features/git
     ../features/direnv
     ../features/env
+    ../features/sops
     ./core
   ];
 
