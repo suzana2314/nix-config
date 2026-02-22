@@ -30,6 +30,7 @@ in
     ../features/direnv
     ../features/env
     ../features/sops
+    ../features/yubikey
     ./core
   ];
 
