@@ -31,6 +31,7 @@ in
     ../features/env
     ../features/sops
     ../features/yubikey
+    ../features/ssh
     ./core
   ];
 
