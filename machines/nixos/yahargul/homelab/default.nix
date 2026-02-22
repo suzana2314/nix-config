@@ -40,9 +40,6 @@ in
 
       homeassistant = {
         enable = true;
-        zigbee.enable = false;
-        shelly.enable = false;
-        cloudflared.enable = false;
       };
 
       esphome = {

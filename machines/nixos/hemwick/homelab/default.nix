@@ -50,7 +50,11 @@ in
 
       homeassistant = {
         enable = true;
-        cloudflared.enable = false;
+        shelly.enable = true;
+        zigbee = {
+          enable = true;
+          coordinatorPath = "/dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20231031155326-if00";
+        };
       };
 
       esphome = {
