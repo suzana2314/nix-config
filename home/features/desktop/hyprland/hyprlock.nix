@@ -13,7 +13,7 @@
           hide_cursor = true;
           grace = 1;
           disable_loading_bar = true;
-          ignore_empty_input = true;
+          ignore_empty_input = false;
         };
 
         background = [
