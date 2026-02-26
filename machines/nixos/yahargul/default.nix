@@ -10,7 +10,7 @@
     ../../common/core
     ../../common/options/systemd-bootloader
     ../../common/options/openssh
-    ../../common/users/brb
+    ../../common/users/suz
   ];
 
   networking = {
@@ -28,12 +28,6 @@
     enable = true;
     nssmdns4 = true;
     reflector = true;
-  };
-
-  users.users.brb = {
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBwP5RHIg3Ad/MRmWNXEXDNBgX6dqlED9e+TDPTEcc9Q brb@yahargul"
-    ];
   };
 
   system.stateVersion = "25.05";
