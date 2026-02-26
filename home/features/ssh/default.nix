@@ -1,6 +1,18 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 let
   inherit (inputs.nix-secrets) sshCfg;
+
+  pathToKeys = ../../../machines/common/users/super/keys;
+
+  yubikeys = lib.lists.forEach (builtins.attrNames (builtins.readDir pathToKeys)) (
+    key: lib.substring 0 (lib.stringLength key - lib.stringLength ".pub") key
+  );
+
+  yubikeyPublicKeys = lib.attrsets.mergeAttrsList (
+    lib.lists.map (key: {
+      ".ssh/${key}.pub".source = "${pathToKeys}/${key}.pub";
+    }) yubikeys
+  );
 in
 {
   programs.ssh = {
@@ -40,5 +52,6 @@ in
 
   home.file = {
     ".ssh/sockets/.keep".text = "#home manager managed";
-  };
+  }
+  // yubikeyPublicKeys;
 }

@@ -9,7 +9,7 @@
     ../../../homelab
     ../../common/core
     ../../common/options/systemd-bootloader
-    ../../common/options/ssh
+    ../../common/options/openssh
     ../../common/users/brb
   ];
 

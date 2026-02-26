@@ -19,9 +19,9 @@
     '';
   };
 
-  security.pam.sshAgentAuth = {
-    enable = true;
-    authorizedKeysFiles = [ "/etc/ssh/authorized_keys.d/%u" ];
+  security.pam = {
+    rssh.enable = true;
+    services.sudo.rssh = true;
   };
 
   services.fail2ban = {

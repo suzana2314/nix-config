@@ -1,8 +1,4 @@
-{
-  inputs,
-  config,
-  ...
-}:
+{ inputs, ... }:
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
@@ -20,6 +16,7 @@
     ../../common/options/virtualisation
     ../../common/options/nvidia
     ../../common/options/steam
+    ../../common/options/yubikey
   ];
 
   systemd.network.wait-online.enable = false;
@@ -35,13 +32,7 @@
     udisks2.enable = true;
   };
 
-  # FIXME: this should be in a separate file!
-  yubikey = {
-    enable = true;
-    user = config.users.users.suz.name;
-  };
-
-  programs.ssh.startAgent = true; # FIXME: should this be started with the yubikey module already in place?
+  programs.ssh.startAgent = true;
   programs.nix-ld.enable = true;
 
   system.stateVersion = "24.05";

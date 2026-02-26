@@ -17,7 +17,7 @@ in
     ../../../homelab
     ../../common/core
     ../../common/options/systemd-bootloader
-    ../../common/options/ssh
+    ../../common/options/openssh
     ../../common/users/suz
   ];
 
@@ -39,12 +39,6 @@ in
     defaultGateway = networkCfg.subnets.default.gateway;
     nameservers = hostCfg.dns;
     firewall.enable = true;
-  };
-
-  users.users.suz = {
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIffQ9emrhg7TSytvjqp+/T6szmYAZndKCZ6EuXIsGat suz@master"
-    ];
   };
 
   system.stateVersion = "24.05";

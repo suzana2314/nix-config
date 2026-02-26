@@ -11,7 +11,7 @@ in
     ./disko.nix
     ../../common/core
     ../../common/options/systemd-bootloader
-    ../../common/options/ssh
+    ../../common/options/openssh
     ../../common/options/audio
     ../../common/options/wireless
     ../../common/options/printing

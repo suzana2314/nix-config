@@ -13,7 +13,7 @@ in
     ../../../homelab
     ../../common/core
     ../../common/options/systemd-bootloader
-    ../../common/options/ssh
+    ../../common/options/openssh
     ../../common/users/suz
   ];
 
@@ -36,12 +36,6 @@ in
     enable = true;
     nssmdns4 = true;
     reflector = true;
-  };
-
-  users.users.suz = {
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILk1CVabYzs/tTMEkho+MlbiLW+wfD2MQo5RDgYBLO/W suz@master"
-    ];
   };
 
   system.stateVersion = "24.05";
