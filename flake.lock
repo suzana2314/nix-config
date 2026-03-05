@@ -140,19 +140,19 @@
         ]
       },
       "locked": {
-        "lastModified": 1772706895,
-        "narHash": "sha256-iqAhEAo7niWBqC4TkKmSZqNJAn0M08ioa9OmqElCPS8=",
+        "lastModified": 1772713750,
+        "narHash": "sha256-eTw3WX9S1dP+4nAV1RLL08CRa9NtgWJh1EGj+6j74Kk=",
         "ref": "master",
-        "rev": "6661fe52cb6c4a44e6a63d6c4ce95c05f0ca2a7e",
+        "rev": "7ca8d66a4ad69fe673a44d1dc17253d45b06f2f6",
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/suzana2314/nix-secrets.git"
+        "url": "ssh://git@codeberg.org/suzana2314/nix-secrets.git"
       },
       "original": {
         "ref": "master",
         "shallow": true,
         "type": "git",
-        "url": "ssh://git@github.com/suzana2314/nix-secrets.git"
+        "url": "ssh://git@codeberg.org/suzana2314/nix-secrets.git"
       }
     },
     "nixos-hardware": {

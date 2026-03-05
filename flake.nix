@@ -25,7 +25,7 @@
     };
 
     nix-secrets = {
-      url = "git+ssh://git@github.com/suzana2314/nix-secrets.git?ref=master&shallow=1";
+      url = "git+ssh://git@codeberg.org/suzana2314/nix-secrets.git?ref=master&shallow=1";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
