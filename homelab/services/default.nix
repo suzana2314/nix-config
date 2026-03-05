@@ -79,5 +79,6 @@
     ./scanservjs
     ./newt
     ./radicale
+    ./vaultwarden
   ];
 }

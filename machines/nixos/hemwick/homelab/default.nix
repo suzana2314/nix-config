@@ -65,6 +65,7 @@ in
       mosquitto.enable = true;
       gree-server.enable = true;
       scanservjs.enable = true;
+      vaultwarden.enable = true;
 
       glance = {
         enable = true;
