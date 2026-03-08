@@ -41,7 +41,7 @@ in
     services.${service} = {
       enable = true;
       inherit (cfg) openFirewall port;
-      package = pkgs.unstable.esphome; # stable had an unsecure python pkg FIXME when this version goes into stable
+      package = pkgs.esphome;
       usePing = false;
       allowedDevices = [ ];
       address = if cfg.openFirewall then "0.0.0.0" else "localhost";
