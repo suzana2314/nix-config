@@ -80,9 +80,14 @@ in
       };
     };
 
-    networking.firewall = lib.mkIf cfg.shelly.enable {
-      allowedUDPPorts = [ cfg.shelly.port ];
-    };
+    networking.firewall = lib.mkMerge [
+      (lib.mkIf cfg.shelly.enable {
+        allowedUDPPorts = [ cfg.shelly.port ];
+      })
+      (lib.mkIf (!homelab.enableCaddy) {
+        allowedTCPPorts = [ cfg.port ];
+      })
+    ];
 
     services.caddy.virtualHosts."${cfg.url}" = lib.mkIf homelab.enableCaddy {
       useACMEHost = homelab.baseDomain;
