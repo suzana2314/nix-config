@@ -13,7 +13,7 @@
           monitor = 0;
           follow = "mouse";
           idle_threshold = 60;
-          format = "<small><b>%a : </b>%s</small>\\n%b";
+          format = "<b><u>%s</u></b>\n%b\n";
 
           # appearance
           width = 300;

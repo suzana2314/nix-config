@@ -111,6 +111,5 @@ in
     unstable.pixelorama
     freecadWayland
     libreoffice
-    sqldeveloper
   ];
 }
