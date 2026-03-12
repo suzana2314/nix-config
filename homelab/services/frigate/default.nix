@@ -26,7 +26,7 @@ in
     };
     storageDir = lib.mkOption {
       type = lib.types.str;
-      default = "/storage/${service}";
+      default = "/var/lib/${service}/data";
     };
     url = lib.mkOption {
       type = lib.types.str;

@@ -2,6 +2,7 @@
 let
   inherit (config) homelab;
   networkCfg = inputs.nix-secrets.networking;
+  defaultRetention = 3;
 in
 {
   mqtt = {
@@ -174,18 +175,18 @@ in
     enabled = true;
     sync_recordings = true;
     retain = {
-      days = 3;
+      days = defaultRetention;
       mode = "motion";
     };
     alerts = {
       retain = {
-        days = 7;
+        days = defaultRetention;
         mode = "active_objects";
       };
     };
     detections = {
       retain = {
-        days = 7;
+        days = defaultRetention;
         mode = "active_objects";
       };
     };
@@ -195,7 +196,7 @@ in
     enabled = true;
     timestamp = true;
     retain = {
-      default = 7;
+      default = defaultRetention;
     };
   };
 
