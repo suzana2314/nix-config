@@ -6,106 +6,96 @@
 }:
 let
   cfg = config.services.glance-agent;
+  settingsFormat = pkgs.formats.yaml { };
+  settingsFile = settingsFormat.generate "agent.yml" cfg.settings;
+  mergedSettingsFile = "/run/glance-agent/agent.yml";
 in
 {
   options.services.glance-agent = {
     enable = lib.mkEnableOption "glance-agent";
+    package = lib.mkPackageOption pkgs "glance-agent" { };
 
-    package = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.glance-agent;
-      description = "The glance-agent package to use";
-    };
-
-    environmentFile = lib.mkOption {
-      type = lib.types.path;
+    settings = lib.mkOption {
+      type = settingsFormat.type;
+      default = { };
       description = ''
-        Path to a file containing environment variables.
-        This file should contain KEY=VALUE pairs, one per line.
-
-        Required variables:
-        AUTH_SECRET=your-secret-here
-
-        Optional variables:
-        DEBUG=false
-        PORT=8080  (overrides port option)
+        Configuration for glance-agent, written to agent.yml.
+        See https://github.com/glanceapp/agent for available options.
+      '';
+      example = lib.literalExpression ''
+        {
+          server.port = 27973;
+          system.mountpoints."/boot".hide = true;
+        }
       '';
     };
 
-    user = lib.mkOption {
-      type = lib.types.str;
-      default = "glance-agent";
-      description = "User to run the service as";
-    };
-
-    group = lib.mkOption {
-      type = lib.types.str;
-      default = "glance-agent";
-      description = "Group to run the service as";
+    tokenFile = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
+      default = null;
+      description = ''
+        Path to a file containing the authentication token to set as
+        `server.token`. If set, the token will not be stored in the Nix store.
+      '';
+      example = "/run/secrets/glance-agent-token";
     };
 
     openFirewall = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = ''
-        Whether to open the firewall for glance-agent.
-        This adds `services.glance-agent.settings.server.port` to `networking.firewall.allowedTCPPorts`.
-      '';
+      description = "Whether to open the configured port in the firewall.";
     };
   };
 
   config = lib.mkIf cfg.enable {
-
-    users.users.${cfg.user} = {
-      isSystemUser = true;
-      inherit (cfg) group;
-      description = "glance-agent service user";
-    };
-
-    users.groups.${cfg.group} = { };
-
     systemd.services.glance-agent = {
-      description = "An endpoint written in Go for the glance server stats widget.";
-      wantedBy = [ "multi-user.target" ];
+      description = "Glance Agent Service";
       after = [ "network.target" ];
+      wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        Type = "exec";
-        User = cfg.user;
-        Group = cfg.group;
-        ExecStart = "${cfg.package}/bin/glance-agent";
-        Restart = "always";
-        RestartSec = "10s";
+        ExecStartPre =
+          # "+" runs as root so it can read secret files regardless of permissions
+          "+"
+          + pkgs.writeShellScript "glance-agent-start-pre" ''
+            install -m 600 -o "$USER" ${settingsFile} ${mergedSettingsFile}
+            ${lib.optionalString (cfg.tokenFile != null) ''
+              ${pkgs.gnused}/bin/sed -i \
+                "s/token:.*/token: $(cat ${lib.escapeShellArg cfg.tokenFile})/" \
+                ${mergedSettingsFile}
+            ''}
+          '';
 
-        EnvironmentFile = cfg.environmentFile;
+        ExecStart = "${lib.getExe cfg.package} --config ${mergedSettingsFile}";
+
+        Restart = "always";
+        StartLimitIntervalSec = "5min";
+        StartLimitBurst = 3;
+        DynamicUser = true;
+        RuntimeDirectory = "glance-agent";
+        RuntimeDirectoryMode = "0700";
 
         NoNewPrivileges = true;
         PrivateTmp = true;
         ProtectSystem = "strict";
         ProtectHome = true;
-        ReadWritePaths = [ ];
-
-        RestrictAddressFamilies = [
-          "AF_INET"
-          "AF_INET6"
-        ];
-
-        CapabilityBoundingSet = "";
-        AmbientCapabilities = "";
-
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
+        PrivateUsers = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
+        ProtectKernelModules = true;
+        ProtectKernelTunables = true;
+        ProtectControlGroups = true;
+        RestrictNamespaces = true;
         RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        RemoveIPC = true;
-
-        LimitNOFILE = "65536";
+        SystemCallArchitectures = "native";
+        UMask = "0077";
       };
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ];
-    };
-
+    networking.firewall.allowedTCPPorts = lib.mkIf cfg.openFirewall [
+      (cfg.settings.server.port or 27973)
+    ];
   };
 }

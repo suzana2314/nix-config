@@ -1,32 +1,37 @@
-{ pkgs }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  versionCheckHook,
+}:
 
-pkgs.buildGoModule {
+buildGoModule (finalAttrs: {
   pname = "glance-agent";
-  version = "1.0";
+  version = "0.1.0";
 
-  src = pkgs.fetchFromGitHub {
-    owner = "suzana2314";
-    repo = "glance-agent";
-    rev = "b54abbd7e9cf23b792091825a1f980c1ae38d336";
-    sha256 = "sha256-kBqEMEwtaI6wK0+fESD4/DwuxQhW5y8xNrx0NkVgOGw=";
+  src = fetchFromGitHub {
+    owner = "glanceapp";
+    repo = "agent";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-eNhOelHR3EB3RWWMe7fG6vklgADX7XFy6QMI4Lfr8oM=";
   };
 
-  vendorHash = "sha256-o95ZS2qUQfO7DrtfpZriN8cD7JZ1sR9XEJjbZDc3P2c=";
-
-  subPackages = [ "cmd/glance-agent" ];
+  vendorHash = "sha256-vjcyZctfgnAhzFEF0c+GhtWQqa4gVvLLj0E3sCLS0RE=";
 
   ldflags = [
-    "-w"
     "-s"
+    "-w"
+    "-X github.com/glanceapp/agent/internal/agent.buildVersion=v${finalAttrs.version}"
   ];
 
-  env.CGO_ENABLED = "0";
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  versionCheckProgramArg = "--version";
+  doInstallCheck = true;
 
-  meta = with pkgs.lib; {
-    description = "An endpoint written in Go for the glance server stats widget";
-    homepage = "https://github.com/suzana2314/glance-agent";
-    license = licenses.gpl2;
-    maintainers = with maintainers; [ ];
-    platforms = platforms.linux;
+  meta = {
+    description = "A lightweight service that exposes system metrics via an HTTP API, intended to be used with Glance's server stats widget";
+    homepage = "https://github.com/glanceapp/agent";
+    license = lib.licenses.gpl3;
+    mainProgram = "agent";
   };
-}
+})

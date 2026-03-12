@@ -17,21 +17,45 @@ in
       type = lib.types.str;
       default = "${service}.${homelab.baseDomain}";
     };
-    environmentFile = lib.mkOption {
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 27973;
+    };
+    tokenFile = lib.mkOption {
       type = lib.types.path;
       description = "Path to environment file";
+    };
+    extraConfig = lib.mkOption {
+      type = lib.types.attrsOf lib.types.anything;
+      default = { };
+      description = "Additional settings for the agent";
     };
   };
 
   config = lib.mkIf cfg.enable {
     services.${service} = {
       enable = true;
-      inherit (cfg) environmentFile;
+      inherit (cfg) tokenFile;
+      settings = lib.recursiveUpdate {
+        server = {
+          host = "127.0.0.1";
+          port = cfg.port;
+        };
+        system = {
+          hide-mountpoints-by-default = true;
+          mountpoints = {
+            "/" = {
+              hide = false;
+              name = "root";
+            };
+          };
+        };
+      } cfg.extraConfig;
     };
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''
-        reverse_proxy http://127.0.0.1:8531
+        reverse_proxy http://127.0.0.1:${toString cfg.port}
       '';
     };
   };

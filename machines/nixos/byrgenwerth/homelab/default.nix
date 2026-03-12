@@ -57,8 +57,14 @@ in
 
       glance-agent = {
         enable = true;
-        environmentFile = config.sops.secrets."glance/environmentFile".path;
+        tokenFile = config.sops.secrets."glance/environmentFile".path;
         url = "${config.networking.hostName}-glance.${config.homelab.baseDomain}";
+        extraConfig = {
+          system.mountpoints."/storage" = {
+            hide = false;
+            name = "hdd";
+          };
+        };
       };
 
       newt = {
