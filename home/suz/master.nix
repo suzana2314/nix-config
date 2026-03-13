@@ -26,6 +26,7 @@ in
     ../features/desktop/wayland
     ../features/desktop/wofi
     ../features/desktop/neovim
+    ../features/desktop/calendar
     ../features/git
     ../features/direnv
     ../features/env
