@@ -1,5 +1,5 @@
 {
   imports = [
-    ./bluetui.nix
+    ./widgetify.nix
   ];
 }

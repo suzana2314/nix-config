@@ -59,7 +59,7 @@
           format = "bt";
           format-disabled = "bt";
           format-connected = "bt";
-          on-click = "bluetui-widget";
+          on-click = "widgetify -s 500x800 -P right bluetui";
         };
 
         "custom/padd" = {
@@ -102,6 +102,7 @@
           rotate = 0;
           format-alt = "{:%a, %d of %B}";
           tooltip = false;
+          on-click = "widgetify -s 1000x800 -P left khal interactive";
         };
 
         "clock#time" = {
@@ -109,6 +110,7 @@
           rotate = 0;
           format-alt = "{:%H:%M}";
           tooltip = false;
+          on-click = "widgetify -s 1000x800 -P left khal interactive";
         };
 
         "wireplumber" = {
@@ -116,7 +118,7 @@
           rotate = 0;
           format-muted = "muted";
           on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-          on-click = "alacritty -e wiremix";
+          on-click = "widgetify -s 1000x800 -P right wiremix";
           tooltip = false;
           scroll-step = 1;
         };
