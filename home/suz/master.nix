@@ -112,5 +112,6 @@ in
     unstable.pixelorama
     freecadWayland
     libreoffice
+    subtui
   ];
 }
