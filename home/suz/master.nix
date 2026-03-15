@@ -27,6 +27,7 @@ in
     ../features/desktop/wofi
     ../features/desktop/neovim
     ../features/desktop/calendar
+    ../features/desktop/subtui
     ../features/git
     ../features/direnv
     ../features/env
