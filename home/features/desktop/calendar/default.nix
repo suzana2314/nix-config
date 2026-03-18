@@ -19,7 +19,7 @@ in
           userName = "${username}-radicale";
           passwordCommand = [
             "cat"
-            "${config.xdg.configHome}/sops-nix/secrets/caldav"
+            "${config.sops.secrets.caldav.path}"
           ];
         };
         vdirsyncer = {
