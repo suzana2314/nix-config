@@ -10,12 +10,9 @@
       mainBar = {
         layer = "bottom";
         position = "top";
-        height = 40;
+        height = 50;
         exclusive = true;
         passthrough = false;
-        margin-left = 10;
-        margin-right = 10;
-        margin-top = 10;
 
         modules-left = [
           "custom/padd"
@@ -163,8 +160,14 @@
         }
 
         window#waybar {
-          background: #${palette.base00};
-          border-radius: 10px;
+            background-color: transparent;
+        }
+
+        window#waybar > box {
+            border-radius: 10px;
+            margin: 10px 10px 3px 10px;
+            background-color: #${palette.base00};
+            box-shadow: 0px 0px 2px 1px rgba(26, 26, 26, 0.85);
         }
 
         #workspaces button {
