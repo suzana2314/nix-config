@@ -21,33 +21,33 @@ in
     extraConfig = ''
       Include ~/.ssh/extra_config
     '';
-    matchBlocks = {
-      "*" = {
-        controlMaster = "auto";
-        controlPath = "~/.ssh/sockets/S.%r@%h:%p";
-        controlPersist = "15m";
-        serverAliveCountMax = 3;
-        serverAliveInterval = 5;
-        hashKnownHosts = true;
-        addKeysToAgent = "yes";
-
-        extraOptions = {
-          SetEnv = "TERM=xterm-256color";
-          UpdateHostKeys = "ask";
+    matchBlocks =
+      let
+        gitForge = {
+          user = "git";
+          identitiesOnly = true;
+          identityFile = "~/.ssh/yubikey";
         };
-      };
+      in
+      {
+        "*" = {
+          controlMaster = "auto";
+          controlPath = "~/.ssh/sockets/S.%r@%h:%p";
+          controlPersist = "15m";
+          serverAliveCountMax = 3;
+          serverAliveInterval = 5;
+          hashKnownHosts = true;
+          addKeysToAgent = "yes";
 
-      "github.com" = {
-        identitiesOnly = true;
-        identityFile = "~/.ssh/github";
-      };
-
-      "codeberg.org" = {
-        identitiesOnly = true;
-        identityFile = "~/.ssh/codeberg";
-      };
-    }
-    // sshCfg;
+          extraOptions = {
+            SetEnv = "TERM=xterm-256color";
+            UpdateHostKeys = "ask";
+          };
+        };
+        "github.com" = gitForge;
+        "codeberg.org" = gitForge;
+      }
+      // sshCfg;
   };
 
   home.file = {
