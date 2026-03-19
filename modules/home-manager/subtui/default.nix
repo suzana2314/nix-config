@@ -123,6 +123,10 @@ let
         forward = [ ";" ];
         volume_up = [ "v" ];
         volume_down = [ "V" ];
+        toggle_media_player = [
+          "m"
+          "M"
+        ];
       };
       queue = {
         toggle_queue_view = [ "Q" ];

@@ -8,13 +8,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "subtui";
-  version = "2.11.1";
+  version = "2.12.2";
 
   src = fetchFromGitHub {
     owner = "MattiaPun";
     repo = "subtui";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-xe1HTF6wC1+GUVKCO5AuFD9kThfY1YUjL74TYVyAvIU=";
+    hash = "sha256-cLUWXUSQk39aH+WusWil0646b05/DciedRqZ5L4hNQk=";
   };
 
   vendorHash = "sha256-LSEp0NaNsdnpDZTDUvpK5L7yPlqt3/W4jI9OOnvo7Lc=";
