@@ -5,16 +5,15 @@
   fetchFromGitHub,
   versionCheckHook,
 }:
-
 buildGoModule (finalAttrs: {
   pname = "subtui";
-  version = "2.12.2";
+  version = "2.13.0";
 
   src = fetchFromGitHub {
     owner = "MattiaPun";
     repo = "subtui";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-cLUWXUSQk39aH+WusWil0646b05/DciedRqZ5L4hNQk=";
+    hash = "sha256-wm/EtDZTJH6IqsbMEsE/4UOWS7/qQTuWNIKSdCmpPlg=";
   };
 
   vendorHash = "sha256-LSEp0NaNsdnpDZTDUvpK5L7yPlqt3/W4jI9OOnvo7Lc=";
@@ -28,9 +27,13 @@ buildGoModule (finalAttrs: {
     "-X main.commit=${finalAttrs.src.rev}"
   ];
 
+  postInstall = ''
+    mv $out/bin/SubTUI $out/bin/subtui
+  '';
+
   postFixup = ''
-    wrapProgram $out/bin/SubTUI \
-      --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.mpv ]}
+    wrapProgram $out/bin/subtui \
+      --prefix PATH : ${lib.makeBinPath [ pkgs.mpv ]}
   '';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
@@ -38,9 +41,9 @@ buildGoModule (finalAttrs: {
   doInstallCheck = true;
 
   meta = {
-    description = "A lightweight Subsonic TUI music player built in Go with scrobbling support.";
+    description = "Lightweight Subsonic TUI music player with scrobbling support";
     homepage = "https://github.com/MattiaPun/SubTUI";
     license = lib.licenses.mit;
-    mainProgram = "SubTUI";
+    mainProgram = "subtui";
   };
 })
