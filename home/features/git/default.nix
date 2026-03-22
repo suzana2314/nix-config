@@ -1,8 +1,6 @@
 { inputs, config, ... }:
 let
-  sshFolder = "${config.home.homeDirectory}/.ssh";
-  signingkey = "${sshFolder}/commit_sign_key.pub";
-  allowedSignersFile = "${sshFolder}/allowed_signers";
+  signingkey = "2F98DAB0D65786E9";
 in
 {
   programs.git = {
@@ -19,8 +17,7 @@ in
       };
 
       commit.gpgsign = true;
-      gpg.format = "ssh";
-      gpg.ssh.allowedSignersFile = allowedSignersFile;
+      gpg.program = "${config.programs.gpg.package}/bin/gpg2";
 
       init.defaultBranch = "master";
       pull = {

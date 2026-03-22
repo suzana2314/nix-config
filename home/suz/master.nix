@@ -34,6 +34,7 @@ in
     ../features/sops
     ../features/yubikey
     ../features/ssh
+    ../features/gpg
     ./core
   ];
 

@@ -57,7 +57,10 @@ in
       };
       Service = {
         ExecStart = "${cfg.package}/bin/yubikey-touch-detector ${lib.concatStringsSep " " cfg.extraArgs}";
-        Environment = [ "PATH=${lib.makeBinPath [ pkgs.gnupg ]}" ];
+        Environment = [
+          "PATH=${lib.makeBinPath [ pkgs.gnupg ]}"
+          "GNUPGHOME=${config.xdg.dataHome}/gnupg"
+        ];
         Restart = "on-failure";
         RestartSec = "1sec";
       };
