@@ -65,7 +65,7 @@ in
               "${cfg.configDir}:/config"
             ];
             ports = [
-              "127.0.0.1:${toString cfg.port}:${toString cfg.port}"
+              "${if homelab.enableCaddy then "127.0.0.1:" else ""}${toString cfg.port}:${toString cfg.port}"
             ]
             ++ lib.optionals cfg.shelly.enable [
               "127.0.0.1:${toString cfg.shelly.port}:${toString cfg.shelly.port}/udp"
