@@ -242,9 +242,10 @@ in
 
     home.activation.subtuiCredentials = lib.mkIf (cfg.credentials.passwordFile != null) (
       lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        install -dm700 "${config.xdg.configHome}/subtui"
-        PASSWORD=$(cat "${cfg.credentials.passwordFile}")
-        cat > "${config.xdg.configHome}/subtui/credentials.toml" <<EOF
+        if [ -f "${cfg.credentials.passwordFile}" ]; then
+          install -dm700 "${config.xdg.configHome}/subtui"
+          PASSWORD=$(cat "${cfg.credentials.passwordFile}")
+          cat > "${config.xdg.configHome}/subtui/credentials.toml" <<EOF
         [server]
         url = '${cfg.credentials.url}'
         username = '${cfg.credentials.username}'
@@ -252,7 +253,8 @@ in
         [security]
         redact_credentials_in_logs = ${lib.boolToString cfg.credentials.redactCredentialsInLogs}
         EOF
-        chmod 600 "${config.xdg.configHome}/subtui/credentials.toml"
+          chmod 600 "${config.xdg.configHome}/subtui/credentials.toml"
+        fi
       ''
     );
 
