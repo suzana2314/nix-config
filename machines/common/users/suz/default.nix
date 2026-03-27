@@ -12,7 +12,7 @@ let
   genPubKeyList =
     user:
     let
-      keyPath = ../${user}/keys;
+      keyPath = ../${user}/keys/ssh;
     in
     if (lib.pathExists keyPath) then
       lib.lists.forEach (lib.filesystem.listFilesRecursive keyPath) (key: lib.readFile key)

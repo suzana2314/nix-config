@@ -2,7 +2,7 @@
 let
   inherit (inputs.nix-secrets) sshCfg;
 
-  pathToKeys = ../../../machines/common/users/super/keys;
+  pathToKeys = ../../../machines/common/users/super/keys/ssh;
 
   yubikeys = lib.lists.forEach (builtins.attrNames (builtins.readDir pathToKeys)) (
     key: lib.substring 0 (lib.stringLength key - lib.stringLength ".pub") key
