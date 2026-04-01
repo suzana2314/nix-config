@@ -9,7 +9,7 @@ let
   inherit (config) homelab;
   service = "glance";
   cfg = homelab.services.${service};
-  networkCfg = inputs.nix-secrets.networking;
+  net = inputs.nix-secrets.networking;
 in
 {
   options.homelab.services.${service} = {
@@ -38,7 +38,7 @@ in
     services.${service} = {
       enable = true;
       package = pkgs.unstable.glance;
-      settings = import ./config.nix { inherit config cfg networkCfg; };
+      settings = import ./config.nix { inherit config cfg net; };
     };
 
     systemd.services.${service}.preStart = ''

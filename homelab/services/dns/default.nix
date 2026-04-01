@@ -9,8 +9,8 @@ let
   inherit (config) homelab;
   service = "dns";
   cfg = homelab.services.${service};
-  networkCfg = inputs.nix-secrets.networking;
-  ip = networkCfg.${config.networking.hostName}.ip;
+  host = config.networking.hostName;
+  ip = inputs.nix-secrets.networking.hosts.${host}.ip;
 in
 {
   options.homelab.services.${service} = {

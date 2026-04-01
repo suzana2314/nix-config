@@ -1,7 +1,8 @@
 { inputs, config, ... }:
 let
   inherit (config) homelab;
-  networkCfg = inputs.nix-secrets.networking;
+  net = inputs.nix-secrets.networking;
+  host = config.networking.hostName;
   defaultRetention = 3;
 in
 {
@@ -16,26 +17,26 @@ in
   go2rtc = {
     streams = {
       cam1 = [
-        "rtsp://{FRIGATE_CAM1_USER}:{FRIGATE_CAM1_PASS}@${networkCfg.services.cam1}:554/stream1"
+        "rtsp://{FRIGATE_CAM1_USER}:{FRIGATE_CAM1_PASS}@${net.services.cam1}:554/stream1"
         "ffmpeg:cam1#audio=aac"
-        "tapo://{FRIGATE_CAM1_TAPO_PASS}@${networkCfg.services.cam1}"
+        "tapo://{FRIGATE_CAM1_TAPO_PASS}@${net.services.cam1}"
       ];
       cam1_sub = [
-        "rtsp://{FRIGATE_CAM1_USER}:{FRIGATE_CAM1_PASS}@${networkCfg.services.cam1}:554/stream2"
+        "rtsp://{FRIGATE_CAM1_USER}:{FRIGATE_CAM1_PASS}@${net.services.cam1}:554/stream2"
       ];
 
       cam2 = [
-        "rtsp://{FRIGATE_CAM2_USER}:{FRIGATE_CAM2_PASS}@${networkCfg.services.cam2}:554/h264Preview_01_main"
+        "rtsp://{FRIGATE_CAM2_USER}:{FRIGATE_CAM2_PASS}@${net.services.cam2}:554/h264Preview_01_main"
         "ffmpeg:cam2#video=copy#audio=copy#audio=opus"
       ];
       cam2_sub = [
-        "rtsp://{FRIGATE_CAM2_USER}:{FRIGATE_CAM2_PASS}@${networkCfg.services.cam2}:554/h264Preview_01_sub"
+        "rtsp://{FRIGATE_CAM2_USER}:{FRIGATE_CAM2_PASS}@${net.services.cam2}:554/h264Preview_01_sub"
       ];
     };
 
     webrtc = {
       candidates = [
-        "${networkCfg.byrgenwerth.ip}:8555"
+        "${net.hosts.${host}.ip}:8555"
         "stun:8555"
       ];
     };
@@ -78,7 +79,7 @@ in
       };
 
       onvif = {
-        host = "${networkCfg.services.cam1}";
+        host = "${net.services.cam1}";
         port = 2020;
         user = "{FRIGATE_CAM1_USER}";
         password = "{FRIGATE_CAM1_PASS}";

@@ -14,6 +14,7 @@
     ./locale.nix
     ./xdg.nix
     ./editor.nix
+    ./network.nix
   ]
   ++ (builtins.attrValues outputs.nixosModules);
 

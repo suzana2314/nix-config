@@ -1,8 +1,15 @@
-{ lib, config, ... }:
+{
+  inputs,
+  lib,
+  config,
+  ...
+}:
 let
   inherit (config) homelab;
   service = "gree-server";
   cfg = homelab.services.${service};
+  host = config.networking.hostName;
+  net = inputs.nix-secrets.networking.hosts.${host};
 in
 {
   options.homelab.services.${service} = {
@@ -35,15 +42,15 @@ in
     virtualisation.oci-containers = {
       containers = {
         gree-dummy-tls-server = {
-          image = "codeberg.org/joserebelo/gree-dummy-tls-server:latest
-";
+          image = "codeberg.org/joserebelo/gree-dummy-tls-server:latest";
           autoStart = true;
           environment = {
             DOMAIN_NAME = "${cfg.url}";
-            EXTERNAL_IP = "${config.homelab.externalIP}";
+            EXTERNAL_IP = "${net.ip}";
             LISTEN_PORT_PROMETHEUS = "${cfg.prometheusPort}";
           };
           ports = [
+            # FIXME: check if this opened ports
             "${cfg.tlsPort}:${cfg.tlsPort}" # tls
             "${cfg.tcpPort}:${cfg.tcpPort}"
             "${cfg.prometheusPort}:${cfg.prometheusPort}"

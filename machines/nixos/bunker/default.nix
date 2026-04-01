@@ -1,8 +1,4 @@
 { inputs, ... }:
-let
-  networkCfg = inputs.nix-secrets.networking;
-  hostCfg = networkCfg.subnets.default.hosts.bunker;
-in
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
@@ -20,20 +16,7 @@ in
     ../../common/users/zez
   ];
 
-  networking = {
-    hostName = hostCfg.name;
-    enableIPv6 = false;
-    useDHCP = false;
-    interfaces.eno1.ipv4.addresses = [
-      {
-        address = hostCfg.ip;
-        inherit (networkCfg.subnets.default) prefixLength;
-      }
-    ];
-    defaultGateway = networkCfg.subnets.default.gateway;
-    nameservers = hostCfg.dns;
-    firewall.enable = true;
-  };
+  networking.hostName = "bunker";
 
   users.users.suz = {
     openssh.authorizedKeys.keys = [

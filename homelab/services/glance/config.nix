@@ -1,7 +1,7 @@
 {
   config,
   cfg,
-  networkCfg,
+  net,
 }:
 {
   server = {
@@ -261,7 +261,7 @@
               sites = [
                 {
                   title = "Gateway";
-                  url = "http://${networkCfg.subnets.default.gateway}";
+                  url = "http://${net.gateway}";
                   icon = "di:tp-link";
                 }
                 {

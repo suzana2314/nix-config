@@ -1,8 +1,8 @@
 { inputs, config, ... }:
 let
-  sopsFile = "${builtins.toString inputs.nix-secrets}/sops/${config.networking.hostName}.yaml";
+  host = config.networking.hostName;
   secrets = inputs.nix-secrets;
-  hostCfg = secrets.networking.subnets.default.hosts.hemwick;
+  sopsFile = "${builtins.toString secrets}/sops/${host}.yaml";
 
   mkSecret = {
     inherit sopsFile;
@@ -16,7 +16,6 @@ in
     inherit (config.time) timeZone;
     email = secrets.email.default;
     baseDomain = secrets.domain;
-    externalIP = hostCfg.ip;
 
     motd = {
       enable = true;
@@ -80,16 +79,6 @@ in
       radicale = {
         enable = true;
         passwdFile = config.sops.secrets."radicale/passwdFile".path;
-      };
-
-      extraCaddyHosts = {
-        enable = true;
-        hosts = {
-          sovol.enable = true;
-          sovol.host = secrets.networking.services.sovol;
-          freeds.enable = true;
-          freeds.host = secrets.networking.services.freeds;
-        };
       };
 
       newt = {

@@ -3,10 +3,6 @@
   pkgs,
   ...
 }:
-let
-  networkCfg = inputs.nix-secrets.networking;
-  hostCfg = networkCfg.subnets.default.hosts.byrgenwerth;
-in
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
@@ -26,20 +22,7 @@ in
     intel-media-driver
   ];
 
-  networking = {
-    hostName = hostCfg.name;
-    enableIPv6 = false;
-    useDHCP = false;
-    interfaces.enp0s31f6.ipv4.addresses = [
-      {
-        address = hostCfg.ip;
-        inherit (networkCfg.subnets.default) prefixLength;
-      }
-    ];
-    defaultGateway = networkCfg.subnets.default.gateway;
-    nameservers = hostCfg.dns;
-    firewall.enable = true;
-  };
+  networking.hostName = "byrgenwerth";
 
   system.stateVersion = "24.05";
 }

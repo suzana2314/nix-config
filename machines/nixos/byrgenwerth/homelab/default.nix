@@ -1,8 +1,8 @@
 { inputs, config, ... }:
 let
-  sopsFile = "${builtins.toString inputs.nix-secrets}/sops/${config.networking.hostName}.yaml";
+  host = config.networking.hostName;
   secrets = inputs.nix-secrets;
-  hostConf = secrets.networking.subnets.default.hosts.byrgenwerth;
+  sopsFile = "${builtins.toString secrets}/sops/${host}.yaml";
 
   mkSecret = {
     inherit sopsFile;
@@ -16,7 +16,6 @@ in
     inherit (config.time) timeZone;
     email = secrets.email.default;
     baseDomain = secrets.domain;
-    externalIP = hostConf.ip;
 
     motd = {
       enable = true;
