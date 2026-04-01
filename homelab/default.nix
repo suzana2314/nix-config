@@ -30,10 +30,6 @@ in
     cloudflare.dnsCredentialsFile = lib.mkOption {
       type = lib.types.path;
     };
-    externalIP = lib.mkOption {
-      type = lib.types.str;
-      description = "External IP address for services";
-    };
     enableCaddy = lib.mkOption {
       default = true;
       type = lib.types.bool;

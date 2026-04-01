@@ -58,7 +58,6 @@
     ./ddns
     ./dns
     ./esphome
-    ./extracaddyhosts
     ./frigate
     ./glance
     ./glance-agent
