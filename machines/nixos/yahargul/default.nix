@@ -9,6 +9,7 @@
     ../../../homelab
     ../../common/core
     ../../common/options/systemd-bootloader
+    ../../common/options/mdns
     ../../common/options/openssh
     ../../common/users/suz
   ];
@@ -22,12 +23,6 @@
       "9.9.9.9"
       "149.112.112.112"
     ];
-  };
-
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    reflector = true;
   };
 
   system.stateVersion = "25.05";
