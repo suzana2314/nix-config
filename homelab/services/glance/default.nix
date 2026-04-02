@@ -38,13 +38,14 @@ in
     services.${service} = {
       enable = true;
       package = pkgs.unstable.glance;
-      settings = import ./config.nix { inherit config cfg net; };
+      settings = import ./config.nix {
+        inherit (homelab) baseDomain;
+        inherit cfg net;
+      };
     };
-
-    systemd.services.${service}.preStart = ''
-      mkdir -p ${cfg.assetsPath}
-    '';
-
+    systemd.tmpfiles.rules = [
+      "Z ${cfg.assetsPath} 0755 root root -"
+    ];
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''

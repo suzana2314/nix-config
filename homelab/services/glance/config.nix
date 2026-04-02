@@ -1,5 +1,5 @@
 {
-  config,
+  baseDomain,
   cfg,
   net,
 }:
@@ -35,28 +35,28 @@
           sites = [
             {
               title = "Miniflux";
-              url = "https://miniflux.${config.homelab.baseDomain}";
-              icon = "di:miniflux-light";
+              url = "https://miniflux.${baseDomain}";
+              icon = "/assets/miniflux-light.svg";
             }
             {
               title = "Home Assistant";
-              url = "https://homeassistant.${config.homelab.baseDomain}";
-              icon = "di:home-assistant";
+              url = "https://homeassistant.${baseDomain}";
+              icon = "/assets/home-assistant.svg";
             }
             {
               title = "Jellyfin";
-              url = "https://jellyfin.${config.homelab.baseDomain}";
-              icon = "di:jellyfin";
+              url = "https://jellyfin.${baseDomain}";
+              icon = "/assets/jellyfin.svg";
             }
             {
               title = "Navidrome";
-              url = "https://navidrome.${config.homelab.baseDomain}";
-              icon = "di:navidrome";
+              url = "https://navidrome.${baseDomain}";
+              icon = "/assets/navidrome.png";
             }
             {
               title = "Immich";
-              url = "https://immich.${config.homelab.baseDomain}";
-              icon = "di:immich";
+              url = "https://immich.${baseDomain}";
+              icon = "/assets/immich.svg";
             }
           ];
         }
@@ -80,7 +80,7 @@
                 }
                 {
                   type = "remote";
-                  url = "https://byrgenwerth-glance.${config.homelab.baseDomain}";
+                  url = "https://byrgenwerth-glance.${baseDomain}";
                   token = {
                     _secret = cfg.apiToken;
                   };
@@ -122,23 +122,23 @@
               sites = [
                 {
                   title = "Home Assistant";
-                  url = "https://homeassistant.${config.homelab.baseDomain}";
-                  icon = "di:home-assistant";
+                  url = "https://homeassistant.${baseDomain}";
+                  icon = "/assets/home-assistant.svg";
                 }
                 {
                   title = "ESPHome";
-                  url = "https://esphome.${config.homelab.baseDomain}";
-                  icon = "di:esphome";
+                  url = "https://esphome.${baseDomain}";
+                  icon = "/assets/esphome.svg";
                 }
                 {
                   title = "Frigate";
-                  url = "https://frigate.${config.homelab.baseDomain}";
-                  icon = "di:frigate-light";
+                  url = "https://frigate.${baseDomain}";
+                  icon = "/assets/frigate-light.svg";
                 }
                 {
                   title = "FreeDS";
-                  url = "http://freeds.${config.homelab.baseDomain}";
-                  icon = "/assets/freeds_logo.png";
+                  url = "http://freeds.${baseDomain}";
+                  icon = "/assets/freeds.png";
                   alt-status-codes = [
                     403
                     401
@@ -153,28 +153,28 @@
               sites = [
                 {
                   title = "Immich";
-                  url = "https://immich.${config.homelab.baseDomain}";
-                  icon = "di:immich";
+                  url = "https://immich.${baseDomain}";
+                  icon = "/assets/immich.svg";
                 }
                 {
                   title = "Jellyfin";
-                  url = "https://jellyfin.${config.homelab.baseDomain}";
-                  icon = "di:jellyfin";
+                  url = "https://jellyfin.${baseDomain}";
+                  icon = "/assets/jellyfin.svg";
                 }
                 {
                   title = "Jellyseerr";
-                  url = "https://jellyseerr.${config.homelab.baseDomain}";
-                  icon = "di:jellyseerr";
+                  url = "https://jellyseerr.${baseDomain}";
+                  icon = "/assets/jellyseerr.svg";
                 }
                 {
                   title = "Navidrome";
-                  url = "https://navidrome.${config.homelab.baseDomain}";
-                  icon = "di:navidrome";
+                  url = "https://navidrome.${baseDomain}";
+                  icon = "/assets/navidrome.png";
                 }
                 {
                   title = "qBitTorrent";
-                  url = "https://qbittorrent.${config.homelab.baseDomain}";
-                  icon = "di:qbittorrent";
+                  url = "https://qbittorrent.${baseDomain}";
+                  icon = "/assets/qbittorrent.svg";
                 }
               ];
             }
@@ -185,28 +185,28 @@
               sites = [
                 {
                   title = "Sonarr";
-                  url = "https://sonarr.${config.homelab.baseDomain}";
-                  icon = "di:sonarr";
+                  url = "https://sonarr.${baseDomain}";
+                  icon = "/assets/sonarr.svg";
                 }
                 {
                   title = "Radarr";
-                  url = "https://radarr.${config.homelab.baseDomain}";
-                  icon = "di:radarr";
+                  url = "https://radarr.${baseDomain}";
+                  icon = "/assets/radarr.svg";
                 }
                 {
                   title = "Lidarr";
-                  url = "https://lidarr.${config.homelab.baseDomain}";
-                  icon = "di:lidarr";
+                  url = "https://lidarr.${baseDomain}";
+                  icon = "/assets/lidarr.svg";
                 }
                 {
                   title = "Prowlarr";
-                  url = "https://prowlarr.${config.homelab.baseDomain}";
-                  icon = "di:prowlarr";
+                  url = "https://prowlarr.${baseDomain}";
+                  icon = "/assets/prowlarr.svg";
                 }
                 {
                   title = "Bazarr";
-                  url = "https://bazarr.${config.homelab.baseDomain}";
-                  icon = "di:bazarr";
+                  url = "https://bazarr.${baseDomain}";
+                  icon = "/assets/bazarr.svg";
                 }
               ];
             }
@@ -217,18 +217,18 @@
               sites = [
                 {
                   title = "Gatus";
-                  url = "https://status.${config.homelab.baseDomain}";
-                  icon = "di:gatus";
+                  url = "https://status.${baseDomain}";
+                  icon = "/assets/gatus.svg";
                 }
                 {
                   title = "Grafana";
-                  url = "https://grafana.${config.homelab.baseDomain}";
-                  icon = "di:grafana";
+                  url = "https://grafana.${baseDomain}";
+                  icon = "/assets/grafana.svg";
                 }
                 {
                   title = "Prometheus";
-                  url = "https://metrics.${config.homelab.baseDomain}";
-                  icon = "di:prometheus";
+                  url = "https://metrics.${baseDomain}";
+                  icon = "/assets/prometheus.svg";
                 }
               ];
             }
@@ -239,18 +239,18 @@
               sites = [
                 {
                   title = "3D Printer";
-                  url = "https://sovol.${config.homelab.baseDomain}";
-                  icon = "di:mainsail";
+                  url = "https://sovol.${baseDomain}";
+                  icon = "/assets/mainsail.svg";
                 }
                 {
                   title = "Miniflux";
-                  url = "https://miniflux.${config.homelab.baseDomain}";
-                  icon = "di:miniflux-light";
+                  url = "https://miniflux.${baseDomain}";
+                  icon = "/assets/miniflux-light.svg";
                 }
                 {
                   title = "Scanservjs";
-                  url = "https://scan.${config.homelab.baseDomain}";
-                  icon = "di:printer";
+                  url = "https://scan.${baseDomain}";
+                  icon = "/assets/printer.svg";
                 }
               ];
             }
@@ -262,12 +262,12 @@
                 {
                   title = "Gateway";
                   url = "http://${net.gateway}";
-                  icon = "di:tp-link";
+                  icon = "/assets/tp-link.svg";
                 }
                 {
                   title = "Pangolin";
-                  url = "https://pangolin.${config.homelab.baseDomain}";
-                  icon = "di:pangolin";
+                  url = "https://pangolin.${baseDomain}";
+                  icon = "/assets/pangolin.svg";
                 }
               ];
             }
