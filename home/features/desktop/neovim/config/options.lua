@@ -7,6 +7,7 @@ vim.g.mapleader = ';'
 -- General
 o.showmode = false -- remove the current mode (already in the lualine)
 o.number = true    -- display line numbers
+o.relativenumber = true
 o.signcolumn = "number"
 o.showmatch = true -- highlight matching parentheses, etc
 o.wrap = false
