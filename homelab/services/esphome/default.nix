@@ -1,9 +1,4 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
-}:
+{ lib, config, ... }:
 let
   inherit (config) homelab;
   service = "esphome";
@@ -14,22 +9,17 @@ in
     enable = lib.mkEnableOption {
       description = "Enable ${service}";
     };
-    configDir = lib.mkOption {
-      type = lib.types.str;
-      default = "/var/lib/${service}";
-    };
     url = lib.mkOption {
       type = lib.types.str;
       default = "${service}.${homelab.baseDomain}";
     };
-    auth = lib.mkOption {
+    environmentFile = lib.mkOption {
       type = lib.types.str;
       description = "Path to environment file containing USERNAME and PASSWORD";
-    };
-    openFirewall = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Wether to open the firewall for the specified port";
+      example = ''
+        USERNAME=john_doe
+        PASSWORD=hunter2
+      '';
     };
     port = lib.mkOption {
       type = lib.types.port;
@@ -38,16 +28,22 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = config.services.avahi.enable;
+        message = "${service} requires mDNS to work properly!";
+      }
+    ];
     services.${service} = {
       enable = true;
-      inherit (cfg) openFirewall port;
-      package = pkgs.esphome;
       usePing = false;
       allowedDevices = [ ];
-      address = if cfg.openFirewall then "0.0.0.0" else "localhost";
+      openFirewall = !homelab.reverseProxy.enable;
+      address = if homelab.reverseProxy.enable then "0.0.0.0" else "localhost";
+      port = cfg.port;
     };
     systemd.services.${service}.serviceConfig = {
-      EnvironmentFile = [ cfg.auth ];
+      EnvironmentFile = [ cfg.environmentFile ];
     };
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
@@ -55,5 +51,6 @@ in
         reverse_proxy http://127.0.0.1:${toString cfg.port}
       '';
     };
+
   };
 }

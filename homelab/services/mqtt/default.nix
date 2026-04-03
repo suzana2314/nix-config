@@ -7,20 +7,11 @@ in
 {
   options.homelab.services.${service} = {
     enable = lib.mkEnableOption {
-      description = "Enable mosquitto broker";
-    };
-    configDir = lib.mkOption {
-      type = lib.types.str;
-      default = "/var/lib/${service}";
-    };
-    url = lib.mkOption {
-      type = lib.types.str;
-      default = "${service}.${homelab.baseDomain}";
+      description = "Enable ${service}";
     };
     port = lib.mkOption {
       type = lib.types.port;
       default = 1883;
-      description = "Port for Mosquitto to listen on locally";
     };
   };
   config = lib.mkIf cfg.enable {
@@ -37,7 +28,6 @@ in
         }
       ];
     };
-
     networking.firewall = lib.mkIf homelab.services.mosquitto.enable {
       allowedTCPPorts = [ cfg.port ];
     };

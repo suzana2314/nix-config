@@ -13,6 +13,10 @@ in
       type = lib.types.str;
       default = "metrics.${homelab.baseDomain}";
     };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 9090;
+    };
     scrapeConfigs = lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       description = "The jobs to scrape";
@@ -22,14 +26,14 @@ in
   config = lib.mkIf cfg.enable {
     services.prometheus = {
       enable = true;
+      webExternalUrl = cfg.url;
       globalConfig.scrape_interval = "30s";
-      inherit (cfg) scrapeConfigs;
+      inherit (cfg) scrapeConfigs port;
     };
-
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''
-        reverse_proxy http://127.0.0.1:${toString config.services.prometheus.port}
+        reverse_proxy http://127.0.0.1:${toString cfg.port}
       '';
     };
   };

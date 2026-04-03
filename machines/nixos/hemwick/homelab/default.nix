@@ -63,7 +63,7 @@ in
 
       esphome = {
         enable = true;
-        auth = config.sops.secrets.esphome.path;
+        environmentFile = config.sops.secrets.esphome.path;
       };
 
       mosquitto.enable = true;

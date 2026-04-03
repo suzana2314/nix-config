@@ -52,11 +52,17 @@ in
         torrentingPort = secrets.torrentingPort;
       };
 
-      immich.enable = true;
+      immich = {
+        enable = true;
+        accelerationDevices = [
+          "/dev/dri/renderD128"
+        ];
+      };
 
       frigate = {
         enable = true;
-        envFile = config.sops.secrets.frigate.path;
+        environmentFile = config.sops.secrets.frigate.path;
+        detectorPath = "/dev/dri/renderD128"; # Intel hardware acceleration
       };
 
       glance-agent = {

@@ -11,11 +11,7 @@ in
 {
   options.homelab.services.${service} = {
     enable = lib.mkEnableOption {
-      description = "Enable mosquitto broker";
-    };
-    configDir = lib.mkOption {
-      type = lib.types.str;
-      default = "/var/lib/${service}";
+      description = "Enable ${service}";
     };
     environmentFile = lib.mkOption {
       type = lib.types.path;
@@ -25,6 +21,7 @@ in
       '';
     };
   };
+
   config = lib.mkIf cfg.enable {
     services.${service} = {
       enable = true;

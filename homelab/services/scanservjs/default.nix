@@ -9,10 +9,6 @@ in
     enable = lib.mkEnableOption {
       description = "Enable ${service}";
     };
-    configDir = lib.mkOption {
-      type = lib.types.str;
-      default = "/var/lib/${service}";
-    };
     url = lib.mkOption {
       type = lib.types.str;
       default = "scan.${homelab.baseDomain}";

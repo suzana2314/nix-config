@@ -41,8 +41,7 @@ in
 
       esphome = {
         enable = true;
-        openFirewall = true;
-        auth = config.sops.secrets.esphome.path;
+        environmentFile = config.sops.secrets.esphome.path;
       };
 
       mosquitto = {

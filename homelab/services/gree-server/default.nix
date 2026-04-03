@@ -16,10 +16,6 @@ in
     enable = lib.mkEnableOption {
       description = "Enable ${service}";
     };
-    url = lib.mkOption {
-      type = lib.types.str;
-      default = "${service}.${homelab.baseDomain}";
-    };
     tlsPort = lib.mkOption {
       type = lib.types.str;
       default = "1813";
@@ -27,10 +23,6 @@ in
     tcpPort = lib.mkOption {
       type = lib.types.str;
       default = "5000";
-    };
-    prometheusPort = lib.mkOption {
-      type = lib.types.str;
-      default = "5555";
     };
     configDir = lib.mkOption {
       type = lib.types.str;
@@ -50,20 +42,11 @@ in
             LISTEN_PORT_PROMETHEUS = "${cfg.prometheusPort}";
           };
           ports = [
-            # FIXME: check if this opened ports
-            "${cfg.tlsPort}:${cfg.tlsPort}" # tls
-            "${cfg.tcpPort}:${cfg.tcpPort}"
-            "${cfg.prometheusPort}:${cfg.prometheusPort}"
+            "${cfg.tlsPort}:1813" # tls
+            "${cfg.tcpPort}:5000"
           ];
         };
       };
-    };
-
-    services.caddy.virtualHosts."${cfg.url}" = {
-      useACMEHost = homelab.baseDomain;
-      extraConfig = ''
-        reverse_proxy http://127.0.0.1:5000
-      '';
     };
   };
 }

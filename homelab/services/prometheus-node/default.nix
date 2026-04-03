@@ -2,6 +2,7 @@
 let
   inherit (config) homelab;
   service = "prometheus-node";
+  host = config.networking.hostName;
   cfg = homelab.services.${service};
 in
 {
@@ -11,20 +12,24 @@ in
     };
     url = lib.mkOption {
       type = lib.types.str;
-      default = "${config.networking.hostName}.${homelab.baseDomain}";
+      default = "${host}.${homelab.baseDomain}";
+    };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 9100;
     };
   };
 
   config = lib.mkIf cfg.enable {
     services.prometheus.exporters.node = {
+      inherit (cfg) port;
       enable = true;
       enabledCollectors = [ "systemd" ];
     };
-
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''
-        reverse_proxy /metrics http://127.0.0.1:9100
+        reverse_proxy /metrics http://127.0.0.1:${toString cfg.port}
       '';
     };
   };

@@ -9,33 +9,41 @@ in
     enable = lib.mkEnableOption {
       description = "Enable ${service}";
     };
-    mediaDir = lib.mkOption {
-      type = lib.types.path;
-      default = "/storage/immich";
-    };
     url = lib.mkOption {
       type = lib.types.str;
       default = "${service}.${homelab.baseDomain}";
     };
-    configDir = lib.mkOption {
-      type = lib.types.str;
-      default = "/var/lib/${service}";
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 2283;
+    };
+    mediaDir = lib.mkOption {
+      type = lib.types.path;
+      default = "/storage/immich";
+    };
+    accelerationDevices = lib.mkOption {
+      type = lib.types.nullOr (lib.types.listOf lib.types.str);
+      description = "Path to the accelarator device";
     };
   };
 
   config = lib.mkIf cfg.enable {
     systemd.tmpfiles.rules = [ "d ${cfg.mediaDir} 0775 immich immich - -" ];
-
-    services.immich = {
+    services.${service} = {
       enable = true;
-      port = 2283;
+      port = cfg.port;
+      openFirewall = !homelab.reverseProxy.enable;
       mediaLocation = "${cfg.mediaDir}";
+      inherit (cfg) accelerationDevices;
+      machine-learning.enable = false;
+      settings.server = {
+        externalDomain = "https://${cfg.url}";
+      };
     };
-
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''
-        reverse_proxy http://${config.services.immich.host}:${toString config.services.immich.port}
+        reverse_proxy http://${config.services.immich.host}:${toString cfg.port}
       '';
     };
 

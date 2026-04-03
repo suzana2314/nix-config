@@ -13,7 +13,6 @@ in
     topic_prefix = "frigate";
     client_id = "frigate";
   };
-
   go2rtc = {
     streams = {
       cam1 = [
@@ -24,7 +23,6 @@ in
       cam1_sub = [
         "rtsp://{FRIGATE_CAM1_USER}:{FRIGATE_CAM1_PASS}@${net.services.cam1}:554/stream2"
       ];
-
       cam2 = [
         "rtsp://{FRIGATE_CAM2_USER}:{FRIGATE_CAM2_PASS}@${net.services.cam2}:554/h264Preview_01_main"
         "ffmpeg:cam2#video=copy#audio=copy#audio=opus"
@@ -33,7 +31,6 @@ in
         "rtsp://{FRIGATE_CAM2_USER}:{FRIGATE_CAM2_PASS}@${net.services.cam2}:554/h264Preview_01_sub"
       ];
     };
-
     webrtc = {
       candidates = [
         "${net.hosts.${host}.ip}:8555"
@@ -41,7 +38,6 @@ in
       ];
     };
   };
-
   cameras = {
     cam1 = {
       ffmpeg = {
@@ -71,27 +67,23 @@ in
           cam1 = "cam1";
         };
       };
-
       detect = {
         enabled = true;
         width = 640;
         height = 360;
       };
-
       onvif = {
         host = "${net.services.cam1}";
         port = 2020;
         user = "{FRIGATE_CAM1_USER}";
         password = "{FRIGATE_CAM1_PASS}";
       };
-
       motion = {
         threshold = 30;
         contour_area = 16;
         improve_contrast = true;
       };
     };
-
     cam2 = {
       ffmpeg = {
         output_args = {
@@ -137,12 +129,10 @@ in
       };
     };
   };
-
   birdseye = {
     enabled = true;
     mode = "continuous";
   };
-
   review = {
     alerts = {
       labels = [
@@ -152,7 +142,6 @@ in
         "bird"
       ];
     };
-
     detections = {
       labels = [
         "dog"
@@ -162,7 +151,6 @@ in
       ];
     };
   };
-
   objects = {
     track = [
       "dog"
@@ -171,7 +159,6 @@ in
       "bird"
     ];
   };
-
   record = {
     enabled = true;
     sync_recordings = true;
@@ -192,7 +179,6 @@ in
       };
     };
   };
-
   snapshots = {
     enabled = true;
     timestamp = true;
@@ -200,14 +186,12 @@ in
       default = defaultRetention;
     };
   };
-
   detectors = {
     ov = {
       type = "openvino";
       device = "CPU";
     };
   };
-
   model = {
     width = 300;
     height = 300;
@@ -216,11 +200,9 @@ in
     path = "/openvino-model/ssdlite_mobilenet_v2.xml";
     labelmap_path = "/openvino-model/coco_91cl_bkgr.txt";
   };
-
   tls = {
     enabled = false;
   };
-
   detect = {
     enabled = true;
   };

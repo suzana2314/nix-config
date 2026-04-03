@@ -22,13 +22,13 @@ in
       default = "/var/lib/${service}";
     };
   };
+
   config = lib.mkIf cfg.enable {
     users.users.ddns-updater = {
       isSystemUser = true;
       group = "ddns-updater";
     };
     users.groups.ddns-updater = { };
-
     systemd.services.ddns-updater-setup = {
       description = "Setup DDNS updater configuration";
       before = [ "ddns-updater.service" ];
@@ -40,22 +40,21 @@ in
         StateDirectory = "ddns-updater";
       };
       script = ''
-        cp ${cfg.configFile} /var/lib/ddns-updater/config.json
-        chmod 600 /var/lib/ddns-updater/config.json
-        chown ${config.users.users.ddns-updater.name}:${config.users.users.ddns-updater.name} /var/lib/ddns-updater/config.json
+        cp ${cfg.configFile} ${cfg.configDir}/config.json
+        chmod 600 ${cfg.configDir}/config.json
+        chown ${config.users.users.ddns-updater.name}:${config.users.users.ddns-updater.name} ${cfg.configDir}/config.json
       '';
-    };
-
-    services.${service} = {
-      enable = true;
-      environment = {
-        CONFIG_FILEPATH = "/var/lib/ddns-updater/config.json";
-        DATADIR = "/var/lib/ddns-updater";
-      };
     };
     systemd.services.ddns-updater = {
       serviceConfig = {
         EnvironmentFile = lib.mkIf (cfg.notifications != "") "${cfg.notifications}";
+      };
+    };
+    services.${service} = {
+      enable = true;
+      environment = {
+        CONFIG_FILEPATH = "${cfg.configDir}/config.json";
+        DATADIR = "${cfg.configDir}";
       };
     };
   };

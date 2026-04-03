@@ -39,6 +39,7 @@ in
       type = lib.types.str;
     };
   };
+
   config = lib.mkIf cfg.enable {
     systemd.services."netns@" = {
       description = "%I network namespace";
@@ -51,7 +52,6 @@ in
       };
     };
     environment.etc."netns/${cfg.namespace}/resolv.conf".text = "nameserver ${cfg.dnsIP}";
-
     systemd.services.${cfg.namespace} = {
       description = "${cfg.namespace} network interface";
       bindsTo = [ "netns@${cfg.namespace}.service" ];

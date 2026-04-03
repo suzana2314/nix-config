@@ -45,51 +45,49 @@ in
       };
     };
   };
-  config = lib.mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d ${cfg.configDir} 0775 ${homelab.user} ${homelab.group} - -" ];
 
-    virtualisation = {
-      oci-containers = {
-        containers = {
-          homeassistant = {
-            image = "ghcr.io/home-assistant/home-assistant:stable";
-            autoStart = true;
-            extraOptions = [
-              "--pull=newer"
-              "--cap-add=CAP_NET_RAW"
-            ]
-            ++ lib.optionals cfg.zigbee.enable [
-              "--device=${cfg.zigbee.coordinatorPath}"
-            ];
-            volumes = [
-              "${cfg.configDir}:/config"
-            ];
-            ports = [
-              "${if homelab.enableCaddy then "127.0.0.1:" else ""}${toString cfg.port}:${toString cfg.port}"
-            ]
-            ++ lib.optionals cfg.shelly.enable [
-              "127.0.0.1:${toString cfg.shelly.port}:${toString cfg.shelly.port}/udp"
-            ];
-            environment = {
-              TZ = homelab.timeZone;
-              PUID = toString config.users.users.${homelab.user}.uid;
-              PGID = toString config.users.groups.${homelab.group}.gid;
-            };
-          };
-        };
+  config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = config.services.avahi.enable;
+        message = "${service} requires mDNS to work properly!";
+      }
+    ];
+    systemd.tmpfiles.rules = [ "d ${cfg.configDir} 0775 ${homelab.user} ${homelab.group} - -" ];
+    virtualisation.oci-containers.containers.${service} = {
+      image = "ghcr.io/home-assistant/home-assistant:stable";
+      autoStart = true;
+      extraOptions = [
+        "--pull=newer"
+        "--cap-add=CAP_NET_RAW"
+      ]
+      ++ lib.optionals cfg.zigbee.enable [
+        "--device=${cfg.zigbee.coordinatorPath}"
+      ];
+      volumes = [
+        "${cfg.configDir}:/config"
+      ];
+      ports = [
+        "${if homelab.reverseProxy.enable then "127.0.0.1:" else ""}${toString cfg.port}:8123"
+      ]
+      ++ lib.optionals cfg.shelly.enable [
+        "127.0.0.1:${toString cfg.shelly.port}:${toString cfg.shelly.port}/udp"
+      ];
+      environment = {
+        TZ = homelab.timeZone;
+        PUID = toString config.users.users.${homelab.user}.uid;
+        PGID = toString config.users.groups.${homelab.group}.gid;
       };
     };
-
     networking.firewall = lib.mkMerge [
       (lib.mkIf cfg.shelly.enable {
         allowedUDPPorts = [ cfg.shelly.port ];
       })
-      (lib.mkIf (!homelab.enableCaddy) {
+      (lib.mkIf (!homelab.reverseProxy.enable) {
         allowedTCPPorts = [ cfg.port ];
       })
     ];
-
-    services.caddy.virtualHosts."${cfg.url}" = lib.mkIf homelab.enableCaddy {
+    services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''
         reverse_proxy http://127.0.0.1:${toString cfg.port}

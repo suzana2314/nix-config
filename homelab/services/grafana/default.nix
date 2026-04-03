@@ -18,16 +18,21 @@ in
       type = lib.types.str;
       default = "${service}.${homelab.baseDomain}";
     };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 2342;
+    };
   };
 
   config = lib.mkIf cfg.enable {
     services.${service} = {
       enable = true;
       package = pkgs.unstable.grafana;
+      openFirewall = !homelab.reverseProxy.enable;
       settings = {
         server = {
           http_addr = "127.0.0.1";
-          http_port = 2342;
+          http_port = cfg.port;
           domain = cfg.url;
           root_url = "https://${cfg.url}";
           serve_from_sub_path = false;
@@ -47,7 +52,6 @@ in
             options.path = ./dashboards;
           }
         ];
-
         datasources.settings = {
           apiVersion = 1;
           datasources = [
@@ -63,12 +67,11 @@ in
         };
       };
     };
-
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''
         encode gzip
-        reverse_proxy http://127.0.0.1:2342 {
+        reverse_proxy http://127.0.0.1:${toString cfg.port} {
           header_up X-Forwarded-Proto {http.request.scheme}
           header_up X-Forwarded-Host {host}
           header_up Host {host}

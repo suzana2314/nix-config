@@ -38,6 +38,7 @@ in
     services.${service} = {
       enable = true;
       package = pkgs.unstable.glance;
+      openFirewall = !homelab.reverseProxy.enable;
       settings = import ./config.nix {
         inherit (homelab) baseDomain;
         inherit cfg net;

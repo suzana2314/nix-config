@@ -38,7 +38,6 @@ in
         storage = {
           filesystem_folder = cfg.configDir;
         };
-
         auth = {
           type = "htpasswd";
           htpasswd_filename = cfg.passwdFile;
@@ -46,7 +45,6 @@ in
         };
       };
     };
-
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''
