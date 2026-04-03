@@ -1,6 +1,7 @@
 { lib, config, ... }:
 let
   inherit (config) homelab;
+  host = config.networking.hostName;
   cfg = homelab.reverseProxy;
 in
 {
@@ -38,13 +39,24 @@ in
 
     services.caddy = {
       enable = true;
-      globalConfig = "auto_https off";
+      globalConfig = ''
+        auto_https off
+        metrics {
+          per_host
+        }
+      '';
       virtualHosts = {
         "http://${homelab.baseDomain}" = {
           extraConfig = "redir https://{host}{uri}";
         };
         "http://*.${homelab.baseDomain}" = {
           extraConfig = "redir https://{host}{uri}";
+        };
+        "${host}.${homelab.baseDomain}" = {
+          useACMEHost = homelab.baseDomain;
+          extraConfig = ''
+            metrics /caddy/metrics
+          '';
         };
       };
     };

@@ -25,6 +25,22 @@ in
         config.sops.secrets."prometheus/hostsPasswordFile".path;
   }
   {
+    job_name = "caddy";
+    static_configs = [
+      {
+        targets = map mkHostTarget [
+          "hemwick"
+          "byrgenwerth"
+          "mensis"
+        ];
+      }
+    ];
+    metrics_path = "/caddy/metrics";
+    basic_auth =
+      mkAuthConfig "prometheus-oedon"
+        config.sops.secrets."prometheus/hostsPasswordFile".path;
+  }
+  {
     job_name = "DNS Primary";
     static_configs = [ { targets = [ (mkHostTarget "dns1") ]; } ];
   }
