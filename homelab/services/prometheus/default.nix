@@ -26,7 +26,6 @@ in
   config = lib.mkIf cfg.enable {
     services.prometheus = {
       enable = true;
-      webExternalUrl = cfg.url;
       globalConfig.scrape_interval = "30s";
       inherit (cfg) scrapeConfigs port;
     };

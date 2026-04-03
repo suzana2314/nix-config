@@ -16,6 +16,10 @@ in
     enable = lib.mkEnableOption {
       description = "Enable ${service}";
     };
+    url = lib.mkOption {
+      type = lib.types.str;
+      default = "${service}.${homelab.baseDomain}";
+    };
     tlsPort = lib.mkOption {
       type = lib.types.str;
       default = "1813";
@@ -39,7 +43,6 @@ in
           environment = {
             DOMAIN_NAME = "${cfg.url}";
             EXTERNAL_IP = "${net.ip}";
-            LISTEN_PORT_PROMETHEUS = "${cfg.prometheusPort}";
           };
           ports = [
             "${cfg.tlsPort}:1813" # tls

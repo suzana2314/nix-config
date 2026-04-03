@@ -38,7 +38,6 @@
     ./mqtt
     ./prometheus-node
     ./prometheus
-    ./uptime-kuma
     ./wireguard-netns
     ./wireguard-server
     ./scanservjs
