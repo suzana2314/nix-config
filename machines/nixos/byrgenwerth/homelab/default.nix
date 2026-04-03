@@ -82,7 +82,7 @@ in
         environmentFile = config.sops.secrets."newt/environmentFile".path;
       };
 
-      prometheus-node.enable = true;
+      prometheus-node-exporter.enable = true;
     };
   };
 

@@ -61,7 +61,7 @@ in
         networkInterface = "eno1";
       };
 
-      prometheus-node.enable = true;
+      prometheus-node-exporter.enable = true;
     };
   };
 

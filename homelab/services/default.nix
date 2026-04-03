@@ -36,8 +36,8 @@
     ./media
     ./miniflux
     ./mqtt
-    ./prometheus-node
     ./prometheus
+    ./prometheus/exporters
     ./wireguard-netns
     ./wireguard-server
     ./scanservjs

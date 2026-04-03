@@ -1,7 +1,7 @@
 { lib, config, ... }:
 let
   inherit (config) homelab;
-  service = "prometheus-node";
+  service = "prometheus-node-exporter";
   host = config.networking.hostName;
   cfg = homelab.services.${service};
 in

@@ -92,7 +92,7 @@ in
       };
 
       grafana.enable = true;
-      prometheus-node.enable = true;
+      prometheus-node-exporter.enable = true;
       prometheus = {
         enable = true;
         scrapeConfigs = import ./scrape-configs.nix { inherit config; };
