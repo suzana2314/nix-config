@@ -29,7 +29,12 @@ in
       '';
     };
 
-    cloudflare.dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
+    reverseProxy = {
+      enable = true;
+      dnsProvider = "cloudflare";
+      dnsResolver = "1.1.1.1:53";
+      dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
+    };
 
     services = {
       enable = true;

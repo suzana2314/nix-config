@@ -5,7 +5,6 @@ in
 {
   options.homelab = {
     enable = lib.mkEnableOption "Homelab service and configuration variables";
-
     user = lib.mkOption {
       default = "homelab";
       type = lib.types.str;
@@ -14,7 +13,6 @@ in
       default = "homelab";
       type = lib.types.str;
     };
-
     timeZone = lib.mkOption {
       default = "Europe/Lisbon";
       type = lib.types.str;
@@ -27,17 +25,10 @@ in
       default = "";
       type = lib.types.str;
     };
-    cloudflare.dnsCredentialsFile = lib.mkOption {
-      type = lib.types.path;
-    };
-    enableCaddy = lib.mkOption {
-      default = true;
-      type = lib.types.bool;
-      description = "Enable Caddy reverse proxy with ACME";
-    };
   };
   imports = [
     ./services
+    ./reverse-proxy
     ./motd
   ];
   config = lib.mkIf conf.enable {

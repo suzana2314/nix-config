@@ -13,9 +13,6 @@ in
   homelab = {
     enable = true;
     inherit (config.time) timeZone;
-    email = secrets.email.default;
-    baseDomain = secrets.domain;
-    enableCaddy = false;
 
     motd = {
       enable = true;
