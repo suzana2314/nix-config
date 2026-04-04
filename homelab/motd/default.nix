@@ -9,8 +9,17 @@ let
 
   enabledServices = lib.attrsets.mapAttrsToList (name: value: name) (
     lib.attrsets.filterAttrs (
-      name: value: value ? configDir && value ? enable && value.enable
+      name: value: value != "enable" && value ? enable && value.enable
     ) config.homelab.services
+  );
+  monitoredServices = lib.lists.flatten (
+    lib.lists.forEach enabledServices (
+      x:
+      let
+        services = config.homelab.services.${x};
+      in
+      if (services ? monitoredServices) then services.monitoredServices else [ x ]
+    )
   );
 
   motd = pkgs.writeShellScriptBin "motd" ''
@@ -59,26 +68,35 @@ let
     }
 
     get_service_status() {
-      statuses=$(systemctl list-units | grep "$1" | grep service)
-      while IFS= read -r line; do
-        service_name=$(echo "$line" | awk '{print $1;}')
-        if [[ $service_name =~ ".scope" || $service_name =~ ".mount" ]]; then
-          continue
-        fi
+      local svc="$1"
+      local display_name="$svc"
+      local max_name_len=$((INNER_WIDTH - 12))
 
-        # truncate because sometimes the service name messes with the formatting
-        display_name="$service_name"
-        max_name_len=$((INNER_WIDTH - 12))
-        if [ ''${#display_name} -gt $max_name_len ]; then
-          display_name="''${display_name:0:$max_name_len}..."
-        fi
+      if [ ''${#display_name} -gt $max_name_len ]; then
+        display_name="''${display_name:0:$max_name_len}..."
+      fi
 
-        if echo "$line" | grep -q 'failed'; then
-          printf "''${DIM}│''${RESET} ''${RED}●''${RESET} %-*s ''${RED}[failed]''${RESET}  ''${DIM}│''${RESET}\n" "$((INNER_WIDTH - 12))" "$display_name"
-        elif echo "$line" | grep -q 'running'; then
-          printf "''${DIM}│''${RESET} ''${GREEN}●''${RESET} %-*s ''${GREEN}[active]''${RESET}  ''${DIM}│''${RESET}\n" "$((INNER_WIDTH - 12))" "$display_name"
-        fi
-      done <<< "$statuses"
+      local active_state
+      active_state=$(systemctl show -P ActiveState "$svc" 2>/dev/null)
+
+      case "$active_state" in
+        active)
+          printf "''${DIM}│''${RESET} ''${GREEN}●''${RESET} %-*s ''${GREEN}[active]  ''${RESET}''${DIM}│''${RESET}\n" \
+            "$((INNER_WIDTH - 12))" "$display_name"
+          ;;
+        failed)
+          printf "''${DIM}│''${RESET} ''${RED}●''${RESET} %-*s ''${RED}[failed]  ''${RESET}''${DIM}│''${RESET}\n" \
+            "$((INNER_WIDTH - 12))" "$display_name"
+          ;;
+        inactive)
+          printf "''${DIM}│''${RESET} ''${YELLOW}●''${RESET} %-*s ''${YELLOW}[inactive]''${RESET}''${DIM}│''${RESET}\n" \
+            "$((INNER_WIDTH - 12))" "$display_name"
+          ;;
+        *)
+          printf "''${DIM}│''${RESET} ''${YELLOW}●''${RESET} %-*s ''${YELLOW}[unknown] ''${RESET}''${DIM}│''${RESET}\n" \
+            "$((INNER_WIDTH - 12))" "$display_name"
+          ;;
+      esac
     }
 
     # last login info
@@ -110,9 +128,8 @@ let
     done
     printf "┤''${RESET}\n"
 
-
     ${lib.strings.concatStrings (
-      lib.lists.forEach enabledServices (service: ''
+      lib.lists.forEach monitoredServices (service: ''
         get_service_status ${service}
       '')
     )}

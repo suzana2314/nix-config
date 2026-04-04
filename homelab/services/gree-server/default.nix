@@ -28,6 +28,12 @@ in
       type = lib.types.str;
       default = "5000";
     };
+    monitoredServices = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        "${config.virtualisation.oci-containers.backend}-${service}"
+      ];
+    };
     configDir = lib.mkOption {
       type = lib.types.str;
       default = "/var/lib/${service}";
@@ -37,7 +43,7 @@ in
   config = lib.mkIf cfg.enable {
     virtualisation.oci-containers = {
       containers = {
-        gree-dummy-tls-server = {
+        ${service} = {
           image = "codeberg.org/joserebelo/gree-dummy-tls-server:latest";
           autoStart = true;
           environment = {

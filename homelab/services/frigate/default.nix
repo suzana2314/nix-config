@@ -18,14 +18,6 @@ in
     enable = lib.mkEnableOption {
       description = "Enable ${service}";
     };
-    configDir = lib.mkOption {
-      type = lib.types.str;
-      default = "/var/lib/${service}";
-    };
-    storageDir = lib.mkOption {
-      type = lib.types.str;
-      default = "/var/lib/${service}/data";
-    };
     url = lib.mkOption {
       type = lib.types.str;
       default = "${service}.${homelab.baseDomain}";
@@ -33,6 +25,20 @@ in
     port = lib.mkOption {
       type = lib.types.port;
       default = 8971;
+    };
+    monitoredServices = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        "${config.virtualisation.oci-containers.backend}-${service}"
+      ];
+    };
+    configDir = lib.mkOption {
+      type = lib.types.str;
+      default = "/var/lib/${service}";
+    };
+    storageDir = lib.mkOption {
+      type = lib.types.str;
+      default = "/var/lib/${service}/data";
     };
     useCfg = lib.mkOption {
       type = lib.types.bool;

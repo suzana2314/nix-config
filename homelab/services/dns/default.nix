@@ -27,6 +27,13 @@ in
       type = lib.types.str;
       default = "8341";
     };
+    monitoredServices = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        "blocky"
+        "unbound"
+      ];
+    };
     dnsMappings = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
       default = { };

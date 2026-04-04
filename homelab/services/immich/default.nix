@@ -17,6 +17,13 @@ in
       type = lib.types.port;
       default = 2283;
     };
+    monitoredServices = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        "immich-server"
+        "redis-immich"
+      ];
+    };
     mediaDir = lib.mkOption {
       type = lib.types.path;
       default = "/storage/immich";

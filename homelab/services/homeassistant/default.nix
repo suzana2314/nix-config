@@ -21,6 +21,12 @@ in
       type = lib.types.port;
       default = 8123;
     };
+    monitoredServices = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        "${config.virtualisation.oci-containers.backend}-${service}"
+      ];
+    };
     zigbee = {
       enable = lib.mkOption {
         type = lib.types.bool;

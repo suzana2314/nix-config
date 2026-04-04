@@ -12,6 +12,21 @@ in
       type = lib.types.str;
       default = "/storage/data";
     };
+    monitoredServices = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        "bazarr"
+        "flaresolverr"
+        "jellyfin"
+        "jellyseerr"
+        "lidarr"
+        "navidrome"
+        "prowlarr"
+        "qbittorrent"
+        "radarr"
+        "sonarr"
+      ];
+    };
     navidromeEnvFile = lib.mkOption {
       type = lib.types.path;
       example = lib.literalExpression ''
