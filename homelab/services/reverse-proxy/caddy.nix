@@ -18,7 +18,7 @@ in
         "http://${homelab.baseDomain}" = {
           extraConfig = "redir https://{host}{uri}";
         };
-        "http://.${homelab.baseDomain}" = {
+        "http://*.${homelab.baseDomain}" = {
           extraConfig = "redir https://{host}{uri}";
         };
         # metrics
