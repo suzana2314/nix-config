@@ -28,7 +28,7 @@ in
     services.${service} = {
       enable = true;
       package = pkgs.unstable.grafana;
-      openFirewall = !homelab.reverseProxy.enable;
+      openFirewall = !homelab.services.reverseProxy.enable;
       settings = {
         server = {
           http_addr = "127.0.0.1";

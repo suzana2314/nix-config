@@ -28,7 +28,6 @@ in
   };
   imports = [
     ./services
-    ./reverse-proxy
     ./motd
   ];
   config = lib.mkIf conf.enable {

@@ -44,5 +44,6 @@
     ./newt
     ./radicale
     ./vaultwarden
+    ./reverse-proxy
   ];
 }

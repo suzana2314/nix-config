@@ -32,7 +32,7 @@ in
     services.${service} = {
       enable = true;
       port = cfg.port;
-      openFirewall = !homelab.reverseProxy.enable;
+      openFirewall = !homelab.services.reverseProxy.enable;
       mediaLocation = "${cfg.mediaDir}";
       inherit (cfg) accelerationDevices;
       machine-learning.enable = false;

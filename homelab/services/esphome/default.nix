@@ -38,8 +38,8 @@ in
       enable = true;
       usePing = false;
       allowedDevices = [ ];
-      openFirewall = !homelab.reverseProxy.enable;
-      address = if homelab.reverseProxy.enable then "0.0.0.0" else "localhost";
+      openFirewall = !homelab.services.reverseProxy.enable;
+      address = if homelab.services.reverseProxy.enable then "0.0.0.0" else "localhost";
       port = cfg.port;
     };
     systemd.services.${service}.serviceConfig = {

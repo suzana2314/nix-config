@@ -67,7 +67,7 @@ in
     virtualisation.oci-containers.containers.${service} = {
       image = "ghcr.io/blakeblackshear/frigate:stable";
       ports = [
-        "${if homelab.reverseProxy.enable then "127.0.0.1:" else ""}${toString cfg.port}:8971"
+        "${if homelab.services.reverseProxy.enable then "127.0.0.1:" else ""}${toString cfg.port}:8971"
         "8555:8555/tcp" # webrtc
         "8555:8555/udp" # webrtc
       ];
@@ -92,7 +92,7 @@ in
         allowedTCPPorts = [ 8555 ];
         allowedUDPPorts = [ 8555 ];
       }
-      (lib.mkIf (!homelab.reverseProxy.enable) {
+      (lib.mkIf (!homelab.services.reverseProxy.enable) {
         allowedTCPPorts = [ cfg.port ];
       })
     ];

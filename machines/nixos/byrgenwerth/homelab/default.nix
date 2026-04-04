@@ -29,15 +29,15 @@ in
       '';
     };
 
-    reverseProxy = {
-      enable = true;
-      dnsProvider = "cloudflare";
-      dnsResolver = "1.1.1.1:53";
-      dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
-    };
-
     services = {
       enable = true;
+
+      reverseProxy = {
+        enable = true;
+        dnsProvider = "cloudflare";
+        dnsResolver = "1.1.1.1:53";
+        dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
+      };
 
       dns = {
         enable = true;

@@ -68,7 +68,7 @@ in
         "${cfg.configDir}:/config"
       ];
       ports = [
-        "${if homelab.reverseProxy.enable then "127.0.0.1:" else ""}${toString cfg.port}:8123"
+        "${if homelab.services.reverseProxy.enable then "127.0.0.1:" else ""}${toString cfg.port}:8123"
       ]
       ++ lib.optionals cfg.shelly.enable [
         "127.0.0.1:${toString cfg.shelly.port}:${toString cfg.shelly.port}/udp"
@@ -83,7 +83,7 @@ in
       (lib.mkIf cfg.shelly.enable {
         allowedUDPPorts = [ cfg.shelly.port ];
       })
-      (lib.mkIf (!homelab.reverseProxy.enable) {
+      (lib.mkIf (!homelab.services.reverseProxy.enable) {
         allowedTCPPorts = [ cfg.port ];
       })
     ];
