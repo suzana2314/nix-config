@@ -102,7 +102,7 @@ in
   home.packages = with pkgs; [
     # util
     unstable.nautilus
-    feh
+    eog
     zathura
     vlc
     lenopow
