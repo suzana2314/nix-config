@@ -45,5 +45,6 @@
     ./radicale
     ./vaultwarden
     ./reverse-proxy
+    ./readeck
   ];
 }

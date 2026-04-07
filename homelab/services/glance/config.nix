@@ -248,6 +248,11 @@
                   icon = "/assets/miniflux-light.svg";
                 }
                 {
+                  title = "Readeck";
+                  url = "https://readeck.${baseDomain}";
+                  icon = "/assets/readeck.svg";
+                }
+                {
                   title = "Scanservjs";
                   url = "https://scan.${baseDomain}";
                   icon = "/assets/printer.svg";

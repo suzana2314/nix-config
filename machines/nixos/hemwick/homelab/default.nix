@@ -63,7 +63,12 @@ in
 
       esphome = {
         enable = true;
-        environmentFile = config.sops.secrets.esphome.path;
+        environmentFile = config.sops.secrets."esphome/environmentFile".path;
+      };
+
+      readeck = {
+        enable = true;
+        environmentFile = config.sops.secrets."readeck/environmentFile".path;
       };
 
       mosquitto.enable = true;
@@ -105,11 +110,12 @@ in
     "cloudflare/dnsCredentials" = mkUserSecret config.users.users.acme.name;
     "cloudflare/ddnsCredentials" = mkUserSecret config.users.users.ddns-updater.name;
     "cloudflare/ddnsNotification" = mkUserSecret config.users.users.ddns-updater.name;
-    esphome = mkSecret;
-    "glance/byrgenwerthApitoken" = mkSecret;
-    "miniflux/environmentFile" = mkSecret;
     "radicale/passwdFile" = mkUserSecret config.users.users.radicale.name;
-    "newt/environmentFile" = mkSecret;
     "prometheus/hostsPasswordFile" = mkUserSecret config.users.users.prometheus.name;
+    "glance/byrgenwerthApitoken" = mkSecret;
+    "esphome/environmentFile" = mkSecret;
+    "miniflux/environmentFile" = mkSecret;
+    "newt/environmentFile" = mkSecret;
+    "readeck/environmentFile" = mkSecret;
   };
 }
