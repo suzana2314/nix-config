@@ -5,11 +5,12 @@
 {
   programs.neovim = {
     enable = true;
+    package = pkgs.unstable.neovim-unwrapped;
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
 
-    plugins = with pkgs.vimPlugins; [
+    plugins = with pkgs.unstable.vimPlugins; [
       nvim-treesitter.withAllGrammars
       telescope-nvim
       nvim-lspconfig
