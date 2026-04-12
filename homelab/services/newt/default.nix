@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -26,7 +25,6 @@ in
     services.${service} = {
       enable = true;
       inherit (cfg) environmentFile;
-      package = pkgs.unstable.fosrl-newt;
     };
   };
 }
