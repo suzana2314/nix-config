@@ -40,7 +40,6 @@
       ${builtins.readFile config/lsp.lua}
       ${builtins.readFile config/autocmd.lua}
       ${builtins.readFile config/statusline.lua}
-      ${builtins.readFile config/plugins/treesitter.lua}
       ${builtins.readFile config/plugins/telescope.lua}
       ${builtins.readFile config/plugins/completion.lua}
       ${builtins.readFile config/plugins/oil.lua}

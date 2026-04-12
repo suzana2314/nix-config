@@ -1,8 +1,6 @@
-local api = vim.api
-
-local tempdirgroup = api.nvim_create_augroup('tempdir', { clear = true })
+local tempdirgroup = vim.api.nvim_create_augroup('tempdir', { clear = true })
 -- Do not set undofile for files in /tmp
-api.nvim_create_autocmd('BufWritePre', {
+vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '/tmp/*',
   group = tempdirgroup,
   callback = function()
@@ -54,16 +52,21 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if not client then
       return
     end
-    local group = api.nvim_create_augroup(string.format('lsp-%s-%s', bufnr, client.id), {})
     if client.server_capabilities.codeLensProvider then
-      vim.api.nvim_create_autocmd({ 'InsertLeave', 'BufWritePost', 'TextChanged' }, {
-        group = group,
-        callback = function()
-          vim.lsp.codelens.refresh { bufnr = bufnr }
-        end,
-        buffer = bufnr,
-      })
-      vim.lsp.codelens.refresh { bufnr = bufnr }
+      vim.lsp.codelens.enable(true, {bufnr = bufnr})
+    end
+  end,
+})
+
+-- Treesitter
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "*" },
+  callback = function(args)
+    local ft = vim.bo[args.buf].filetype
+    local lang = vim.treesitter.language.get_lang(ft)
+    if lang and vim.treesitter.language.add(lang) then
+      vim.treesitter.start(args.buf, lang)
     end
   end,
 })
