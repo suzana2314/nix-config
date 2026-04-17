@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -14,10 +13,6 @@ in
     enable = lib.mkEnableOption {
       description = "Enable ${service}";
     };
-    configDir = lib.mkOption {
-      type = lib.types.str;
-      default = "/var/lib/${service}";
-    };
     url = lib.mkOption {
       type = lib.types.str;
       default = "${service}.${homelab.baseDomain}";
@@ -29,24 +24,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    nixpkgs.overlays = with pkgs; [
-      (final: prev: {
-        jellyfin-web = prev.jellyfin-web.overrideAttrs (
-          finalAttrs: previousAttrs: {
-            installPhase = ''
-              runHook preInstall
-
-              sed -i "s#</head>#<script src=\"configurationpage?name=skip-intro-button.js\"></script></head>#" dist/index.html
-
-              mkdir -p $out/share
-              cp -a dist $out/share/jellyfin-web
-
-              runHook postInstall
-            '';
-          }
-        );
-      })
-    ];
     services.${service} = {
       enable = true;
       inherit (homelab) user group;

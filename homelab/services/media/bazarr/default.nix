@@ -9,13 +9,13 @@ in
     enable = lib.mkEnableOption {
       description = "Enable ${service}";
     };
-    configDir = lib.mkOption {
-      type = lib.types.str;
-      default = "/var/lib/${service}";
-    };
     url = lib.mkOption {
       type = lib.types.str;
       default = "${service}.${homelab.baseDomain}";
+    };
+    port = lib.mkOption {
+      type = lib.types.port;
+      default = 6767;
     };
   };
 
@@ -27,7 +27,7 @@ in
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''
-        reverse_proxy http://127.0.0.1:${toString config.services.${service}.listenPort}
+        reverse_proxy http://127.0.0.1:${toString cfg.port}
       '';
     };
   };
