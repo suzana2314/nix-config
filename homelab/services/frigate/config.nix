@@ -162,9 +162,11 @@ in
   record = {
     enabled = true;
     sync_recordings = true;
-    retain = {
+    continuous = {
+      days = 0;
+    };
+    motion = {
       days = defaultRetention;
-      mode = "motion";
     };
     alerts = {
       retain = {
