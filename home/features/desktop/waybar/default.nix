@@ -1,4 +1,43 @@
 { config, pkgs, ... }:
+let
+  # this should be in a custom lib...
+  hexToInt =
+    hex:
+    let
+      digits = {
+        "0" = 0;
+        "1" = 1;
+        "2" = 2;
+        "3" = 3;
+        "4" = 4;
+        "5" = 5;
+        "6" = 6;
+        "7" = 7;
+        "8" = 8;
+        "9" = 9;
+        "a" = 10;
+        "b" = 11;
+        "c" = 12;
+        "d" = 13;
+        "e" = 14;
+        "f" = 15;
+      };
+      hi = builtins.substring 0 1 hex;
+      lo = builtins.substring 1 1 hex;
+    in
+    digits.${hi} * 16 + digits.${lo};
+
+  hexToRgb =
+    hex:
+    let
+      r = hexToInt (builtins.substring 0 2 hex);
+      g = hexToInt (builtins.substring 2 2 hex);
+      b = hexToInt (builtins.substring 4 2 hex);
+    in
+    "${toString r}, ${toString g}, ${toString b}";
+
+in
+
 {
   imports = [
     ./scripts
@@ -166,7 +205,7 @@
         window#waybar > box {
             border-radius: 10px;
             margin: 10px 10px 3px 10px;
-            background-color: #${palette.base00};
+            background-color: rgba(${hexToRgb palette.base00}, 0.96);
             box-shadow: 0px 0px 2px 1px rgba(26, 26, 26, 0.85);
         }
 

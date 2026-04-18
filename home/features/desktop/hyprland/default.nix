@@ -211,6 +211,11 @@
         preserve_split = "yes";
       };
 
+      layerrule = [
+        "blur, waybar"
+        "ignorealpha 0.8, waybar"
+      ];
+
       decoration = {
         rounding = 8;
         active_opacity = 1;
