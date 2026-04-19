@@ -30,7 +30,7 @@ in
             prefixLength = net.prefixLength;
           }
         ];
-        defaultGateway = net.gateway;
+        defaultGateway = host.gateway;
         nameservers = host.dns;
         firewall.enable = true;
       };
