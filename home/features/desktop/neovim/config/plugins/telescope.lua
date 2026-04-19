@@ -35,7 +35,7 @@ telescope.setup {
     },
     color_devicons = true,
     set_env = { ['COLORTERM'] = 'truecolor' },
-    prompt_prefix = '   ',
+    prompt_prefix = ' search ',
     selection_caret = '  ',
     entry_prefix = '  ',
     initial_mode = 'insert',

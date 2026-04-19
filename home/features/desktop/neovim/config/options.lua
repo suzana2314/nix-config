@@ -62,6 +62,7 @@ require('gruvbox').setup({
 
 })
 vim.cmd("colorscheme gruvbox")
+
 vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' }) -- to remove annoying background on floating windows
 
 -- Diagnostics
@@ -78,3 +79,9 @@ vim.diagnostic.config {
     prefix = '',
   },
 }
+
+vim.api.nvim_set_hl(0, 'SignColumn', { bg = 'none' })
+vim.api.nvim_set_hl(0, 'DiagnosticSignError', { link = 'DiagnosticError' })
+vim.api.nvim_set_hl(0, 'DiagnosticSignWarn', { link = 'DiagnosticWarn' })
+vim.api.nvim_set_hl(0, 'DiagnosticSignInfo', { link = 'DiagnosticInfo' })
+vim.api.nvim_set_hl(0, 'DiagnosticSignHint', { link = 'DiagnosticHint' })

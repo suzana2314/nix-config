@@ -34,17 +34,18 @@
 
     extraConfig = ''
       lua << EOF
-      ${builtins.readFile config/plugins/vimtex.lua}
       ${builtins.readFile config/options.lua}
       ${builtins.readFile config/mappings.lua}
       ${builtins.readFile config/lsp.lua}
       ${builtins.readFile config/autocmd.lua}
       ${builtins.readFile config/statusline.lua}
+      ${builtins.readFile config/tabline.lua}
       ${builtins.readFile config/plugins/telescope.lua}
       ${builtins.readFile config/plugins/completion.lua}
       ${builtins.readFile config/plugins/oil.lua}
       ${builtins.readFile config/plugins/autopairs.lua}
       ${builtins.readFile config/plugins/gitsigns.lua}
+      ${builtins.readFile config/plugins/vimtex.lua}
     '';
   };
 
