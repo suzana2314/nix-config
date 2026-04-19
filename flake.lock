@@ -140,10 +140,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1775404109,
-        "narHash": "sha256-vvxlLDEhvxCfOE2+GyuFk2HtQFXfpwjgEksBHrSgYkQ=",
+        "lastModified": 1776595627,
+        "narHash": "sha256-8eEDoFj1eyN4pC28Zxp9sowJS1+SJcHDNf+f5aY9wLk=",
         "ref": "master",
-        "rev": "0ea47212bee2fbacac7bbedd1e5966d45d7a242f",
+        "rev": "dc71789a010b72612edee66a0849dd667f442f85",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@codeberg.org/suzana2314/nix-secrets.git"
@@ -173,11 +173,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1776221942,
-        "narHash": "sha256-FbQAeVNi7G4v3QCSThrSAAvzQTmrmyDLiHNPvTF2qFM=",
+        "lastModified": 1776434932,
+        "narHash": "sha256-gyqXNMgk3sh+ogY5svd2eNLJ6oEwzbAeaoBrrxD0lKk=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "1766437c5509f444c1b15331e82b8b6a9b967000",
+        "rev": "c7f47036d3df2add644c46d712d14262b7d86c0c",
         "type": "github"
       },
       "original": {
