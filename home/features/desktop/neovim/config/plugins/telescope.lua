@@ -1,5 +1,6 @@
 local telescope = require('telescope')
 local actions = require('telescope.actions')
+local keymap = vim.keymap.set
 
 local layout_config = {
   vertical = {
@@ -24,6 +25,12 @@ telescope.setup {
     mappings = {
       n = {
         q = actions.close,
+        ["<C-v>"] = actions.select_vertical,
+        ["<C-s>"] = actions.select_horizontal,
+      },
+      i = {
+        ["<C-v>"] = actions.select_vertical,
+        ["<C-s>"] = actions.select_horizontal,
       },
     },
     preview = {
@@ -52,3 +59,7 @@ telescope.setup {
   },
 }
 
+-- mappings
+keymap('n', '<leader>ff', "<cmd>Telescope find_files<CR>")
+keymap('n', '<leader>fg', "<cmd>Telescope live_grep<CR>")
+keymap('n', '<leader>fb', "<cmd>Telescope buffers<CR>")
