@@ -18,6 +18,10 @@ up:
   nix flake update
 
 [group('nix')]
+update $pkg:
+  nix-update --flake --commit {{pkg}}
+
+[group('nix')]
 verify:
   nix store verify --all
 
