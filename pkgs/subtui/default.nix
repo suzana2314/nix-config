@@ -7,16 +7,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "subtui";
-  version = "2.13.1";
+  version = "2.14.0";
 
   src = fetchFromGitHub {
     owner = "MattiaPun";
     repo = "subtui";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-0qJalH7kGtuZvoi+aYtBskFSbx6Cue875dxFgiMhKb4=";
+    hash = "sha256-PB5a5Pk8lbR2QIPs55ifmaletYv/60L6LucRtxgEZeU=";
   };
 
-  vendorHash = "sha256-LSEp0NaNsdnpDZTDUvpK5L7yPlqt3/W4jI9OOnvo7Lc=";
+  vendorHash = "sha256-ZI6K3EupgqPvE1ixd7VpJ9cvND0rwcrvRcPfbdjjK+U=";
 
   nativeBuildInputs = [ pkgs.makeWrapper ];
 
