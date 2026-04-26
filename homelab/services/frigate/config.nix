@@ -92,7 +92,7 @@ in
         input_args = "preset-rtsp-restream";
         inputs = [
           {
-            path = "rtsp://127.0.0.1:8554/cam2";
+            path = "rtsp://127.0.0.1:8554/cam2_sub";
             roles = [
               "detect"
             ];
@@ -191,7 +191,7 @@ in
   detectors = {
     ov = {
       type = "openvino";
-      device = "CPU";
+      device = "GPU";
     };
   };
   model = {
