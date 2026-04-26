@@ -15,8 +15,10 @@ in
     settings = {
       app = {
         replaygain = "no";
-        desktop_notifications = false;
-        discord_rich_presence = false;
+        desktop_notifications = true;
+        discord_rich_presence = true;
+        default_volume = 80;
+        gapless_playback = "yes";
       };
       theme =
         let
@@ -55,6 +57,15 @@ in
           name = true;
           album_count = true;
           rating = false;
+        };
+      };
+      keybinds = {
+        navigation = {
+          toggle_selection = [ "V" ];
+        };
+        media = {
+          volume_up = [ "+" ];
+          volume_down = [ "-" ];
         };
       };
     };
