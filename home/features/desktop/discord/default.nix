@@ -67,7 +67,7 @@
         --remove-bg-layer: off; /* off: no changes, on: remove the base --bg-3 layer for use with window transparency (WILL OVERRIDE BACKGROUND IMAGE) */
         --panel-blur: off; /* off: no changes, on: blur the background of panels */
         --blur-amount: 12px; /* amount of blur */
-        --bg-floating: var(--bg-3); /* set this to a more opaque color if floating panels look too transparent. only applies if panel blur is on  */
+        --bg-floating: var(--bg-4); /* set this to a more opaque color if floating panels look too transparent. only applies if panel blur is on  */
 
         /* other options */
         --small-user-panel: off; /* off: default user panel, on: smaller user panel like in old discord */
@@ -77,11 +77,11 @@
 
         /* styling options */
         --custom-spotify-bar: on; /* off: default, on: custom text-like spotify progress bar */
-        --ascii-titles: on; /* off: default, on: use ascii font for titles at the start of a channel */
+        --ascii-titles: off; /* off: default, on: use ascii font for titles at the start of a channel */
         --ascii-loader: cats; /* off: default, system24: use system24 ascii loader, cats: use cats loader */
 
         /* panel labels */
-        --panel-labels: on; /* off: default, on: add labels to panels */
+        --panel-labels: off; /* off: default, on: add labels to panels */
         --label-color: var(--text-muted); /* color of labels */
         --label-font-weight: 500; /* font weight of labels */
     }
@@ -101,7 +101,7 @@
         /* background and dark colors */
         --bg-1: #${base02}; /* dark buttons when clicked */
         --bg-2: #${base01}; /* dark buttons */
-        --bg-3: #${base02}; /* spacing, secondary elements */
+        --bg-3: #${base01}; /* spacing, secondary elements */
         --bg-4: #${base00}; /* main background color */
         --hover: hsla(20, 3%, 40%, 0.1); /* channels and buttons when hovered */
         --active: #${base01}; /* channels and buttons when clicked or selected */
@@ -114,7 +114,7 @@
         --accent-3: var(--blue); /* accent buttons */
         --accent-4: var(--purple); /* accent buttons when hovered */
         --accent-5: var(--purple); /* accent buttons when clicked */
-        --accent-new: var(--red); /* stuff that's normally red like mute/deafen buttons */
+        --accent-new: var(--aqua); /* stuff that's normally red like mute/deafen buttons */
         --mention: color-mix(in oklch, var(--aqua), transparent 90%); /* background of messages that mention you */
         --mention-hover: color-mix(in oklch, var(--aqua), transparent 95%); /* background of messages that mention you when hovered */
         --reply: color-mix(in oklch, var(--aqua), transparent 90%); /* background of messages that reply to you */
