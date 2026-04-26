@@ -53,19 +53,19 @@
         };
 
         urgency_low = {
-          background = "#282828";
+          background = "#${palette.base01}e6";
           foreground = "#${palette.base0C}";
           timeout = 5;
         };
 
         urgency_normal = {
-          background = "#282828";
+          background = "#${palette.base01}e6";
           foreground = "#${palette.base0C}";
           timeout = 5;
         };
 
         urgency_critical = {
-          background = "#${palette.base08}";
+          background = "#${palette.base08}e6";
           foreground = "#ffffff";
           timeout = 0;
         };

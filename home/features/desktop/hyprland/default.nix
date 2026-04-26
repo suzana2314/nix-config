@@ -228,6 +228,8 @@
       };
 
       layerrule = [
+        "blur on, match:namespace notifications"
+        "ignore_alpha 0.5, match:namespace notifications"
         "blur on, match:namespace waybar"
         "ignore_alpha 0.8, match:namespace waybar"
       ];
@@ -235,7 +237,7 @@
       decoration = {
         rounding = 8;
         active_opacity = 1;
-        inactive_opacity = 0.96;
+        inactive_opacity = 0.95;
         blur = {
           enabled = true;
           size = 5;
