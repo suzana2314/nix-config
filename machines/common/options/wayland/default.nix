@@ -1,6 +1,9 @@
 { pkgs, ... }:
 {
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    package = pkgs.unstable.hyprland;
+  };
   security.pam.services.hyprlock = { };
 
   services.displayManager.ly = {

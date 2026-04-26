@@ -82,6 +82,7 @@ in
       x = 0;
       y = 0;
       scale = 1.0;
+      bitdepth = 10;
       primary = true;
       workspaces = [
         "1"

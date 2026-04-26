@@ -42,20 +42,35 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    package = null;
 
     settings = {
-      monitor = map (
+      monitorv2 = map (
         m:
         let
           resolution = "${toString m.width}x${toString m.height}@${toString m.refreshRate}.0";
           position = "${toString m.x}x${toString m.y}";
-          scale = toString m.scale;
         in
         if m.enabled then
-          "desc:${m.description},${resolution},${position},${scale}"
+          {
+            output = "desc:${m.description}";
+            mode = resolution;
+            position = position;
+            scale = m.scale;
+            bitdepth = m.bitdepth;
+          }
         else
-          "desc:${m.description},disable"
+          {
+            output = "desc:${m.description}";
+            disabled = true;
+          }
       ) config.monitors;
+
+      render = {
+        cm_fs_passthrough = 1;
+        cm_auto_hdr = 1;
+        cm_enabled = true;
+      };
 
       workspace = lib.flatten (
         map (m: map (workspace: "${workspace},monitor:${m.name}") m.workspaces) (
@@ -76,7 +91,8 @@
         animate_manual_resizes = true;
         animate_mouse_windowdragging = true;
         disable_hyprland_logo = true;
-        new_window_takes_over_fullscreen = 2;
+        focus_on_activate = true;
+        initial_workspace_tracking = 2;
       };
 
       # ============================== STARTUP ==============================
@@ -212,8 +228,8 @@
       };
 
       layerrule = [
-        "blur, waybar"
-        "ignorealpha 0.8, waybar"
+        "blur on, match:namespace waybar"
+        "ignore_alpha 0.8, match:namespace waybar"
       ];
 
       decoration = {
@@ -263,11 +279,10 @@
         ];
       };
 
-      windowrulev2 = [
-        "opacity 1.0 override 1.0 override, class:(firefox)"
-        "opacity 1.0 override 1.0 override, class:(PrusaSlicer)"
-        "idleinhibit focus, title:.*YouTube.*"
-        "idleinhibit fullscreen, title:.*"
+      windowrule = [
+        "opacity 1.0 override 1.0 override 1.0 override, match:class firefox"
+        "idle_inhibit focus, match:title .*YouTube.*"
+        "idle_inhibit fullscreen, match:title .*"
       ];
     };
   };

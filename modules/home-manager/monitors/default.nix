@@ -45,6 +45,10 @@ in
             type = types.float;
             default = 1.0;
           };
+          bitdepth = mkOption {
+            type = types.int;
+            default = 8;
+          };
           workspaces = mkOption {
             type = types.listOf types.str;
             default = [ ];
