@@ -1,4 +1,8 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  ...
+}:
 let
   inherit (lib)
     mkEnableOption
@@ -36,7 +40,14 @@ in
   };
   config = mkIf cfg.enable {
     fonts = {
-      fontconfig.enable = true;
+      fontconfig = {
+        enable = true;
+        defaultFonts = {
+          monospace = [ "JetBrainsMono Nerd Font" ];
+          sansSerif = [ "JetBrainsMono Nerd Font" ];
+          serif = [ "JetBrainsMono Nerd Font" ];
+        };
+      };
     };
     home.packages = [
       cfg.monospace.package
