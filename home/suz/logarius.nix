@@ -44,10 +44,10 @@
   monitors = [
     {
       name = "eDP-1";
-      description = "BOE 0x08E8";
+      description = "AU Optronics 0x403D";
       width = 1920;
       height = 1080;
-      refreshRate = 120;
+      refreshRate = 60;
       x = 2560;
       y = 834;
       scale = 1.0;

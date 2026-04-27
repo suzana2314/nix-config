@@ -2,6 +2,7 @@
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1
     inputs.disko.nixosModules.disko
 
     ./hardware-configuration.nix
@@ -9,7 +10,6 @@
 
     ../../common/users/suz # main user
     ../../common/core
-    ../../common/options/power
     ../../common/options/audio
     ../../common/options/wireless
     ../../common/options/systemd-bootloader
