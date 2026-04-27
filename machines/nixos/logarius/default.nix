@@ -12,7 +12,7 @@
     ../../common/options/power
     ../../common/options/audio
     ../../common/options/wireless
-    ../../common/options/systemd-bootloader
+    ../../common/options/grub-bootloader
     ../../common/options/wayland
     ../../common/options/printing
     ../../common/options/virtualisation
