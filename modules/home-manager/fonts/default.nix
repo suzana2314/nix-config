@@ -40,14 +40,7 @@ in
   };
   config = mkIf cfg.enable {
     fonts = {
-      fontconfig = {
-        enable = true;
-        defaultFonts = {
-          monospace = [ "JetBrainsMono Nerd Font" ];
-          sansSerif = [ "JetBrainsMono Nerd Font" ];
-          serif = [ "JetBrainsMono Nerd Font" ];
-        };
-      };
+      fontconfig.enable = true;
     };
     home.packages = [
       cfg.monospace.package
