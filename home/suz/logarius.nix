@@ -44,13 +44,31 @@
   monitors = [
     {
       name = "eDP-1";
-      description = "";
+      description = "BOE 0x08E8";
       width = 1920;
       height = 1080;
-      refreshRate = 60;
+      refreshRate = 120;
       x = 2560;
       y = 834;
       scale = 1.0;
+      workspaces = [
+        "6"
+        "7"
+        "8"
+        "9"
+        "10"
+      ];
+    }
+    {
+      name = "HDMI-A-1";
+      description = "Samsung Electric Company LC27G5xT H4ZR704887";
+      width = 2560;
+      height = 1440;
+      refreshRate = 144;
+      x = 0;
+      y = 0;
+      scale = 1.0;
+      bitdepth = 10;
       primary = true;
       workspaces = [
         "1"
@@ -58,11 +76,6 @@
         "3"
         "4"
         "5"
-        "6"
-        "7"
-        "8"
-        "9"
-        "10"
       ];
     }
   ];
