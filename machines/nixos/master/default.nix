@@ -18,6 +18,7 @@
     ../../common/options/nvidia
     ../../common/options/steam
     ../../common/options/yubikey
+    ../../common/options/localsend
   ];
 
   systemd.network.wait-online.enable = false;

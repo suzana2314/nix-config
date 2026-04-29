@@ -18,6 +18,7 @@
     ../../common/options/printing
     ../../common/options/virtualisation
     ../../common/options/yubikey
+    ../../common/options/localsend
   ];
 
   boot.initrd.systemd.enable = true;
