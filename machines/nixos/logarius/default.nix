@@ -14,6 +14,7 @@
     ../../common/options/wireless
     ../../common/options/systemd-bootloader
     ../../common/options/wayland
+    ../../common/options/greetd
     ../../common/options/printing
     ../../common/options/virtualisation
     ../../common/options/yubikey

@@ -12,6 +12,7 @@
     ../../common/options/wireless
     ../../common/options/grub-bootloader # for dual boot
     ../../common/options/wayland
+    ../../common/options/ly
     ../../common/options/printing
     ../../common/options/virtualisation
     ../../common/options/nvidia
