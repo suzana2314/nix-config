@@ -31,7 +31,7 @@ gc:
 
 [group('build')]
 build:
-  nh os switch .#nixosConfigurations.master --ask
+  nh os switch .#nixosConfigurations.$(hostname) --ask
 
 [group('deploy')]
 sync $host:
