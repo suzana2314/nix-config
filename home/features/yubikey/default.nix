@@ -1,12 +1,18 @@
-{ inputs, config, ... }:
+{
+  inputs,
+  config,
+  osConfig,
+  ...
+}:
 let
   inherit (config.home) username;
-  sopsFile = (toString inputs.nix-secrets) + "/sops";
+  inherit (osConfig.networking) hostName;
+  sopsFile = (toString inputs.nix-secrets) + "/sops/${username}.yaml";
 in
 {
   sops.secrets = {
-    "yubico/u2f_keys" = {
-      sopsFile = "${sopsFile}/${username}.yaml";
+    "yubico/${hostName}/u2f_keys" = {
+      sopsFile = sopsFile;
       path = "${config.xdg.configHome}/Yubico/u2f_keys";
     };
   };
