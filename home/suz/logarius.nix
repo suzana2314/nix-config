@@ -21,6 +21,7 @@
     ../features/yubikey
     ../features/ssh
     ../features/gpg
+    ../features/xdg
     ./core
   ];
 
