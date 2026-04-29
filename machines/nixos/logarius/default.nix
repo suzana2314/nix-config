@@ -19,6 +19,8 @@
     ../../common/options/yubikey
   ];
 
+  boot.initrd.systemd.enable = true;
+
   systemd.network.wait-online.enable = false;
 
   services.btrfs.autoScrub = {
