@@ -14,6 +14,7 @@
     ../features/desktop/neovim
     ../features/desktop/calendar
     ../features/desktop/subtui
+    ../features/desktop/firefox
     ../features/git
     ../features/direnv
     ../features/env
@@ -96,7 +97,6 @@
     lenopow
 
     # apps
-    unstable.firefox
     unstable.obsidian
     subtui
   ];
