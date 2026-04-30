@@ -46,5 +46,6 @@
     ./vaultwarden
     ./reverse-proxy
     ./readeck
+    ./webdav
   ];
 }

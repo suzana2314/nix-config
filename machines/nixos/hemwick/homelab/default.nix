@@ -91,6 +91,11 @@ in
         passwdFile = config.sops.secrets."radicale/passwdFile".path;
       };
 
+      webdav = {
+        enable = true;
+        environmentFile = config.sops.secrets."webdav/environmentFile".path;
+      };
+
       newt = {
         enable = true;
         environmentFile = config.sops.secrets."newt/environmentFile".path;
@@ -111,6 +116,7 @@ in
     "cloudflare/ddnsCredentials" = mkUserSecret config.users.users.ddns-updater.name;
     "cloudflare/ddnsNotification" = mkUserSecret config.users.users.ddns-updater.name;
     "radicale/passwdFile" = mkUserSecret config.users.users.radicale.name;
+    "webdav/environmentFile" = mkUserSecret config.users.users.webdav.name;
     "prometheus/hostsPasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "glance/byrgenwerthApitoken" = mkSecret;
     "esphome/environmentFile" = mkSecret;
