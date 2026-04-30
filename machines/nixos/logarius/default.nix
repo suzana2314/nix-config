@@ -38,6 +38,8 @@
     };
   };
 
+  services.fprintd.enable = true;
+
   networking.hostName = "logarius";
   networking.firewall.enable = true;
 
