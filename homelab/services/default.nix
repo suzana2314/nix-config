@@ -47,5 +47,6 @@
     ./reverse-proxy
     ./readeck
     ./webdav
+    ./endurain
   ];
 }

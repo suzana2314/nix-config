@@ -101,6 +101,11 @@ in
         environmentFile = config.sops.secrets."newt/environmentFile".path;
       };
 
+      endurain = {
+        enable = true;
+        environmentFile = config.sops.secrets."endurain/environmentFile".path;
+      };
+
       grafana.enable = true;
       prometheus-node-exporter.enable = true;
       prometheus = {
@@ -123,5 +128,6 @@ in
     "miniflux/environmentFile" = mkSecret;
     "newt/environmentFile" = mkSecret;
     "readeck/environmentFile" = mkSecret;
+    "endurain/environmentFile" = mkSecret;
   };
 }

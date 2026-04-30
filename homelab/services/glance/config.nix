@@ -243,6 +243,11 @@
                   icon = "/assets/mainsail.svg";
                 }
                 {
+                  title = "Endurain";
+                  url = "https://endurain.${baseDomain}";
+                  icon = "/assets/endurain.svg";
+                }
+                {
                   title = "Miniflux";
                   url = "https://miniflux.${baseDomain}";
                   icon = "/assets/miniflux-light.svg";
