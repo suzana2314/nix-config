@@ -19,6 +19,7 @@
     ../../common/options/virtualisation
     ../../common/options/yubikey
     ../../common/options/localsend
+    ../../common/options/zram
   ];
 
   boot.initrd.systemd.enable = true;
@@ -35,6 +36,13 @@
     cryptroot = {
       device = "/dev/disk/by-partlabel/luks";
       allowDiscards = true;
+    };
+  };
+
+  boot = {
+    tmp = {
+      useTmpfs = true;
+      tmpfsSize = "50%";
     };
   };
 
