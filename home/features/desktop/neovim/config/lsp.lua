@@ -6,6 +6,7 @@ vim.lsp.enable({
   "ruff",
   "gopls",
   "rust_analyzer",
+  "yamlls",
   "zls"
 })
 
@@ -36,5 +37,23 @@ vim.lsp.config('nixd', {
         '(builtins.getFlake (builtins.toString /home/suz/.nix/nix-config)).nixosConfigurations.master.options.home-manager.users.type.getSubOptions []', -- using the home manager module
       },
     },
+  },
+})
+
+vim.lsp.config('yamlls', {
+  settings = {
+    yaml = {
+      customTags = {
+        "!secret scalar",
+        "!lambda scalar",
+        "!include scalar",
+        "!include_dir_list scalar",
+        "!include_dir_named scalar",
+        "!include_dir_merge_list scalar",
+        "!include_dir_merge_named scalar",
+        "!extend scalar",
+        "!remove scalar"
+      }
+    }
   },
 })
