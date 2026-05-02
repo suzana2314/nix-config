@@ -52,11 +52,20 @@ let
         case "$term" in
           kitty)    echo "kitty --class $class $app" ;;
           alacritty) echo "alacritty --class $class -e $app" ;;
-          ghostty)  echo "ghostty --class $class -e $app" ;;
+          ghostty)  echo "ghostty --title=$class -e $app +new-window" ;;
           foot)     echo "foot --app-id $class $app" ;;
         esac
       }
 
+      # shitty fix for ghostty
+      get_widget_address() {
+        local term="$1"
+        local class="$2"
+        case "$term" in
+          ghostty) hyprctl clients -j | jq -r ".[] | select(.title == \"$class\") | .address" ;;
+          *)       hyprctl clients -j | jq -r ".[] | select(.class == \"$class\") | .address" ;;
+        esac
+      }
 
       # arg parsing
 
@@ -94,7 +103,8 @@ let
       esac
 
       terminal_bin=$(get_terminal)
-      widget_address=$(hyprctl clients -j | jq -r ".[] | select(.class == \"$widget_class\") | .address")
+      widget_address=$(get_widget_address "$terminal_bin" "$widget_class")
+
 
       if [ -n "$widget_address" ]; then
         hyprctl dispatch closewindow "address:$widget_address"

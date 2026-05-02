@@ -167,7 +167,7 @@
         in
         [
           # apps
-          "SUPER, Return, exec, alacritty"
+          "SUPER, Return, exec, ghostty +new-window"
           "SUPER, Z, exec, firefox"
           "SUPER, D, exec, wofi --show drun"
           "SUPER, E, exec, nautilus"

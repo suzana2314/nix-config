@@ -2,7 +2,7 @@
 {
   imports = [
     inputs.nix-colors.homeManagerModules.default
-    ../features/desktop/alacritty
+    ../features/desktop/ghostty
     ../features/desktop/discord
     ../features/desktop/notifications
     ../features/desktop/gtk

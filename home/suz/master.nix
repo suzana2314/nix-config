@@ -16,7 +16,7 @@ in
 {
   imports = [
     inputs.nix-colors.homeManagerModules.default
-    ../features/desktop/alacritty
+    ../features/desktop/ghostty
     ../features/desktop/discord
     ../features/desktop/notifications
     ../features/desktop/gtk
@@ -46,7 +46,7 @@ in
   fontProfiles = {
     enable = true;
     monospace = {
-      name = "JetBrainsMono Nerd Font";
+      name = "JetBrainsMono NF";
       size = 15;
       package = pkgs.nerd-fonts.jetbrains-mono;
     };
