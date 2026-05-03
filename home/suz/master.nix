@@ -96,7 +96,7 @@ in
   ];
 
   services = {
-    batteryNotify.enable = true;
+    batsignal.enable = true;
     batteryNotifyBluetooth.enable = true;
     yubikey-touch-detector.enable = true;
   };
