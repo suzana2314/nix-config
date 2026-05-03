@@ -77,6 +77,7 @@
 
       shellAliases = {
         ls = "ls --color";
+        cat = "bat";
         nix-shell = "nix-shell --run $SHELL";
       };
 

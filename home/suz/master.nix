@@ -28,6 +28,7 @@ in
     ../features/desktop/neovim
     ../features/desktop/calendar
     ../features/desktop/subtui
+    ../features/bat
     ../features/git
     ../features/direnv
     ../features/env
