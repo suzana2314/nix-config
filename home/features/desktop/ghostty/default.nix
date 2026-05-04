@@ -34,7 +34,10 @@ in
       auto-update = "off";
 
       # keybinds
-      keybind = "ctrl+enter=unbind";
+      keybind = [
+        "ctrl+enter=unbind"
+        "shift+enter=text:\n"
+      ];
 
       # theme
       background = "${palette.base00}";
