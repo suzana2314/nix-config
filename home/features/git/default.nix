@@ -8,6 +8,8 @@ in
     settings = {
       alias = {
         graph = "log --decorate --oneline --graph";
+        l = "log --decorate --graph";
+        s = "status";
       };
       user = {
         inherit signingkey;
