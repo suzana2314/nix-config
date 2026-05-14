@@ -181,7 +181,7 @@
           "SUPER,f,fullscreen,1"
           "SUPERSHIFT,f,fullscreen,0"
           "SUPER,space,togglefloating"
-          "SUPER,s,togglesplit"
+          "SUPER,s,layoutmsg,togglesplit"
           "SUPER,i,pseudo"
           "SUPERSHIFT,s,exec,screenshot-tool"
 
