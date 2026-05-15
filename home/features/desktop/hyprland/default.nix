@@ -119,7 +119,7 @@
         "QT_CURSOR_SIZE,16"
         "XDG_SCREENSHOTS_DIR,~/pictures"
         "NIXOS_OZONE_WL,1"
-        "AQ_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0"
+        # "AQ_DRM_DEVICES,/dev/dri/card1:/dev/dri/card0"
       ];
 
       # ============================== BINDS ==============================

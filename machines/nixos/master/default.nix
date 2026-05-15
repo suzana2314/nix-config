@@ -2,7 +2,7 @@
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6h-hybrid
+    inputs.nixos-hardware.nixosModules.lenovo-legion-15ach6h-nvidia
 
     ./hardware-configuration.nix
     ../../common/users/suz # main user
