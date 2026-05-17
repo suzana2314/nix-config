@@ -5,9 +5,8 @@
     ../features/desktop/ghostty
     ../features/desktop/discord
     ../features/desktop/notifications
-    ../features/desktop/gtk
     ../features/desktop/hyprland
-    ../features/desktop/qt
+    ../features/desktop/theme
     ../features/desktop/waybar
     ../features/desktop/wayland
     ../features/desktop/wofi
