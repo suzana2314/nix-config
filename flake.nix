@@ -46,8 +46,6 @@
         "x86_64-linux"
       ];
       forAllSystems = nixpkgs.lib.genAttrs systems;
-
-      lib = nixpkgs.lib.extend (self: super: { custom = import ./lib { inherit (nixpkgs) lib; }; });
     in
     {
       # custom packages
@@ -80,7 +78,7 @@
         map (host: {
           name = host;
           value = nixpkgs.lib.nixosSystem {
-            specialArgs = { inherit inputs outputs lib; };
+            specialArgs = { inherit inputs outputs; };
             modules = [ ./machines/nixos/${host} ];
           };
         }) (builtins.attrNames (builtins.readDir ./machines/nixos))
