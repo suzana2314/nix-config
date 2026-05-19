@@ -66,12 +66,6 @@
           }
       ) config.monitors;
 
-      render = {
-        cm_fs_passthrough = 1;
-        cm_auto_hdr = 1;
-        cm_enabled = true;
-      };
-
       workspace = lib.flatten (
         map (m: map (workspace: "${workspace},monitor:${m.name}") m.workspaces) (
           lib.filter (m: m.enabled && m.workspaces != [ ]) config.monitors
