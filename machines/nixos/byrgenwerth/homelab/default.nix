@@ -83,6 +83,8 @@ in
       };
 
       prometheus-node-exporter.enable = true;
+
+      satisfactory.enable = true;
     };
   };
 

@@ -48,5 +48,6 @@
     ./readeck
     ./webdav
     ./endurain
+    ./satisfactory
   ];
 }
