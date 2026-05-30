@@ -21,7 +21,7 @@ in
     extraConfig = ''
       Include ~/.ssh/extra_config
     '';
-    matchBlocks =
+    settings =
       let
         gitForge = {
           user = "git";
@@ -38,11 +38,10 @@ in
           serverAliveInterval = 5;
           hashKnownHosts = true;
           addKeysToAgent = "yes";
-
-          extraOptions = {
-            SetEnv = "TERM=xterm-256color";
-            UpdateHostKeys = "ask";
+          SetEnv = {
+            TERM = "xterm-256color";
           };
+          UpdateHostKeys = "ask";
         };
         "github.com" = gitForge;
         "codeberg.org" = gitForge;
