@@ -43,6 +43,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     package = null;
+    configType = "hyprlang";
 
     settings = {
       monitorv2 = map (
