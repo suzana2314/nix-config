@@ -106,7 +106,10 @@ in
         environmentFile = config.sops.secrets."endurain/environmentFile".path;
       };
 
-      grafana.enable = true;
+      grafana = {
+        enable = true;
+        secretKey = config.sops.secrets."grafana/secretKey".path;
+      };
       prometheus-node-exporter.enable = true;
       prometheus = {
         enable = true;
@@ -123,6 +126,7 @@ in
     "radicale/passwdFile" = mkUserSecret config.users.users.radicale.name;
     "webdav/environmentFile" = mkUserSecret config.users.users.webdav.name;
     "prometheus/hostsPasswordFile" = mkUserSecret config.users.users.prometheus.name;
+    "grafana/secretKey" = mkUserSecret config.users.users.grafana.name;
     "glance/byrgenwerthApitoken" = mkSecret;
     "esphome/environmentFile" = mkSecret;
     "miniflux/environmentFile" = mkSecret;

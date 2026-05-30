@@ -22,6 +22,10 @@ in
       type = lib.types.port;
       default = 2342;
     };
+    secretKey = lib.mkOption {
+      type = lib.types.str;
+      description = "Path to the file containing the secret key";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -43,6 +47,7 @@ in
           allow_embedding = true;
           cookie_secure = true;
           cookie_samesite = "lax";
+          secret_key = "$__file{${cfg.secretKey}}";
         };
       };
       provision = {
