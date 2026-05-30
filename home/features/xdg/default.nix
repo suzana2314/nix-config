@@ -3,6 +3,7 @@
   xdg = {
     userDirs = {
       enable = true;
+      setSessionVariables = false;
       createDirectories = true;
       desktop = null;
       publicShare = null;
@@ -12,6 +13,7 @@
       documents = "${config.home.homeDirectory}/documents";
       download = "${config.home.homeDirectory}/downloads";
       videos = "${config.home.homeDirectory}/videos";
+      projects = "${config.home.homeDirectory}/projects";
     };
   };
 }
