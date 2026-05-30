@@ -27,7 +27,7 @@
         types = [ "symlink" ];
       };
 
-      nixfmt-rfc-style.enable = true;
+      nixfmt.enable = true;
       deadnix = {
         enable = true;
         settings = {

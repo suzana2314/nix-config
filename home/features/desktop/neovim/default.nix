@@ -53,7 +53,7 @@
   home.packages = with pkgs; [
     ripgrep
     nixd
-    nixfmt-rfc-style
+    nixfmt
   ];
 
 }

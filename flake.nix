@@ -56,7 +56,7 @@
       nixosModules = import ./modules/nixos;
       homeModules = import ./modules/home-manager;
 
-      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt);
 
       checks = forAllSystems (
         system:
