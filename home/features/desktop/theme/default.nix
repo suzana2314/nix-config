@@ -28,6 +28,8 @@ in
       package = pkgs.gruvbox-plus-icons.override { folder-color = "grey"; };
       name = "Gruvbox-Plus-Dark";
     };
+
+    gtk4.theme = config.gtk.theme;
   };
 
   dconf.settings = {
