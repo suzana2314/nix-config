@@ -30,17 +30,15 @@
     };
   };
 
+  # this is to make sure there are always host keys
+  services.openssh.generateHostKeys = true;
+
   security = {
     doas.enable = lib.mkDefault false;
     sudo = {
       enable = lib.mkDefault true;
     };
   };
-
-  # quick fix for: CVE-2026-31431
-  boot.kernelPackages = lib.mkIf (lib.versionOlder pkgs.linux.version "6.18.22") (
-    lib.mkDefault pkgs.linuxPackages_6_18
-  );
 
   environment.systemPackages = with pkgs; [
     rsync
