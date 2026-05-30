@@ -6,7 +6,6 @@
     ./hardware-configuration.nix
     ./disko.nix
     ./homelab
-    ../../../homelab
     ../../common/core
     ../../common/options/systemd-bootloader
     ../../common/options/mdns
