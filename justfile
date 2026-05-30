@@ -39,4 +39,4 @@ sync $host:
 
 [group('deploy')]
 deploy $host: (sync host)
-  nixos-rebuild-ng switch --flake .#{{host}} --target-host {{host}} --no-reexec --sudo
+  nixos-rebuild switch --flake .#{{host}} --target-host {{host}} --no-reexec --sudo

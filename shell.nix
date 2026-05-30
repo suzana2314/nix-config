@@ -16,7 +16,6 @@
         deadnix
         lua-language-server
         nixd
-        nixos-rebuild-ng
         nix-update
         ;
     };
