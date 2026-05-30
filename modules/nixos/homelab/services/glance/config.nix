@@ -164,7 +164,7 @@
                 {
                   title = "Seerr";
                   url = "https://seerr.${baseDomain}";
-                  icon = "/assets/jellyseerr.svg";
+                  icon = "/assets/seerr.svg";
                 }
                 {
                   title = "Navidrome";
