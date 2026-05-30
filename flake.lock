@@ -140,10 +140,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1779978417,
-        "narHash": "sha256-SeqxOlqKmLiD6gXS9c+HWXtR81audS4dotf0+seqC8M=",
+        "lastModified": 1780157402,
+        "narHash": "sha256-qxe5aH/gZ2eiejdsRtL6mMIE8aqyJF3ELM1RsoqyQkI=",
         "ref": "master",
-        "rev": "66565099f2bfdc9cd428936536daf3b593d85771",
+        "rev": "b385cd4c27124c653ce27b321d4266e1fc74e336",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@codeberg.org/suzana2314/nix-secrets.git"
