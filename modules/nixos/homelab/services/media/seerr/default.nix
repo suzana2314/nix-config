@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
   inherit (config) homelab;
-  service = "jellyseerr";
+  service = "seerr";
   cfg = homelab.services.${service};
 in
 {

@@ -18,7 +18,7 @@ in
         "bazarr"
         "flaresolverr"
         "jellyfin"
-        "jellyseerr"
+        "seerr"
         "lidarr"
         "navidrome"
         "prowlarr"
@@ -67,7 +67,7 @@ in
       sonarr.enable = lib.mkDefault true;
       prowlarr.enable = lib.mkDefault true;
       bazarr.enable = lib.mkDefault true;
-      jellyseerr.enable = lib.mkDefault true;
+      seerr.enable = lib.mkDefault true;
       lidarr.enable = lib.mkDefault true;
       flaresolverr.enable = lib.mkDefault true;
       qbittorrent = {
@@ -88,7 +88,7 @@ in
     ./sonarr
     ./prowlarr
     ./jellyfin
-    ./jellyseerr
+    ./seerr
     ./qbittorrent
     ./navidrome
     ./lidarr

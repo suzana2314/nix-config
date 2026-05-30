@@ -162,8 +162,8 @@
                   icon = "/assets/jellyfin.svg";
                 }
                 {
-                  title = "Jellyseerr";
-                  url = "https://jellyseerr.${baseDomain}";
+                  title = "Seerr";
+                  url = "https://seerr.${baseDomain}";
                   icon = "/assets/jellyseerr.svg";
                 }
                 {
