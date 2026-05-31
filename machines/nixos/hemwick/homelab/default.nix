@@ -61,11 +61,6 @@ in
         };
       };
 
-      esphome = {
-        enable = true;
-        environmentFile = config.sops.secrets."esphome/environmentFile".path;
-      };
-
       readeck = {
         enable = true;
         environmentFile = config.sops.secrets."readeck/environmentFile".path;
@@ -128,7 +123,6 @@ in
     "prometheus/hostsPasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "grafana/secretKey" = mkUserSecret config.users.users.grafana.name;
     "glance/byrgenwerthApitoken" = mkSecret;
-    "esphome/environmentFile" = mkSecret;
     "miniflux/environmentFile" = mkSecret;
     "newt/environmentFile" = mkSecret;
     "readeck/environmentFile" = mkSecret;
