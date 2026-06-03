@@ -1,13 +1,10 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
-    inputs.nix-colors.homeManagerModules.default
     ../features/nvim
     ../features/desktop/alacritty
     ./core
   ];
-
-  colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-hard;
 
   fontProfiles = {
     enable = true;
@@ -28,8 +25,8 @@
     # apps
     unstable.firefox
     libreoffice
-    old.freecad-wayland
-    old.prusa-slicer # broke with new release
+    freecad-wayland
+    prusa-slicer # broke with new release
   ];
 
 }

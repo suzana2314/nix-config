@@ -1,5 +1,4 @@
 local o = vim.o
-local border = 'rounded'
 
 -- leader
 vim.g.mapleader = ';'
@@ -18,6 +17,7 @@ o.foldenable = true
 o.history = 2000
 o.nrformats = 'bin,hex' -- 'octal'
 o.cmdheight = 1
+o.winborder = 'rounded'
 
 -- Search
 o.incsearch = true          -- searches incrementally
@@ -73,7 +73,6 @@ vim.diagnostic.config {
   float = {
     focusable = false,
     style = 'minimal',
-    border = border,
     source = 'if_many',
     header = '',
     prefix = '',

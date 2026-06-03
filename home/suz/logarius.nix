@@ -1,7 +1,6 @@
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
-    inputs.nix-colors.homeManagerModules.default
     ../features/desktop/ghostty
     ../features/desktop/discord
     ../features/desktop/notifications
@@ -26,9 +25,8 @@
     ./core
   ];
 
-  colorScheme = inputs.nix-colors.colorSchemes.gruvbox-dark-hard;
-
   wallpaper = "~/pictures/wallpaper/road.jpg";
+  colorTheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
 
   fontProfiles = {
     enable = true;

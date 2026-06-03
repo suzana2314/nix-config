@@ -1,6 +1,7 @@
 { inputs, config, ... }:
 let
   inherit (config.home) username;
+  inherit (config.lib.stylix) colors;
   sopsFile = (toString inputs.nix-secrets) + "/sops";
   baseDomain = inputs.nix-secrets.domain;
 in
@@ -20,28 +21,24 @@ in
         default_volume = 80;
         gapless_playback = "yes";
       };
-      theme =
-        let
-          inherit (config.colorScheme) palette;
-        in
-        {
-          subtle = [
-            "#${palette.base01}"
-            "#${palette.base01}"
-          ];
-          highlight = [
-            "#${palette.base0A}"
-            "#${palette.base0A}"
-          ];
-          special = [
-            "#${palette.base0D}"
-            "#${palette.base0D}"
-          ];
-          filtered = [
-            "#${palette.base01}"
-            "#${palette.base01}"
-          ];
-        };
+      theme = with colors.withHashtag; {
+        subtle = [
+          "${base01}"
+          "${base01}"
+        ];
+        highlight = [
+          "${base0A}"
+          "${base0A}"
+        ];
+        special = [
+          "${base0D}"
+          "${base0D}"
+        ];
+        filtered = [
+          "${base01}"
+          "${base01}"
+        ];
+      };
 
       columns = {
         albums = {

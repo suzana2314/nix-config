@@ -1,17 +1,17 @@
 # inspired by: https://github.com/geier/khal_gruvbox
 { config, ... }:
 let
-  inherit (config.colorScheme) palette;
-  bg0 = "#${palette.base00}";
-  bg1 = "#${palette.base01}";
-  bg2 = "#${palette.base02}";
-  bg4 = "#${palette.base03}";
-  fg0 = "#${palette.base07}";
-  fg1 = "#${palette.base06}";
-  aqua = "#${palette.base0C}";
-  blue = "#${palette.base0D}";
-  red = "#${palette.base08}";
-  yellow = "#${palette.base0A}";
+  inherit (config.lib.stylix.colors) withHashtag;
+  bg0 = "${withHashtag.base00}";
+  bg1 = "${withHashtag.base01}";
+  bg2 = "${withHashtag.base02}";
+  bg4 = "${withHashtag.base03}";
+  fg0 = "${withHashtag.base07}";
+  fg1 = "${withHashtag.base06}";
+  aqua = "${withHashtag.base0C}";
+  blue = "${withHashtag.base0D}";
+  red = "${withHashtag.base08}";
+  yellow = "${withHashtag.base0A}";
 in
 {
   programs.khal.settings.palette = {

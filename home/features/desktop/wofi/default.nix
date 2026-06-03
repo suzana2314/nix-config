@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  programs.wofi = with config.colorScheme.palette; {
+  programs.wofi = {
     enable = true;
     settings = {
       allow_images = true;
@@ -15,18 +15,14 @@
           border-radius: 0px;
           font-family: ${config.fontProfiles.monospace.name};
           font-weight: bold;
-      		color: #${base0C}
       }
       #window {
           border-radius: 10px;
-          background: #${base00};
       }
       #input {
           border-radius: 10px;
           margin: 10px;
           padding: 10px 15px;
-          background: #282828;
-          color: #${base0C};
       }
       #outer-box {
         font-weight: bold;
@@ -36,11 +32,6 @@
         margin: 10px;
         padding: 20px 20px;
         border-radius: 10px;
-        color: #${base0C};
-      }
-      #entry:selected {
-        background-color: #282828;
-        color: #${base0C};
       }
       #entry:hover {
       }
@@ -50,4 +41,5 @@
       }
     '';
   };
+  stylix.targets.wofi.enable = true;
 }

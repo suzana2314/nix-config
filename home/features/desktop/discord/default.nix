@@ -1,11 +1,9 @@
 { config, pkgs, ... }:
-{
-  home.packages = with pkgs; [ unstable.vesktop ];
 
-  xdg.configFile."vesktop/themes/gruvbox-24.theme.css".text = with config.colorScheme.palette; ''
-
+let
+  theme = with config.lib.stylix.colors.withHashtag; ''
     /**
-     * @name gruvbox system24 (vencord)
+     * @name theme
      * @description a tui-style discord theme. based on https://github.com/nanoqoi/vencord-theme.
      * @author refact0r, suz
      * @version 2.0.0
@@ -94,17 +92,17 @@
         --text-0: var(--bg-4); /* text on colored elements */
         --text-1: hsl(38, 47%, 90%); /* bright text on colored elements */
         --text-2: var(--aqua); /* headings and important text */
-        --text-3: #${base07}; /* normal text */
+        --text-3: ${base07}; /* normal text */
         --text-4: var(--aqua); /* icon buttons and channels */
         --text-5: var(--active); /* muted channels/chats and timestamps */
 
         /* background and dark colors */
-        --bg-1: #${base02}; /* dark buttons when clicked */
-        --bg-2: #${base01}; /* dark buttons */
-        --bg-3: #${base01}; /* spacing, secondary elements */
-        --bg-4: #${base00}; /* main background color */
+        --bg-1: ${base02}; /* dark buttons when clicked */
+        --bg-2: ${base01}; /* dark buttons */
+        --bg-3: ${base01}; /* spacing, secondary elements */
+        --bg-4: ${base00}; /* main background color */
         --hover: hsla(20, 3%, 40%, 0.1); /* channels and buttons when hovered */
-        --active: #${base01}; /* channels and buttons when clicked or selected */
+        --active: ${base01}; /* channels and buttons when clicked or selected */
         --active-2: hsla(20, 3%, 40%, 0.3); /* extra state for transparent buttons */
         --message-hover: hsla(0, 0%, 0%, 0.1); /* messages when hovered */
 
@@ -134,12 +132,27 @@
         --button-border: hsl(0, 0%, 100%, 0.1); /* neutral border color of buttons */
 
         /* base colors */
-        --red: #${base08};
-        --green: #${base0B};
-        --blue: #${base0D};
-        --yellow: #${base0A};
-        --purple: #${base0E};
-        --aqua: #${base0C}
+        --red: ${base08};
+        --green: ${base0B};
+        --blue: ${base0D};
+        --yellow: ${base0A};
+        --purple: ${base0E};
+        --aqua: ${base0C}
     }
   '';
+in
+{
+  programs.vesktop = {
+    enable = true;
+    package = pkgs.unstable.vesktop;
+    vencord = {
+      themes.theme = theme;
+      settings = {
+        autoUpdateNotification = false;
+        notifyAboutUpdates = false;
+        disableMinSize = true;
+        enabledThemes = [ "theme.css" ];
+      };
+    };
+  };
 }

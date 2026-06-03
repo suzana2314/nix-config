@@ -1,9 +1,6 @@
 { config, ... }:
-let
-  palette = config.colorScheme.palette;
-in
 {
-  programs.ghostty = {
+  programs.ghostty = with config.lib.stylix; {
     enable = true;
     installBatSyntax = true;
     enableZshIntegration = true;
@@ -40,29 +37,29 @@ in
       ];
 
       # theme
-      background = "${palette.base00}";
-      foreground = "${palette.base06}";
-      cursor-color = "${palette.base06}";
-      cursor-text = "${palette.base06}";
-      selection-background = "#${palette.base03}";
-      selection-foreground = "#${palette.base06}";
-      palette = with palette; [
-        "0=#${base01}"
-        "1=#${base08}"
-        "2=#${base0B}"
-        "3=#${base0A}"
-        "4=#${base0D}"
-        "5=#${base0E}"
-        "6=#${base0C}"
-        "7=#${base06}"
-        "8=#${base01}"
-        "9=#${base08}"
-        "10=#${base0B}"
-        "11=#${base09}"
-        "12=#${base0D}"
-        "13=#${base0E}"
-        "14=#${base0C}"
-        "15=#${base06}"
+      background = "${colors.base00}";
+      foreground = "${colors.base06}";
+      cursor-color = "${colors.base06}";
+      cursor-text = "${colors.base06}";
+      selection-background = "#${colors.base03}";
+      selection-foreground = "#${colors.base06}";
+      palette = with colors.withHashtag; [
+        "0=${base01}"
+        "1=${base08}"
+        "2=${base0B}"
+        "3=${base0A}"
+        "4=${base0D}"
+        "5=${base0E}"
+        "6=${base0C}"
+        "7=${base06}"
+        "8=${base01}"
+        "9=${base08}"
+        "10=${base0B}"
+        "11=${base09}"
+        "12=${base0D}"
+        "13=${base0E}"
+        "14=${base0C}"
+        "15=${base06}"
       ];
     };
   };

@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 let
+  inherit (config.lib.stylix) colors;
+  inherit (config.fontProfiles) monospace;
   # this should be in a custom lib...
   hexToInt =
     hex:
@@ -192,98 +194,93 @@ in
         };
       };
     };
-    style =
-      let
-        inherit (config.colorScheme) palette;
-        inherit (config.fontProfiles) monospace;
-      in
-      ''
-        * {
-          border: none;
-          font-family: ${monospace.name};
-          font-size: 14px;
-          min-height: 0px;
-        }
+    style = with colors.withHashtag; ''
+      * {
+        border: none;
+        font-family: ${monospace.name};
+        font-size: 14px;
+        min-height: 0px;
+      }
 
-        window#waybar {
-            background-color: transparent;
-        }
+      window#waybar {
+          background-color: transparent;
+      }
 
-        window#waybar > box {
-            border-radius: 10px;
-            margin: 10px 10px 3px 10px;
-            background-color: rgba(${hexToRgb palette.base00}, 0.96);
-            box-shadow: 0px 0px 2px 1px rgba(26, 26, 26, 0.85);
-        }
+      window#waybar > box {
+          border-radius: 10px;
+          margin: 10px 10px 3px 10px;
+          background-color: rgba(${hexToRgb colors.base00}, 0.96);
+          box-shadow: 0px 0px 2px 1px rgba(26, 26, 26, 0.85);
+      }
 
-        #workspaces button {
-          color: #${palette.base03};
-          padding-left: 6px;
-        }
+      #workspaces button {
+        color: ${base03};
+        padding-left: 6px;
+      }
 
-        #workspaces button.active {
-          color: #${palette.base0A};
-        }
+      #workspaces button.active {
+        color: ${base0A};
+      }
 
-        #workspaces button:not(.active):not(.empty):not(:hover) {
-          color: #${palette.base06};
-        }
+      #workspaces button:not(.active):not(.empty):not(:hover) {
+        color: ${base06};
+      }
 
-        #clock.date,
-        #clock.time,
-        #bluetooth,
-        #bluetooth.disabled,
-        #bluetooth.connected,
-        #network,
-        #network.disconnected,
-        #battery,
-        #language,
-        #workspaces,
-        #wireplumber,
-        #custom-separator {
-          color: #${palette.base0C};
-          padding-left: 4px;
-          padding-right: 4px;
-        }
+      #clock.date,
+      #clock.time,
+      #bluetooth,
+      #bluetooth.disabled,
+      #bluetooth.connected,
+      #network,
+      #network.disconnected,
+      #battery,
+      #language,
+      #workspaces,
+      #wireplumber,
+      #custom-separator {
+        color: ${base0C};
+        padding-left: 4px;
+        padding-right: 4px;
+      }
 
-        #custom-vpn {
-          font-size: 16px;
-        }
+      #custom-vpn {
+        font-size: 16px;
+      }
 
-        #language {
-          color: #${palette.base0E};
-        }
+      #language {
+        color: ${base0E};
+      }
 
-        #bluetooth,
-        #battery.charging {
-          color: #${palette.base0D};
-        }
+      #bluetooth,
+      #battery.charging {
+        color: ${base0D};
+      }
 
-        #network,
-        #battery.full,
-        #battery.not-charging,
-        #bluetooth.connected {
-          color: #${palette.base0B};
-        }
+      #network,
+      #battery.full,
+      #battery.not-charging,
+      #bluetooth.connected {
+        color: ${base0B};
+      }
 
-        #custom-vpn,
-        #bluetooth.disabled,
-        #network.disconnected {
-          color: #${palette.base08};
-        }
+      #custom-vpn,
+      #bluetooth.disabled,
+      #network.disconnected {
+        color: ${base08};
+      }
 
-        #wireplumber {
-          color:  #${palette.base0A}
-        }
+      #wireplumber {
+        color:  ${base0A}
+      }
 
-        #custom-separator {
-          color: #${palette.base01};
-        }
+      #custom-separator {
+        color: ${base01};
+      }
 
-        #battery.discharging {
-          color: #${palette.base09};
-        }
-      '';
+      #battery.discharging {
+        color: ${base09};
+      }
+    '';
   };
 
   home.packages = with pkgs; [
