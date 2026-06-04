@@ -16,7 +16,7 @@
         height = "(0, 300)";
         origin = "top-right";
         offset = "(20, 20)";
-        font = config.fontProfiles.monospace.name;
+        font = config.stylix.fonts.monospace.name;
         word_wrap = "yes";
         ignore_newline = "no";
         separator_height = 2;

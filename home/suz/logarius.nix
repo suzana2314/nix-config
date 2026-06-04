@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   imports = [
     ../features/desktop/ghostty
@@ -25,8 +25,21 @@
     ./core
   ];
 
-  wallpaper = "~/pictures/wallpaper/road.jpg";
-  colorTheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+  scheme = {
+    wallpaper = "${config.xdg.userDirs.pictures}/wallpaper/road.jpg";
+    theme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+    polarity = "dark";
+    fonts = {
+      monospace = {
+        name = "JetBrainsMono NF";
+        package = pkgs.nerd-fonts.jetbrains-mono;
+      };
+      sansSerif = {
+        name = "Ubuntu Sans";
+        package = pkgs.ubuntu-sans;
+      };
+    };
+  };
 
   fontProfiles = {
     enable = true;

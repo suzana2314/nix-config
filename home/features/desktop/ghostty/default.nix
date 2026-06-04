@@ -11,11 +11,10 @@
       font-style = "Medium";
       # freaking ghostty ships with noto emoji... need to specify unifont here...
       font-family = [
-        ""
-        config.fontProfiles.monospace.name
+        config.stylix.fonts.monospace.name
         "Unifont"
       ];
-      font-size = config.fontProfiles.monospace.size;
+      font-size = 15;
       font-feature = [
         "-liga"
         "-dlig"

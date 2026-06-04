@@ -4,15 +4,31 @@
   config,
   ...
 }:
+let
+  inherit (config.scheme) theme polarity fonts;
+
+in
 {
   imports = [
     inputs.stylix.homeModules.stylix
   ];
   stylix = {
     enable = true;
-    base16Scheme = config.colorTheme;
+    base16Scheme = theme;
     autoEnable = false;
     enableReleaseChecks = false;
+    polarity = polarity;
+    fonts = {
+      monospace = {
+        package = fonts.monospace.package;
+        name = fonts.monospace.name;
+      };
+      sansSerif = {
+        package = fonts.sansSerif.package;
+        name = fonts.sansSerif.name;
+      };
+      serif = config.stylix.fonts.sansSerif;
+    };
     targets = {
       gtk = {
         enable = true;
@@ -22,6 +38,7 @@
         enable = true;
         standardDialogs = "xdgdesktopportal";
       };
+      gnome.enable = true; # -> fixes dark mode?
     };
   };
 

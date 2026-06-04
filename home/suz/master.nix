@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   freecadWayland = pkgs.symlinkJoin {
     name = "freecad-wayland-fix";
@@ -38,19 +38,19 @@ in
     ./core
   ];
 
-  wallpaper = "~/pictures/wallpaper/road.jpg";
-  colorTheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-
-  fontProfiles = {
-    enable = true;
-    monospace = {
-      name = "JetBrainsMono NF";
-      size = 15;
-      package = pkgs.nerd-fonts.jetbrains-mono;
-    };
-    regular = {
-      name = "Ubuntu Sans";
-      package = pkgs.ubuntu-sans;
+  scheme = {
+    wallpaper = "${config.xdg.userDirs.pictures}/wallpaper/road.jpg";
+    theme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+    polarity = "dark";
+    fonts = {
+      monospace = {
+        name = "JetBrainsMono NF";
+        package = pkgs.nerd-fonts.jetbrains-mono;
+      };
+      sansSerif = {
+        name = "Ubuntu Sans";
+        package = pkgs.ubuntu-sans;
+      };
     };
   };
 

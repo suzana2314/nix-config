@@ -14,7 +14,7 @@
 
       background = [
         {
-          path = config.wallpaper;
+          path = config.scheme.wallpaper;
           blur_passes = 4;
           noise = 0.0117;
           contrast = 1.3000;
@@ -28,7 +28,7 @@
         {
           size = "250, 60";
           outline_thickness = 2;
-          font_family = config.fontProfiles.regular.name;
+          font_family = config.stylix.fonts.sansSerif.name;
           dots_size = 0.2;
           dots_spacing = 0.35;
           dots_center = true;
@@ -52,7 +52,7 @@
           text = ''cmd[update:1000] echo "<b><big> $(date +"%H:%M") </big></b>"'';
           text_align = "center";
           font_size = 42;
-          font_family = config.fontProfiles.regular.name;
+          font_family = config.stylix.fonts.sansSerif.name;
           color = "rgba(250, 189, 47, 1)";
           position = "0, 80";
           halign = "center";

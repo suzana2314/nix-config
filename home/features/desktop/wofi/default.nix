@@ -13,7 +13,7 @@
       * {
           border: none;
           border-radius: 0px;
-          font-family: ${config.fontProfiles.monospace.name};
+          font-family: ${config.stylix.fonts.monospace.name};
           font-weight: bold;
       }
       #window {

@@ -18,8 +18,8 @@ let
     @import url('https://refact0r.github.io/system24/build/system24.css');
 
     body {
-        --font: "${config.fontProfiles.monospace.name}";
-        --code-font: "${config.fontProfiles.monospace.name}";
+        --font: "${config.stylix.fonts.monospace.name}";
+        --code-font: "${config.stylix.fonts.monospace.name}";
         font-weight: 300; /* text font weight. 300 is light, 400 is normal. DOES NOT AFFECT BOLD TEXT */
         letter-spacing: -0.05ch; /* decreases letter spacing for better readability. recommended on monospace fonts.*/
 

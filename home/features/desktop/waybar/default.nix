@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
   inherit (config.lib.stylix) colors;
-  inherit (config.fontProfiles) monospace;
+  inherit (config.stylix.fonts) monospace;
   # this should be in a custom lib...
   hexToInt =
     hex:

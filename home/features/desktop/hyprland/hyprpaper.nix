@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (config) wallpaper;
+  inherit (config.scheme) wallpaper;
   # applies the same wallpaper to all monitors
   wallpaperList = map (monitor: {
     monitor = monitor.name;
