@@ -38,7 +38,10 @@ in
         enable = true;
         standardDialogs = "xdgdesktopportal";
       };
-      gnome.enable = true; # -> fixes dark mode?
+      gnome = {
+        enable = true;
+        fonts.enable = false;
+      };
     };
   };
 
