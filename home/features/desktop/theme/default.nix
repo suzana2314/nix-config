@@ -5,8 +5,22 @@
   ...
 }:
 let
-  inherit (config.scheme) theme polarity fonts;
-
+  inherit (config.scheme)
+    theme
+    wallpaper
+    polarity
+    cursor
+    fonts
+    icons
+    ;
+  resolvedWallpaper =
+    if wallpaper.url != null then
+      pkgs.fetchurl {
+        url = wallpaper.url;
+        hash = wallpaper.hash;
+      }
+    else
+      wallpaper.path;
 in
 {
   imports = [
@@ -14,10 +28,18 @@ in
   ];
   stylix = {
     enable = true;
-    base16Scheme = theme;
     autoEnable = false;
     enableReleaseChecks = false;
+    base16Scheme = theme;
     polarity = polarity;
+    image = resolvedWallpaper;
+    cursor = cursor;
+    icons = {
+      enable = true;
+      dark = icons.dark;
+      light = icons.light;
+      package = icons.package;
+    };
     fonts = {
       monospace = {
         package = fonts.monospace.package;
@@ -42,19 +64,6 @@ in
         enable = true;
         fonts.enable = false;
       };
-    };
-  };
-
-  gtk = {
-    enable = true;
-    cursorTheme = {
-      package = pkgs.quintom-cursor-theme;
-      name = "Quintom_Ink";
-      size = 16;
-    };
-    iconTheme = {
-      package = pkgs.gruvbox-plus-icons.override { folder-color = "grey"; };
-      name = "Gruvbox-Plus-Dark";
     };
   };
 }

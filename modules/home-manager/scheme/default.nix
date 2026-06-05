@@ -17,10 +17,22 @@ let
 in
 {
   options.scheme = {
-    wallpaper = lib.mkOption {
-      type = lib.types.nullOr lib.types.path;
-      default = null;
-      description = "Path to the wallpaper image";
+    wallpaper = {
+      url = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        description = "URL to fetch wallpaper from";
+      };
+      hash = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        description = "SHA256 hash of the wallpaper file";
+      };
+      path = lib.mkOption {
+        type = with lib.types; nullOr (coercedTo path (src: "${src}") pathInStore);
+        default = null;
+        description = "Local path to wallpaper image";
+      };
     };
     theme = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
@@ -31,6 +43,40 @@ in
       type = lib.types.nullOr lib.types.str;
       default = null;
       description = "Polarity can be either dark or light";
+    };
+    cursor = {
+      name = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        description = "Name of cursor pack";
+      };
+      size = lib.mkOption {
+        type = lib.types.nullOr lib.types.int;
+        default = null;
+        description = "Size of the cursor";
+      };
+      package = lib.mkOption {
+        type = lib.types.nullOr lib.types.package;
+        default = null;
+        description = "Cursor package";
+      };
+    };
+    icons = {
+      dark = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        description = "Name of dark icon theme";
+      };
+      light = lib.mkOption {
+        type = lib.types.nullOr lib.types.str;
+        default = null;
+        description = "Name of light icon theme";
+      };
+      package = lib.mkOption {
+        type = lib.types.nullOr lib.types.package;
+        default = null;
+        description = "Icon theme package";
+      };
     };
     fonts = {
       monospace = lib.mkOption {

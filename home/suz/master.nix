@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 let
   freecadWayland = pkgs.symlinkJoin {
     name = "freecad-wayland-fix";
@@ -39,9 +39,21 @@ in
   ];
 
   scheme = {
-    wallpaper = "${config.xdg.userDirs.pictures}/wallpaper/road.jpg";
+    wallpaper = {
+      url = "https://gruvbox-wallpapers.pages.dev/wallpapers/photography/mountains2.jpg";
+      hash = "sha256-hp9cxCpZsDYKxUUSuec2wZyv9/N93Cw6ENTHGxKap9Q=";
+    };
     theme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
     polarity = "dark";
+    cursor = {
+      name = "Quintom_Ink";
+      package = pkgs.quintom-cursor-theme;
+      size = 16;
+    };
+    icons = {
+      dark = "Gruvbox-Plus-Dark";
+      package = pkgs.gruvbox-plus-icons.override { folder-color = "grey"; };
+    };
     fonts = {
       monospace = {
         name = "JetBrainsMono NF";
