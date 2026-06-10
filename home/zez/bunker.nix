@@ -21,10 +21,10 @@
     # util
     vlc
     # apps
-    unstable.firefox
     libreoffice
-    old.freecad-wayland
-    old.prusa-slicer # broke with new release
+    unstable.firefox
+    unstable.freecad-wayland
+    unstable.prusa-slicer
   ];
 
 }
