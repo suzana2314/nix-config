@@ -126,11 +126,6 @@
                   icon = "/assets/home-assistant.svg";
                 }
                 {
-                  title = "ESPHome";
-                  url = "https://esphome.${baseDomain}";
-                  icon = "/assets/esphome.svg";
-                }
-                {
                   title = "Frigate";
                   url = "https://frigate.${baseDomain}";
                   icon = "/assets/frigate-light.svg";
@@ -192,11 +187,6 @@
                   title = "Radarr";
                   url = "https://radarr.${baseDomain}";
                   icon = "/assets/radarr.svg";
-                }
-                {
-                  title = "Lidarr";
-                  url = "https://lidarr.${baseDomain}";
-                  icon = "/assets/lidarr.svg";
                 }
                 {
                   title = "Prowlarr";
