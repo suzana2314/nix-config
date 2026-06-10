@@ -8,6 +8,7 @@ require('blink.cmp').setup({
 
     menu = {
       border = "rounded",
+      scrollbar = false,
       winhighlight = 'Normal:NormalFloat,FloatBorder:NormalFloat,CursorLine:BlinkCmpMenuSelection,Search:None',
     },
 
