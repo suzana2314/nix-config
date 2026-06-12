@@ -78,6 +78,8 @@ in
           "custom/separator"
           "bluetooth"
           "custom/separator"
+          "idle_inhibitor"
+          "custom/separator"
           "battery"
           "custom/padd"
         ];
@@ -192,6 +194,15 @@ in
           format = "{capacity}%";
           tooltip = false;
         };
+
+        "idle_inhibitor" = {
+          format = "ii";
+          format-icons = {
+            activated = "ii";
+            deactivated = "ii";
+          };
+          tooltip = false;
+        };
       };
     };
     style = with colors.withHashtag; ''
@@ -247,7 +258,8 @@ in
         font-size: 16px;
       }
 
-      #language {
+      #language ,
+      #idle_inhibitor.activated {
         color: ${base0E};
       }
 
@@ -265,6 +277,7 @@ in
 
       #custom-vpn,
       #bluetooth.disabled,
+      #idle_inhibitor.deactivated,
       #network.disconnected {
         color: ${base08};
       }
