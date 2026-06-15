@@ -33,7 +33,7 @@ buildGoModule (finalAttrs: {
 
   postFixup = ''
     wrapProgram $out/bin/subtui \
-      --prefix PATH : ${lib.makeBinPath [ pkgs.mpv ]}
+      --prefix PATH : ${lib.makeBinPath [ pkgs.mpv-unwrapped ]}
   '';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
