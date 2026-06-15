@@ -52,6 +52,7 @@ in
       serif = config.stylix.fonts.sansSerif;
     };
     targets = {
+      font-packages.enable = true;
       gtk = {
         enable = true;
         fonts.enable = false;

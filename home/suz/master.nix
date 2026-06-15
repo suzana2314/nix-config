@@ -42,8 +42,8 @@
     };
     fonts = {
       monospace = {
-        name = "JetBrainsMono NF";
-        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "Iosevka NF";
+        package = pkgs.nerd-fonts.iosevka;
       };
       sansSerif = {
         name = "Ubuntu Sans";
