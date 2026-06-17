@@ -43,26 +43,13 @@
     };
     fonts = {
       monospace = {
-        name = "JetBrainsMono NF";
-        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "Iosevka NF";
+        package = pkgs.nerd-fonts.iosevka;
       };
       sansSerif = {
         name = "Ubuntu Sans";
         package = pkgs.ubuntu-sans;
       };
-    };
-  };
-
-  fontProfiles = {
-    enable = true;
-    monospace = {
-      name = "JetBrainsMono Nerd Font";
-      size = 15;
-      package = pkgs.nerd-fonts.jetbrains-mono;
-    };
-    regular = {
-      name = "Ubuntu Sans";
-      package = pkgs.ubuntu-sans;
     };
   };
 
