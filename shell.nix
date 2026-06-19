@@ -16,6 +16,7 @@
         deadnix
         lua-language-server
         nixd
+        nil
         nix-update
         ;
     };

@@ -1,7 +1,14 @@
 {
   pkgs,
+  osConfig,
   ...
 }:
+let
+  inherit (osConfig.networking) hostName;
+  flake = "(builtins.getFlake (builtins.toString $HOME/.nix/nix-config))";
+  nixosOpts = "${flake}.nixosConfigurations.${hostName}.options";
+  hmOpts = "${nixosOpts}.home-manager.users.type.getSubOptions []";
+in
 {
   programs.neovim = {
     enable = true;
@@ -43,9 +50,23 @@
       ${builtins.readFile config/plugins/telescope.lua}
       ${builtins.readFile config/plugins/completion.lua}
       ${builtins.readFile config/plugins/oil.lua}
-      ${builtins.readFile config/plugins/autopairs.lua}
       ${builtins.readFile config/plugins/gitsigns.lua}
       ${builtins.readFile config/plugins/vimtex.lua}
+
+      -- for nixd to support other hosts
+      vim.lsp.config('nixd', {
+        settings = {
+          nixd = {
+            formatting = {
+              command = { "nixfmt" }
+            },
+            options = {
+              nixos = '${nixosOpts}',
+              home_manager = '${hmOpts}'
+            },
+          },
+        },
+      })
     '';
   };
 

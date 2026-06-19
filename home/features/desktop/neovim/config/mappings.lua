@@ -1,7 +1,8 @@
 local keymap = vim.keymap.set
 local api = vim.api
 -- copy to clipboard
-keymap({ 'n', 'v' }, '<leader>y', '\"+y')
+keymap('v', '<C-c>', '\"+y')
+keymap('v', '<C-x>', '\"+c')
 
 -- disable highlights
 keymap('n', '<space><space>', '<cmd>noh<CR>')
