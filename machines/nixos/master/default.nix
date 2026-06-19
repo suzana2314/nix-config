@@ -12,9 +12,8 @@
     ../../common/options/wireless
     ../../common/options/grub-bootloader # for dual boot
     ../../common/options/wayland
-    ../../common/options/ly
+    ../../common/options/greetd
     ../../common/options/printing
-    ../../common/options/virtualisation
     ../../common/options/nvidia
     ../../common/options/steam
     ../../common/options/yubikey
@@ -22,6 +21,7 @@
   ];
 
   systemd.network.wait-online.enable = false;
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   networking.hostName = "master";
   networking.firewall.enable = true;

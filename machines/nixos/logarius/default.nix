@@ -16,7 +16,6 @@
     ../../common/options/wayland
     ../../common/options/greetd
     ../../common/options/printing
-    ../../common/options/virtualisation
     ../../common/options/yubikey
     ../../common/options/localsend
     ../../common/options/zram
@@ -25,6 +24,7 @@
   boot.initrd.systemd.enable = true;
 
   systemd.network.wait-online.enable = false;
+  systemd.services.NetworkManager-wait-online.enable = false;
 
   services.btrfs.autoScrub = {
     enable = true;
