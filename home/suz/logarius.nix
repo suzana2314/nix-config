@@ -12,7 +12,6 @@
     ../features/desktop/neovim
     ../features/desktop/calendar
     ../features/desktop/subtui
-    ../features/desktop/firefox
     ../features/bat
     ../features/git
     ../features/direnv
@@ -108,6 +107,7 @@
 
     # apps
     unstable.obsidian
+    unstable.firefox
     subtui
   ];
 }
