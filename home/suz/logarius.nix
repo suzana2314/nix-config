@@ -56,7 +56,7 @@
   monitors = [
     {
       name = "eDP-1";
-      description = "AU Optronics 0x403D";
+      description = "Lenovo Group Limited 0x40A9";
       width = 1920;
       height = 1080;
       refreshRate = 60;
