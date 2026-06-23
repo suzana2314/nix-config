@@ -15,8 +15,8 @@
     ../../common/options/greetd
     ../../common/options/printing
     ../../common/options/nvidia
-    ../../common/options/steam
-    ../../common/options/yubikey
+    # ../../common/options/steam
+    ../../common/options/users/suz
     ../../common/options/localsend
   ];
 
