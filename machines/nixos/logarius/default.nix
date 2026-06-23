@@ -16,7 +16,7 @@
     ../../common/options/wayland
     ../../common/options/greetd
     ../../common/options/printing
-    ../../common/options/yubikey
+    ../../common/options/users/suz
     ../../common/options/localsend
     ../../common/options/zram
   ];
