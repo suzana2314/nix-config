@@ -2,7 +2,7 @@
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
-    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-intel-gen1
+    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen1
     inputs.disko.nixosModules.disko
 
     ./hardware-configuration.nix
