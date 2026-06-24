@@ -1,6 +1,12 @@
-{ inputs, lib, ... }:
+{
+  inputs,
+  lib,
+  config,
+  ...
+}:
 let
   inherit (inputs.nix-secrets) sshCfg;
+  sopsFile = "${toString inputs.nix-secrets}/sops/${config.home.username}.yaml";
 
   pathToKeys = ../../../machines/common/users/super/keys/ssh;
 
@@ -11,6 +17,15 @@ let
   yubikeyPublicKeys = lib.attrsets.mergeAttrsList (
     lib.lists.map (key: {
       ".ssh/${key}.pub".source = "${pathToKeys}/${key}.pub";
+    }) yubikeys
+  );
+
+  yubikeySSH = lib.attrsets.mergeAttrsList (
+    lib.lists.map (key: {
+      "ssh/${key}" = {
+        inherit sopsFile;
+        path = "${config.home.homeDirectory}/.ssh/${key}";
+      };
     }) yubikeys
   );
 in
@@ -53,4 +68,6 @@ in
     ".ssh/sockets/.keep".text = "#home manager managed";
   }
   // yubikeyPublicKeys;
+
+  sops.secrets = yubikeySSH;
 }
