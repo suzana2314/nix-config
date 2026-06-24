@@ -243,10 +243,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1782250212,
-        "narHash": "sha256-PYcq/TADamoGRnnfOsVqKv8jlrX7Gjs3xmaGqaJKHfI=",
+        "lastModified": 1782335834,
+        "narHash": "sha256-+bPBhHjGIOYSQdeJMe9DOE3EuU3++5qoG/st7LNdeRg=",
         "ref": "master",
-        "rev": "6b3d0aa59831e92530be34aa6c2a9e3ea1c630a5",
+        "rev": "80c48760e45aee5773801f20df8d5d9983fc4101",
         "shallow": true,
         "type": "git",
         "url": "ssh://git@codeberg.org/suzana2314/nix-secrets.git"
@@ -422,11 +422,11 @@
         "tinted-zed": "tinted-zed"
       },
       "locked": {
-        "lastModified": 1781997134,
-        "narHash": "sha256-muBZG4O/agq/ljgHr6c3AsobIWgODAS6vf50xIS7o+Q=",
+        "lastModified": 1782310521,
+        "narHash": "sha256-vsxcG0i8e4EPfdnhMTKMVzD1825H2vG1BBslzom9wxg=",
         "owner": "nix-community",
         "repo": "stylix",
-        "rev": "a6a493119e492e15874caf6f7f8c7e572e64c655",
+        "rev": "e084d011e7ee9302aceaaf6c1fc28a9ace09e16a",
         "type": "github"
       },
       "original": {
