@@ -43,6 +43,10 @@ iso-flash DRIVE:
   just iso
   sudo dd if=$(ls -t result/iso/*.iso | head -n1) of=/dev/sda bs=4M status=progress oflag=sync
 
+[group('build')]
+bootstrap:
+  python ./helpers/bootstrap.py
+
 [group('deploy')]
 sync $host:
   rsync -ax --delete ./ {{host}}:$XDG_CONFIG_HOME/nix/

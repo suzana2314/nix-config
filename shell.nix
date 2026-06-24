@@ -18,6 +18,9 @@
         nixd
         nil
         nix-update
+        python3
+        ruff
+        ty
         ;
     };
   };
