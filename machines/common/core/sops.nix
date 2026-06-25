@@ -1,4 +1,9 @@
-{ inputs, ... }:
+{ inputs, config, ... }:
+let
+  isEd25519 = k: k.type == "ed25519";
+  getKeyPath = k: k.path;
+  keys = builtins.filter isEd25519 config.services.openssh.hostKeys;
+in
 {
   imports = [
     inputs.sops-nix.nixosModules.sops
@@ -8,7 +13,7 @@
     # when building remotely if this is not set, sops-install-secrets will import the rsa key
     gnupg.sshKeyPaths = [ ];
     age = {
-      sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+      sshKeyPaths = map getKeyPath keys;
       keyFile = "/var/lib/sops-nix/key.txt";
       generateKey = true;
     };

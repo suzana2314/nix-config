@@ -2,9 +2,13 @@
   inputs,
   outputs,
   pkgs,
+  config,
   lib,
   ...
 }:
+let
+  hasPersistence = config.environment ? persistence."/persist";
+in
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
@@ -31,7 +35,16 @@
   };
 
   # this is to make sure there are always host keys
-  services.openssh.generateHostKeys = true;
+  services.openssh = {
+    generateHostKeys = true;
+    hostKeys = [
+      {
+        path = "${lib.optionalString hasPersistence "/persist"}/etc/ssh/ssh_host_ed25519_key";
+        type = "ed25519";
+      }
+    ];
+
+  };
 
   security = {
     doas.enable = lib.mkDefault false;

@@ -42,6 +42,12 @@
                 };
                 content = {
                   type = "btrfs";
+                  postCreateHook = ''
+                    MNTPOINT=$(mktemp -d)
+                    mount -t btrfs "$device" "$MNTPOINT"
+                    trap 'umount $MNTPOINT; rm -d $MNTPOINT' EXIT
+                    btrfs subvolume snapshot -r $MNTPOINT/root $MNTPOINT/root-blank
+                  '';
                   extraArgs = [
                     "-L"
                     "nixos"
@@ -80,14 +86,6 @@
                         "noatime"
                       ];
                     };
-                    "/log" = {
-                      mountpoint = "/var/log";
-                      mountOptions = [
-                        "subvol=log"
-                        "compress=zstd"
-                        "noatime"
-                      ];
-                    };
                     "/swap" = {
                       mountpoint = "/swap";
                       swap.swapfile.size = "18G";
@@ -101,7 +99,4 @@
       };
     };
   };
-
-  fileSystems."/persist".neededForBoot = true;
-  fileSystems."/var/log".neededForBoot = true;
 }
