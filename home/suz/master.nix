@@ -12,6 +12,7 @@
     ../features/desktop/neovim
     ../features/desktop/calendar
     ../features/desktop/subtui
+    ../features/desktop/whipper
     ../features/bat
     ../features/git
     ../features/direnv

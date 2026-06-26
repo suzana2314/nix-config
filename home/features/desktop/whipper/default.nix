@@ -14,20 +14,26 @@
         server = "https://musicbrainz.org";
       };
 
-      "drive:HL-20" = {
+      "drive:TSSTcorp%3ACDDVDW%20SE-208GB%20%3ATS00" = {
+        vendor = "TSSTcorp";
+        model = "CDDVDW SE-208GB";
+        release = "TS00";
         defeats_cache = true;
         read_offset = 6;
       };
 
       whipper = {
         eject = "always";
+        drive_auto_close = false;
       };
 
       "whipper.cd.rip" = {
         unknown = true;
-        output_directory = "~/My Music";
-        track_template = "new/%%A/%%y - %%d/%%t - %%n";
-        disc_template = "new/%%A/%%y - %%d/%%A - %%d";
+        output_directory = "~/music/music";
+        track_template = "%%A/%%d/%%t - %%n";
+        disc_template = "%%A/%%d";
+        cover_art = "file";
+        prompt = true;
       };
     };
   };
