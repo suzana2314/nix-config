@@ -2,11 +2,15 @@ import ipaddress
 import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 MACHINES_CFG_DIR = Path("machines/nixos")
+SECRETS_HOSTS_DIR = Path("/tmp/nixos-bootstrap/hosts")
+SSH_KEY_NAME = "ssh_host_ed25519_key"
 DEFAULT_HOST = "iso.local"
-REQUIRED_TOOLS = ("ping", "ssh-keyscan", "ssh-to-age", "nix")
+DEFAULT_PERSIST = "/persist"
+REQUIRED_TOOLS = ("ping", "ssh-keyscan", "ssh-keygen", "ssh-to-age", "nix")
 TOTAL_STEPS = 5
 
 # colours and fmt
@@ -25,10 +29,6 @@ def info(msg: str) -> None:
     print(f"{BLUE}{BOLD}[I]{RESET}  {msg}")
 
 
-def success(msg: str) -> None:
-    print(f"{GREEN}{BOLD}[S]{RESET}  {msg}")
-
-
 def warn(msg: str) -> None:
     print(f"{YELLOW}{BOLD}[W]{RESET}  {msg}")
 
@@ -43,6 +43,11 @@ def step(n: int, msg: str) -> None:
 
 def ask(prompt: str) -> str:
     return input(f"{MAGENTA}{BOLD}>{RESET} {prompt}").strip()
+
+
+def ask_default(prompt: str, default: str) -> str:
+    resp = ask(f"{prompt} {DIM}[{default}]{RESET} ")
+    return resp or default
 
 
 def confirm(prompt: str) -> bool:
@@ -125,21 +130,72 @@ def get_age_key(host: str) -> str | None:
         return None
 
 
-def update_flake() -> bool:
+def ensure_host_keys(hostname: str) -> Path:
+    key_dir = SECRETS_HOSTS_DIR / hostname
+    priv = key_dir / SSH_KEY_NAME
+    pub = key_dir / f"{SSH_KEY_NAME}.pub"
+
+    if priv.exists() and pub.exists():
+        info(f"Found pre-generated host keys in {BOLD}{key_dir}{RESET}")
+        return priv
+
+    warn(f"No pre-generated host keys found in {key_dir}")
+    if not confirm("Generate a new ed25519 host key pair?"):
+        kill("Impermanent hosts need pre-generated SSH host keys to proceed")
+
+    key_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        subprocess.run(
+            ["ssh-keygen", "-t", "ed25519", "-N", "", "-C", hostname, "-f", str(priv)],
+            check=True,
+            stdout=subprocess.DEVNULL,
+        )
+    except (subprocess.CalledProcessError, OSError):
+        kill("Failed to generate host keys")
+    info(f"Generated host keys in {BOLD}{key_dir}{RESET}")
+    return priv
+
+
+def age_key_from_pub(pub_key_path: Path) -> str | None:
+    try:
+        content = pub_key_path.read_text()
+        age_out = subprocess.check_output(
+            ["ssh-to-age"], input=content, text=True, stderr=subprocess.DEVNULL
+        )
+        return age_out.strip() or None
+    except (subprocess.CalledProcessError, OSError):
+        return None
+
+
+def build_extra_files(priv_key: Path, persist: str) -> str:
+    pub_key = priv_key.parent / f"{priv_key.name}.pub"
+    tmp_root = Path(tempfile.mkdtemp(prefix="nixos-anywhere-extra-"))
+    ssh_dir = tmp_root.joinpath(persist.lstrip("/"), "etc", "ssh")
+    ssh_dir.mkdir(parents=True, exist_ok=True)
+
+    dst_priv = ssh_dir / priv_key.name
+    dst_pub = ssh_dir / pub_key.name
+    shutil.copy2(priv_key, dst_priv)
+    shutil.copy2(pub_key, dst_pub)
+    dst_priv.chmod(0o600)
+    dst_pub.chmod(0o644)
+    return str(tmp_root)
+
+
+def run_update_flake() -> bool:
     try:
         return subprocess.run(["nix", "flake", "update"]).returncode == 0
     except OSError:
         return False
 
 
-def run_nix_anywhere(host: str, hostname: str) -> bool:
+def run_nix_anywhere(host: str, hostname: str, extra_files: str | None = None) -> bool:
     hardwareonfig_path = MACHINES_CFG_DIR / hostname / "hardware-configuration.nix"
     cmd = [
         "nix",
         "run",
         "github:nix-community/nixos-anywhere",
         "--",
-        "--copy-host-keys",
         "--generate-hardware-config",
         "nixos-generate-config",
         str(hardwareonfig_path),
@@ -148,6 +204,10 @@ def run_nix_anywhere(host: str, hostname: str) -> bool:
         "--target-host",
         f"root@{host}",
     ]
+    if extra_files:
+        cmd += ["--extra-files", extra_files]
+    else:
+        cmd += ["--copy-host-keys"]
     try:
         subprocess.run(cmd, check=True)
         return True
@@ -164,22 +224,37 @@ def main():
 
     step(1, "Select machine configuration")
     hostname = prompt_hostname()
-    success(f"Using config: {BOLD}{hostname}{RESET}")
+    info(f"Using config: {BOLD}{hostname}{RESET}")
+
+    impermanent = confirm("Does this host use impermanence?")
+    persist = DEFAULT_PERSIST
+    if impermanent:
+        persist = ask_default("Persist location:", DEFAULT_PERSIST)
+        info(
+            "Pre-generated SSH host keys will be persisted under "
+            f"{BOLD}{persist.rstrip('/')}/etc/ssh{RESET} via --extra-files"
+        )
 
     step(2, "Locate target host")
     host = DEFAULT_HOST
     if ping_host(host):
-        success(f"Reached default host: {BOLD}{host}{RESET}")
+        info(f"Reached default host: {BOLD}{host}{RESET}")
     else:
         warn(f"Could not reach {host}, falling back to manual entry...")
         host = prompt_ip_address()
-        success(f"Reached host: {BOLD}{host}{RESET}")
+        info(f"Reached host: {BOLD}{host}{RESET}")
 
     step(3, "Derive age key & configure sops")
-    age_key = get_age_key(host)
+    priv_key: Path = Path()
+    if impermanent:
+        priv_key = ensure_host_keys(hostname)
+        pub_key = priv_key.parent / f"{priv_key.name}.pub"
+        age_key = age_key_from_pub(pub_key)
+    else:
+        age_key = get_age_key(host)
     if not age_key:
-        kill("Failed to derive the age key from the host's SSH key")
-    success("Derived age key:")
+        kill("Failed to derive the age key")
+    info("Derived age key:")
     print(f"   {GREEN}{age_key}{RESET}\n")
     info(
         "Add this key to your .sops.yaml, then rekey the secrets and push "
@@ -188,9 +263,9 @@ def main():
     ask(f"{DIM}Press Enter once sops is configured...{RESET}")
 
     step(4, "Update flake inputs")
-    if not update_flake():
+    if not run_update_flake():
         kill("Failed to update the flake")
-    success("Flake updated")
+    info("Flake updated")
 
     step(5, "Deploy NixOS")
     warn(
@@ -200,11 +275,20 @@ def main():
     if not confirm("Proceed with deployment?"):
         info("Deployment cancelled")
         sys.exit(0)
-    if not run_nix_anywhere(host, hostname):
+
+    extra_files = None
+    if impermanent:
+        extra_files = build_extra_files(priv_key, persist)
+    try:
+        deployed = run_nix_anywhere(host, hostname, extra_files)
+    finally:
+        if extra_files:
+            shutil.rmtree(extra_files, ignore_errors=True)
+    if not deployed:
         kill("Deployment failed")
 
     print()
-    success(f"{BOLD}{hostname}{RESET} was installed successfully :)")
+    info(f"{BOLD}{hostname}{RESET} was installed successfully :)")
 
 
 if __name__ == "__main__":
