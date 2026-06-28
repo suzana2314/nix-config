@@ -10,12 +10,12 @@
     ../../common/options/power
     ../../common/options/audio
     ../../common/options/wireless
-    ../../common/options/grub-bootloader # for dual boot
+    ../../common/options/systemd-bootloader
     ../../common/options/wayland
     ../../common/options/greetd
     ../../common/options/printing
     ../../common/options/nvidia
-    # ../../common/options/steam
+    ../../common/options/steam
     ../../common/options/users/suz
     ../../common/options/localsend
   ];
