@@ -1,18 +1,18 @@
 { pkgs, ... }:
 {
   imports = [
-    ../features/desktop/ghostty
-    ../features/desktop/discord
-    ../features/desktop/notifications
-    ../features/desktop/hyprland
-    ../features/desktop/theme
-    ../features/desktop/waybar
-    ../features/desktop/wayland
-    ../features/desktop/wofi
-    ../features/desktop/neovim
-    ../features/desktop/calendar
-    ../features/desktop/subtui
-    ../features/desktop/whipper
+    ../features/ghostty
+    ../features/discord
+    ../features/notifications
+    ../features/hyprland
+    ../features/theme
+    ../features/waybar
+    ../features/wayland
+    ../features/wofi
+    ../features/neovim
+    ../features/calendar
+    ../features/subtui
+    ../features/whipper
     ../features/bat
     ../features/git
     ../features/direnv

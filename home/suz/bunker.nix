@@ -2,7 +2,7 @@
 {
   imports = [
     ../features/nvim
-    ../features/desktop/alacritty
+    ../features/alacritty
     ./core
   ];
 
