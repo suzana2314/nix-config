@@ -2,7 +2,7 @@
 let
   host = config.networking.hostName;
   secrets = inputs.nix-secrets;
-  sopsFile = "${builtins.toString secrets}/sops/${host}.yaml";
+  sopsFile = "${toString secrets}/sops/${host}.yaml";
 
   mkSecret = {
     inherit sopsFile;
@@ -17,17 +17,7 @@ in
     email = secrets.email.default;
     baseDomain = secrets.domain;
 
-    motd = {
-      enable = true;
-      asciiArt = ''
-        ██╗  ██╗███████╗███╗   ███╗██╗    ██╗██╗ ██████╗██╗  ██╗
-        ██║  ██║██╔════╝████╗ ████║██║    ██║██║██╔════╝██║ ██╔╝
-        ███████║█████╗  ██╔████╔██║██║ █╗ ██║██║██║     █████╔╝
-        ██╔══██║██╔══╝  ██║╚██╔╝██║██║███╗██║██║██║     ██╔═██╗
-        ██║  ██║███████╗██║ ╚═╝ ██║╚███╔███╔╝██║╚██████╗██║  ██╗
-        ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚══╝╚══╝ ╚═╝ ╚═════╝╚═╝  ╚═╝
-      '';
-    };
+    motd.enable = true;
 
     services = {
       enable = true;

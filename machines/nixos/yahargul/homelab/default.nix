@@ -1,6 +1,6 @@
 { inputs, config, ... }:
 let
-  sopsFile = "${builtins.toString inputs.nix-secrets}/sops/${config.networking.hostName}.yaml";
+  sopsFile = "${toString inputs.nix-secrets}/sops/${config.networking.hostName}.yaml";
   secrets = inputs.nix-secrets;
 
   mkSecret = {
@@ -14,17 +14,7 @@ in
     enable = true;
     inherit (config.time) timeZone;
 
-    motd = {
-      enable = true;
-      asciiArt = ''
-        ██╗   ██╗ █████╗ ██╗  ██╗ █████╗ ██████╗  ██████╗ ██╗   ██╗██╗
-        ╚██╗ ██╔╝██╔══██╗██║  ██║██╔══██╗██╔══██╗██╔════╝ ██║   ██║██║
-         ╚████╔╝ ███████║███████║███████║██████╔╝██║  ███╗██║   ██║██║
-          ╚██╔╝  ██╔══██║██╔══██║██╔══██║██╔══██╗██║   ██║██║   ██║██║
-           ██║   ██║  ██║██║  ██║██║  ██║██║  ██║╚██████╔╝╚██████╔╝███████╗
-           ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚══════╝
-      '';
-    };
+    motd.enable = true;
 
     services = {
       enable = true;
