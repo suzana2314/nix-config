@@ -90,6 +90,11 @@
         initial_workspace_tracking = 2;
       };
 
+      ecosystem = {
+        no_update_news = true;
+        no_donation_nag = true;
+      };
+
       # ============================== STARTUP ==============================
 
       exec-once = [
