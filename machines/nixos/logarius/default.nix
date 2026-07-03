@@ -20,6 +20,7 @@
     ../../common/options/users/suz
     ../../common/options/localsend
     ../../common/options/zram
+    ../../common/options/secure-boot
   ];
 
   boot.initrd.systemd.enable = true;

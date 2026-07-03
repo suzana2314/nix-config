@@ -6,20 +6,21 @@
 
     nativeBuildInputs = builtins.attrValues {
       inherit (pkgs)
-        nh
+        age
+        deadnix
         git
         just
-        sops
-        age
-        ssh-to-age
-        pre-commit
-        deadnix
         lua-language-server
-        nixd
+        nh
         nil
         nix-update
+        nixd
+        pre-commit
         python3
         ruff
+        sbctl
+        sops
+        ssh-to-age
         ty
         ;
     };
