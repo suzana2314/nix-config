@@ -184,7 +184,7 @@ def build_extra_files(priv_key: Path, persist: str) -> str:
 
 def run_update_flake() -> bool:
     try:
-        return subprocess.run(["nix", "flake", "update"]).returncode == 0
+        return subprocess.run(["nix", "flake", "update", "nix-secrets"]).returncode == 0
     except OSError:
         return False
 
