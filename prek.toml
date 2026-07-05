@@ -1,0 +1,54 @@
+default_stages = ["pre-commit"]
+
+[[repos]]
+repo = "builtin"
+
+  [[repos.hooks]]
+  id = "check-added-large-files"
+  exclude = "\\.(png|jpg)$"
+
+  [[repos.hooks]]
+  id = "check-case-conflict"
+
+  [[repos.hooks]]
+  id = "check-merge-conflict"
+
+  [[repos.hooks]]
+  id = "detect-private-key"
+
+  [[repos.hooks]]
+  id = "fix-byte-order-marker"
+
+  [[repos.hooks]]
+  id = "mixed-line-ending"
+
+  [[repos.hooks]]
+  id = "trailing-whitespace"
+
+  [[repos.hooks]]
+  id = "destroyed-symlinks"
+
+[[repos]]
+repo = "local"
+
+  [[repos.hooks]]
+  id = "nixfmt"
+  name = "nixfmt"
+  language = "system"
+  entry = "nixfmt"
+  types = ["nix"]
+
+  [[repos.hooks]]
+  id = "deadnix"
+  name = "deadnix"
+  language = "system"
+  entry = "deadnix --fail --no-lambda-arg"
+  types = ["nix"]
+
+  [[repos.hooks]]
+  id = "lua-ls"
+  name = "lua-language-server check"
+  language = "system"
+  entry = "lua-language-server --check . --checklevel=Warning"
+  types = ["lua"]
+  pass_filenames = false
