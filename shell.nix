@@ -1,9 +1,6 @@
-{ pkgs, checks, ... }:
+{ pkgs, ... }:
 {
   default = pkgs.mkShell {
-    inherit (checks.pre-commit-check) shellHook;
-    buildInputs = checks.pre-commit-check.enabledPackages;
-
     nativeBuildInputs = builtins.attrValues {
       inherit (pkgs)
         age
@@ -15,7 +12,6 @@
         nil
         nix-update
         nixd
-        pre-commit
         python3
         ruff
         sbctl
