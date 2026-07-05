@@ -1,6 +1,6 @@
 <div align="center">
 <h1>
-<img width="200" src="https://github.com/NixOS/nixos-artwork/blob/master/logo/nix-snowflake-colours.svg" />
+<img width="300" src="assets/nixos-logo.svg" />
 <br>
 Nix Config
 </h1>
@@ -8,28 +8,40 @@ Nix Config
 
 ## Overview
 
-This repository contains my personal NixOS system configurations. It's not meant to be a ready-to-use solution that you can deploy on any machine. Instead, think of it as a reference where you can get ideas and see how things can be done for your own setup.
+This repository contains my personal NixOS system configurations. It's not meant to be a ready-to-use solution that you can deploy on any machine. Instead, think of it as a reference where you can get ideas and see how things can be done for your own setup. That's why there are not installation instructions.
 
-## Managed Systems
+## Machines
 
 - **master** - my main machine
+- **logarius** - thinkpad laptop
 - **byrgenwerth** - media server
 - **hemwick** - smart home / DNS server / lightweight apps
 - **yahargul** - offsite server
-- **bunker** - random intel nuc
 
-## Key Features
+## Some Features
 
-This repo uses flakes for reproducible system configurations. The setup includes:
-
-- Stable base system packages and unstable for most everyday apps
-- Home manager for managing users and dotfiles
 - Hardware specific configurations using nixos-hardware
-- Disk setup with disko
+- Disk setup with disko, with encrypted btrfs volumes using LUKS
+- Impermanence
+- Secure boot
+- Full declarative home lab config
+- Automated bootstrap using a custom iso image and a really simple python script
+- Yubikey for basically everything (ssh, decrypting discs, signing commits, sudo)
 
-## Secrets Management
+
+## Secrets
 
 Secrets are managed using sops-nix and kept in a separate private repository where everything is encrypted. The private repository holds both "hard" secrets and less sensitive config data, "soft" secrets.
+
+## Structure (so you don't get lost *:)*)
+```
+.
+├── hosts/           # machine configs
+├── modules/         # modules for random things + home lab config lives here
+├── home/            # home-manager configs
+├── pkgs/            # pkgs that are not in nixpkgs
+└── flake.nix
+```
 
 ## References
 
