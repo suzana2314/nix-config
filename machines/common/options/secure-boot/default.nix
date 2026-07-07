@@ -20,4 +20,13 @@
       autoReboot = true;
     };
   };
+
+  environment.persistence = {
+    "/persist" = {
+      directories = [
+        "/var/lib/auto-cryptenroll"
+        "/var/lib/sbctl"
+      ];
+    };
+  };
 }
