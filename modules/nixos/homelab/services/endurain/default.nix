@@ -80,7 +80,7 @@ in
     };
     virtualisation.oci-containers.containers = {
       endurain-app = {
-        image = "ghcr.io/endurain-project/endurain:latest";
+        image = "codeberg.org/endurain-project/endurain:latest";
         environmentFiles = [ cfg.environmentFile ];
         volumes = [
           "${cfg.configDir}/data:/app/backend/data:rw"
