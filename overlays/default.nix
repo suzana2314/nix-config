@@ -8,6 +8,7 @@
     unstable = import inputs.nixpkgs-unstable {
       system = final.stdenv.hostPlatform.system;
       config.allowUnfree = true;
+      config.permittedInsecurePackages = [ "electron-40.10.5" ];
     };
   };
 }

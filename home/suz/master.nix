@@ -111,7 +111,7 @@
     unstable.obsidian
     unstable.prusa-slicer
     unstable.pixelorama
-    unstable.freecad-wayland
+    freecad-wayland
     libreoffice
     subtui
   ];
