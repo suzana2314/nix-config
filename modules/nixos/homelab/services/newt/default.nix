@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -24,6 +25,7 @@ in
   config = lib.mkIf cfg.enable {
     services.${service} = {
       enable = true;
+      package = pkgs.unstable.fosrl-newt;
       inherit (cfg) environmentFile;
     };
   };
