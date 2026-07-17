@@ -37,6 +37,7 @@ in
       "d ${cfg.configDir} 0700 ${service} ${service} -"
       "d ${cfg.configDir}/runner 0700 ${service} ${service} -"
       "d ${cfg.configDir}/backup 0700 ${service} ${service} -"
+      "d ${cfg.configDir}/books 0700 ${service} ${service} -"
     ];
 
     services.${service} = {
@@ -48,6 +49,12 @@ in
         behindProxy = true;
         directory = cfg.configDir;
         users = [
+          {
+            username = "{env}USERNAME_KOBO";
+            password = "{env}PASSWORD_KOBO";
+            directory = "${cfg.configDir}/books";
+            permissions = "CRUD";
+          }
           {
             username = "{env}USERNAME_RUNNER";
             password = "{env}PASSWORD_RUNNER";
