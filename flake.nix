@@ -37,6 +37,10 @@
       url = "github:nix-community/lanzaboote/v1.1.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    bookdav = {
+      url = "git+https://codeberg.org/suzana2314/bookdav.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
