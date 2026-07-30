@@ -19,6 +19,7 @@ in
       };
       epub = {
         kepubify = false;
+        rename = true;
         dir = "${config.xdg.userDirs.documents}/epubs";
       };
     };
