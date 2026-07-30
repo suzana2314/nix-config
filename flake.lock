@@ -75,11 +75,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1785408435,
-        "narHash": "sha256-uWuMkc5mu6P+EsfkSBz5agHS7r2CNWKNmXXqw4SSxUQ=",
+        "lastModified": 1785423808,
+        "narHash": "sha256-CsabflFpB1nJACy4TD8Hu8Whzgc5KuVTrQUTjM+acnU=",
         "ref": "refs/heads/master",
-        "rev": "3ed774ee076141584caa0f1a8f7b41d3cd1c524f",
-        "revCount": 13,
+        "rev": "a210382266214865c6135edf025b755d035c413e",
+        "revCount": 14,
         "type": "git",
         "url": "https://codeberg.org/suzana2314/bookdav.git"
       },
@@ -343,11 +343,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1785133411,
-        "narHash": "sha256-Yjv0WEg39KRYS0rBdTbu6Fc/or/ihAKk13W9sQ6VWd0=",
+        "lastModified": 1785386831,
+        "narHash": "sha256-sPS3CaXH8RAT3FZRuy4VcV47iuYIWMMfa0GbyJKC3o4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "2f5a153c270b70cb0f8c11f46d96d6d3bc39f4e3",
+        "rev": "21ea275a7c46aef9d4d6ddc962e6d562e9d94183",
         "type": "github"
       },
       "original": {
