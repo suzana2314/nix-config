@@ -5,6 +5,9 @@
   pkgs,
   ...
 }:
+let
+  sopsFile = "${toString inputs.nix-secrets}/sops/shared.yaml";
+in
 {
   nix =
     let
@@ -41,5 +44,14 @@
 
       registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
       nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+
+      extraOptions = ''
+        !include ${config.sops.secrets.gh-token.path}
+      '';
     };
+
+  sops.secrets.gh-token = {
+    inherit sopsFile;
+    mode = "0440";
+  };
 }
