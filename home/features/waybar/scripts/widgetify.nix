@@ -107,7 +107,7 @@ let
 
 
       if [ -n "$widget_address" ]; then
-        hyprctl dispatch closewindow "address:$widget_address"
+        hyprctl dispatch "hl.dsp.window.close({ window = \"address:$widget_address\" })"
       else
         monitor_info=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true)')
         monitor_name=$(echo "$monitor_info" | jq -r '.name')
@@ -121,7 +121,7 @@ let
 
         y_pos=$((STATUSBAR_HEIGHT + 2 * PADDING))
         term_cmd=$(build_terminal_cmd "$terminal_bin" "$widget_class" "$application")
-        hyprctl dispatch exec "[float;monitor $monitor_name;size $WINDOW_WIDTH $WINDOW_HEIGHT;move $x_pos $y_pos] $term_cmd"
+        hyprctl dispatch "hl.dsp.exec_cmd(\"$term_cmd\", { float = true, monitor = \"$monitor_name\", size = { $WINDOW_WIDTH, $WINDOW_HEIGHT }, move = { $x_pos, $y_pos } })"
       fi
     '';
   };
