@@ -23,6 +23,8 @@
     shellHook = ''
       # to install git hooks
       ${pkgs.prek}/bin/prek install
+
+      export VIMRUNTIME="${pkgs.neovim-unwrapped}/share/nvim/runtime"
     '';
   };
 }
