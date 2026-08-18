@@ -23,6 +23,7 @@
     ../features/gpg
     ../features/xdg
     ../features/bookdav
+    ../features/retroarch
     ./core
   ];
 
