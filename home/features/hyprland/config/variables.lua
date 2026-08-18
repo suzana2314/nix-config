@@ -1,0 +1,5 @@
+MOD = "@mod@"
+TERM = "@term@"
+DATA_HOME = "@dataHome@"
+PICTURE_HOME = "@pictureHome@"
+CURSOR_THEME = "@cursorTheme@"

@@ -4,7 +4,10 @@
     "version": "LuaJIT"
   },
   "workspace": {
-    "library": ["$VIMRUNTIME"],
+    "library": [
+      "$VIMRUNTIME",
+      "/run/current-system/sw/share/hypr/stubs"
+    ],
     "checkThirdParty": false
   }
 }
