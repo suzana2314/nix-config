@@ -24,6 +24,7 @@
     ../features/xdg
     ../features/bookdav
     ../features/retroarch
+    ../features/syncthing
     ./core
   ];
 
