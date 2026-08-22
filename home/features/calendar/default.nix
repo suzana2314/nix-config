@@ -28,6 +28,7 @@ in
           collections = [
             "main"
             "birthdays"
+            "holidays"
           ];
         };
       };
@@ -55,6 +56,19 @@ in
           enable = true;
           type = "calendar";
           color = "light blue";
+        };
+      };
+
+      holidays = {
+        name = "holidays";
+        local = {
+          encoding = "UTF-8";
+          path = "${config.xdg.dataHome}/calendar/sync/holidays";
+        };
+        khal = {
+          enable = true;
+          type = "calendar";
+          color = "yellow";
         };
       };
     };
