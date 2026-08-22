@@ -9,7 +9,7 @@ in
       alias = {
         graph = "log --decorate --oneline --graph";
         l = "log --decorate --graph";
-        s = "status";
+        s = "status --short";
       };
       user = {
         inherit signingkey;
