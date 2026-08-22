@@ -76,6 +76,12 @@ in
         passwdFile = config.sops.secrets."radicale/passwdFile".path;
       };
 
+      holiday-sync = {
+        enable = true;
+        environmentFile = config.sops.secrets."holiday-sync/environmentFile".path;
+        calendarName = "Holidays";
+      };
+
       webdav = {
         enable = true;
         environmentFile = config.sops.secrets."webdav/environmentFile".path;
@@ -117,5 +123,6 @@ in
     "newt/environmentFile" = mkSecret;
     "readeck/environmentFile" = mkSecret;
     "endurain/environmentFile" = mkSecret;
+    "holiday-sync/environmentFile" = mkSecret;
   };
 }

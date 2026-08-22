@@ -49,5 +49,6 @@
     ./webdav
     ./endurain
     ./satisfactory
+    ./holiday-sync
   ];
 }
