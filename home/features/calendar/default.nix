@@ -29,6 +29,7 @@ in
             "main"
             "birthdays"
             "holidays"
+            "benfica"
           ];
         };
       };
@@ -69,6 +70,19 @@ in
           enable = true;
           type = "calendar";
           color = "yellow";
+        };
+      };
+
+      benfica = {
+        name = "benfica";
+        local = {
+          encoding = "UTF-8";
+          path = "${config.xdg.dataHome}/calendar/sync/benfica";
+        };
+        khal = {
+          enable = true;
+          type = "calendar";
+          color = "dark red";
         };
       };
     };
