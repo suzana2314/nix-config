@@ -20,6 +20,7 @@ in
     plugins = with pkgs.unstable.vimPlugins; [
       nvim-treesitter.withAllGrammars
       telescope-nvim
+      telescope-ui-select-nvim
       nvim-lspconfig
       oil-nvim
       nvim-autopairs
