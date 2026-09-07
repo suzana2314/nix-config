@@ -4,6 +4,7 @@
   pkgs,
   config,
   lib,
+  customLib,
   ...
 }:
 let
@@ -24,7 +25,7 @@ in
 
   home-manager.useGlobalPkgs = true;
   home-manager.extraSpecialArgs = {
-    inherit inputs outputs;
+    inherit inputs outputs customLib;
   };
 
   nixpkgs = {

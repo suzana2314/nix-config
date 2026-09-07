@@ -30,3 +30,6 @@
 
 !pkgs/
 !pkgs/**
+
+!lib/
+!lib/**
