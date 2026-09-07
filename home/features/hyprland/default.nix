@@ -89,6 +89,7 @@
         ${builtins.readFile config/settings.lua}
         ${builtins.readFile config/animations.lua}
         ${builtins.readFile config/binds.lua}
+        ${builtins.readFile config/rules.lua}
         ${lib.concatStringsSep "\n" monitors}
         ${lib.concatStrings workspaces}
       '';
