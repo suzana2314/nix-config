@@ -44,6 +44,11 @@ in
       default = null;
       description = "Polarity can be either dark or light";
     };
+    opacity = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Opacity value between 0.0 and 1.0";
+    };
     cursor = {
       name = lib.mkOption {
         type = lib.types.nullOr lib.types.str;

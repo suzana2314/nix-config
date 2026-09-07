@@ -31,6 +31,7 @@
     };
     theme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
     polarity = "dark";
+    opacity = "0.95";
     cursor = {
       name = "Quintom_Ink";
       package = pkgs.quintom-cursor-theme;

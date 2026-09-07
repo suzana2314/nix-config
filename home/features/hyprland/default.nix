@@ -80,8 +80,15 @@
 
         vars =
           builtins.replaceStrings
-            [ "@mod@" "@term@" "@cursorTheme@" "@dataHome@" "@pictureHome@" ]
-            [ "SUPER" "ghostty" config.gtk.cursorTheme.name config.xdg.dataHome config.xdg.userDirs.pictures ]
+            [ "@mod@" "@term@" "@opacity@" "@cursorTheme@" "@dataHome@" "@pictureHome@" ]
+            [
+              "SUPER"
+              "ghostty"
+              config.scheme.opacity
+              config.gtk.cursorTheme.name
+              config.xdg.dataHome
+              config.xdg.userDirs.pictures
+            ]
             (builtins.readFile config/variables.lua);
       in
       ''
