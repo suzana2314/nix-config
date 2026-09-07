@@ -10,6 +10,12 @@ hl.layer_rule({
   ignore_alpha = 0.8,
 })
 
+hl.layer_rule({
+  match = { namespace = "wofi" },
+  blur = true,
+  ignore_alpha = 0.5,
+})
+
 -- Window rules
 hl.window_rule({ match = { class = "firefox" }, opacity = "1.0 override 1.0 override 1.0 override" })
 hl.window_rule({ match = { title = ".*YouTube.*" }, idle_inhibit = "focus" })

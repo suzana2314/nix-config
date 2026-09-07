@@ -1,43 +1,14 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  customLib,
+  ...
+}:
 let
   inherit (config.lib.stylix) colors;
   inherit (config.stylix.fonts) monospace;
-  # this should be in a custom lib...
-  hexToInt =
-    hex:
-    let
-      digits = {
-        "0" = 0;
-        "1" = 1;
-        "2" = 2;
-        "3" = 3;
-        "4" = 4;
-        "5" = 5;
-        "6" = 6;
-        "7" = 7;
-        "8" = 8;
-        "9" = 9;
-        "a" = 10;
-        "b" = 11;
-        "c" = 12;
-        "d" = 13;
-        "e" = 14;
-        "f" = 15;
-      };
-      hi = builtins.substring 0 1 hex;
-      lo = builtins.substring 1 1 hex;
-    in
-    digits.${hi} * 16 + digits.${lo};
 
-  hexToRgb =
-    hex:
-    let
-      r = hexToInt (builtins.substring 0 2 hex);
-      g = hexToInt (builtins.substring 2 2 hex);
-      b = hexToInt (builtins.substring 4 2 hex);
-    in
-    "${toString r}, ${toString g}, ${toString b}";
-
+  rgba = color: "rgba(${customLib.hexToRgb color}, ${config.scheme.opacity})";
 in
 
 {
@@ -205,7 +176,7 @@ in
         };
       };
     };
-    style = with colors.withHashtag; ''
+    style = with colors; ''
       * {
         border: none;
         font-family: ${monospace.name};
@@ -220,21 +191,21 @@ in
       window#waybar > box {
           border-radius: 10px;
           margin: 10px 10px 3px 10px;
-          background-color: rgba(${hexToRgb colors.base00}, 0.96);
+          background-color: ${rgba base00};
           box-shadow: 0px 0px 2px 1px rgba(26, 26, 26, 0.85);
       }
 
       #workspaces button {
-        color: ${base03};
+        color: #${base03};
         padding-left: 6px;
       }
 
       #workspaces button.active {
-        color: ${base0A};
+        color: #${base0A};
       }
 
       #workspaces button:not(.active):not(.empty):not(:hover) {
-        color: ${base06};
+        color: #${base06};
       }
 
       #clock.date,
@@ -249,7 +220,7 @@ in
       #workspaces,
       #wireplumber,
       #custom-separator {
-        color: ${base0C};
+        color: #${base0C};
         padding-left: 4px;
         padding-right: 4px;
       }
@@ -260,38 +231,38 @@ in
 
       #language ,
       #idle_inhibitor.activated {
-        color: ${base0E};
+        color: #${base0E};
       }
 
       #bluetooth,
       #battery.charging {
-        color: ${base0D};
+        color: #${base0D};
       }
 
       #network,
       #battery.full,
       #battery.not-charging,
       #bluetooth.connected {
-        color: ${base0B};
+        color: #${base0B};
       }
 
       #custom-vpn,
       #bluetooth.disabled,
       #idle_inhibitor.deactivated,
       #network.disconnected {
-        color: ${base08};
+        color: #${base08};
       }
 
       #wireplumber {
-        color:  ${base0A}
+        color: #${base0A}
       }
 
       #custom-separator {
-        color: ${base01};
+        color: #${base01};
       }
 
       #battery.discharging {
-        color: ${base09};
+        color: #${base09};
       }
     '';
   };
