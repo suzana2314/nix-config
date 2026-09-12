@@ -84,6 +84,7 @@ in
         PUID = toString config.users.users.${homelab.user}.uid;
         PGID = toString config.users.groups.${homelab.group}.gid;
       };
+      labels."io.containers.autoupdate" = "registry";
     };
     networking.firewall = lib.mkMerge [
       (lib.mkIf cfg.shelly.enable {

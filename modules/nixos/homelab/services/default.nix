@@ -20,6 +20,8 @@
     networking.firewall.interfaces.podman0.allowedUDPPorts =
       lib.lists.optionals config.virtualisation.podman.enable
         [ 53 ];
+
+    systemd.timers."podman-auto-update".wantedBy = [ "timers.target" ];
   };
 
   imports = [

@@ -41,21 +41,20 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    virtualisation.oci-containers = {
-      containers = {
-        ${service} = {
-          image = "codeberg.org/joserebelo/gree-dummy-tls-server:latest";
-          autoStart = true;
-          environment = {
-            DOMAIN_NAME = "${cfg.url}";
-            EXTERNAL_IP = "${net.ip}";
-          };
-          ports = [
-            "${cfg.tlsPort}:1813" # tls
-            "${cfg.tcpPort}:5000"
-          ];
+    virtualisation.oci-containers.containers = {
+      ${service} = {
+        image = "codeberg.org/joserebelo/gree-dummy-tls-server:latest";
+        autoStart = true;
+        environment = {
+          DOMAIN_NAME = "${cfg.url}";
+          EXTERNAL_IP = "${net.ip}";
         };
+        ports = [
+          "${cfg.tlsPort}:1813" # tls
+          "${cfg.tcpPort}:5000"
+        ];
       };
+      labels."io.containers.autoupdate" = "registry";
     };
   };
 }

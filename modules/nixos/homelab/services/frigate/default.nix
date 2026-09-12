@@ -92,6 +92,7 @@ in
         "--env-file=${cfg.environmentFile}"
       ];
       autoStart = true;
+      labels."io.containers.autoupdate" = "registry";
     };
     networking.firewall = lib.mkMerge [
       {
