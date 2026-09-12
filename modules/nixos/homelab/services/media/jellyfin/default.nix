@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -27,6 +28,8 @@ in
     services.${service} = {
       enable = true;
       inherit (homelab) user group;
+      # FIXME: stable only has 10.11.11, unstable has 12.0 which has some security fixes
+      package = pkgs.unstable.jellyfin;
     };
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
