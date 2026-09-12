@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   inherit (config) homelab;
   service = "immich";
@@ -38,6 +43,8 @@ in
     systemd.tmpfiles.rules = [ "d ${cfg.mediaDir} 0775 immich immich - -" ];
     services.${service} = {
       enable = true;
+      # FIXME: immich is broken on stable 26.05
+      package = pkgs.unstable.immich;
       port = cfg.port;
       openFirewall = !homelab.services.reverseProxy.enable;
       mediaLocation = "${cfg.mediaDir}";
