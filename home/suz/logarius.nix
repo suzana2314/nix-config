@@ -21,6 +21,7 @@
     ../features/ssh
     ../features/gpg
     ../features/xdg
+    ../features/bookdav
     ./core
   ];
 

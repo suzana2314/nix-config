@@ -53,6 +53,12 @@
   networking.hostName = "logarius";
   networking.firewall.enable = true;
 
+  services = {
+    devmon.enable = true;
+    gvfs.enable = true;
+    udisks2.enable = true;
+  };
+
   programs.ssh.startAgent = true;
   programs.nix-ld.enable = true;
 
