@@ -18,6 +18,10 @@
     enableIPv6 = false;
     useDHCP = true;
     firewall.enable = true;
+    nameservers = [
+      "1.1.1.1"
+      "9.9.9.9"
+    ];
   };
 
   system.stateVersion = "25.05";
