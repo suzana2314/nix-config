@@ -21,6 +21,10 @@ in
             type = types.bool;
             default = false;
           };
+          builtin = mkOption {
+            type = types.bool;
+            default = false;
+          };
           width = mkOption {
             type = types.int;
             example = 1920;

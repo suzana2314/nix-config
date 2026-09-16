@@ -1,11 +1,19 @@
+local function toggle_builtin_monitor()
+  if hl.get_monitor(BUILTIN_MONITOR) ~= nil then
+    hl.monitor({ output = BUILTIN_MONITOR, disabled = true })
+  else
+    hl.monitor({ output = BUILTIN_MONITOR, disabled = false })
+  end
+end
+
 -- App binds
 hl.bind(MOD .. " + Return", hl.dsp.exec_cmd(TERM .. " +new-window"))
 hl.bind(MOD .. " + Z", hl.dsp.exec_cmd("firefox"))
 hl.bind(MOD .. " + D", hl.dsp.exec_cmd("wofi --show drun"))
 hl.bind(MOD .. " + E", hl.dsp.exec_cmd("nautilus"))
-hl.bind(MOD .. " + T", hl.dsp.exec_cmd("monitor-switcher"))
 hl.bind(MOD .. " + P", hl.dsp.exec_cmd("loginctl lock-session"))
-hl.bind(MOD .. " + SHIFT + S", hl.dsp.exec_cmd("screenshot-tool"))
+hl.bind(MOD .. " + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m region --clipboard-only"))
+hl.bind(MOD .. " + SHIFT + M", toggle_builtin_monitor)
 
 -- Special keys
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })

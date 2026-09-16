@@ -5,7 +5,6 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("hypridle")
   hl.exec_cmd("systemctl --user start hyprpolkitagent")
   hl.exec_cmd("hyprctl setcursor " .. CURSOR_THEME .. " 1")
-  hl.exec_cmd("monitor-listener")
 end)
 
 -- Env

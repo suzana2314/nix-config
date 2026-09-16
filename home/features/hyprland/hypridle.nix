@@ -5,8 +5,8 @@
     settings = {
       general = {
         lock_cmd = "pidof hyprlock || hyprlock";
-        before_sleep_cmd = "pidof hyprlock || hyprlock";
-        after_sleep_cmd = "hyprctl dispatch dpms on";
+        before_sleep_cmd = "loginctl lock-session";
+        after_sleep_cmd = "hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })'";
         ignore_dbus_inhibit = false; # whether to ignore dbus-sent idle inhibit events (e.g from firefox)
         ignore_systemd_inhibit = false; # whether to ignore systemd-inhibit --what=idle inhibitors
       };
@@ -23,8 +23,8 @@
         }
         {
           timeout = 330;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
+          on-timeout = "hyprctl dispatch 'hl.dsp.dpms({ action = \"disable\" })'";
+          on-resume = "hyprctl dispatch 'hl.dsp.dpms({ action = \"enable\" })' && brightnessctl -r";
         }
         {
           timeout = 1800;

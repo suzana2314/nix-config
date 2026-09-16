@@ -17,9 +17,11 @@ hl.layer_rule({
 })
 
 -- Window rules
+
 hl.window_rule({ match = { class = "firefox" }, opacity = "1.0 override 1.0 override 1.0 override" })
-hl.window_rule({ match = { title = ".*YouTube.*" }, idle_inhibit = "focus" })
+-- here order matters!
 hl.window_rule({ match = { title = ".*" }, idle_inhibit = "fullscreen" })
+hl.window_rule({ match = { title = ".*YouTube.*" }, idle_inhibit = "focus" })
 hl.window_rule({
   -- Fix some dragging issues with XWayland
   name     = "fix-xwayland-drags",

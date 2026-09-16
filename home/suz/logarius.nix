@@ -58,6 +58,7 @@
     {
       name = "eDP-1";
       description = "Lenovo Group Limited 0x40A9";
+      builtin = true;
       width = 1920;
       height = 1080;
       refreshRate = 60;

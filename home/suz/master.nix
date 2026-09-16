@@ -61,6 +61,7 @@
     {
       name = "eDP-1";
       description = "BOE 0x08E8";
+      builtin = true;
       width = 1920;
       height = 1080;
       refreshRate = 120;
