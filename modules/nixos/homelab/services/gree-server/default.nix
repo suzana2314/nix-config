@@ -53,8 +53,8 @@ in
           "${cfg.tlsPort}:1813" # tls
           "${cfg.tcpPort}:5000"
         ];
+        labels."io.containers.autoupdate" = "registry";
       };
-      labels."io.containers.autoupdate" = "registry";
     };
   };
 }
