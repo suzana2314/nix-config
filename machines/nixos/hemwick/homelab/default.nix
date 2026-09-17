@@ -104,7 +104,15 @@ in
       prometheus-node-exporter.enable = true;
       prometheus = {
         enable = true;
-        scrapeConfigs = import ./scrape-configs.nix { inherit config; };
+        scrapeConfigs = import ./prometheus/scrape-configs.nix { inherit config; };
+        alertRules = import ./prometheus/alertRules.nix;
+        alertmanager = {
+          enable = true;
+          ntfy = {
+            baseUrl = "https://nt.${secrets.domain}";
+            extraConfigFiles = [ config.sops.secrets."alertmanager/ntfy".path ];
+          };
+        };
       };
     };
   };
@@ -119,6 +127,7 @@ in
     "prometheus/hostsPasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "grafana/secretKey" = mkUserSecret config.users.users.grafana.name;
     "glance/byrgenwerthApitoken" = mkSecret;
+    "alertmanager/ntfy" = mkSecret;
     "miniflux/environmentFile" = mkSecret;
     "newt/environmentFile" = mkSecret;
     "readeck/environmentFile" = mkSecret;
