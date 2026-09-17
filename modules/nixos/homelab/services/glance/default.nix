@@ -18,7 +18,7 @@ in
     };
     assetsPath = lib.mkOption {
       type = lib.types.path;
-      default = "/var/lib/glance/assets";
+      default = pkgs.callPackage ./assets.nix { };
     };
     url = lib.mkOption {
       type = lib.types.str;
@@ -44,9 +44,6 @@ in
         inherit cfg net;
       };
     };
-    systemd.tmpfiles.rules = [
-      "Z ${cfg.assetsPath} 0755 root root -"
-    ];
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''

@@ -133,7 +133,7 @@
                 {
                   title = "FreeDS";
                   url = "http://freeds.${baseDomain}";
-                  icon = "/assets/freeds.png";
+                  icon = "/assets/espressif.svg";
                   alt-status-codes = [
                     403
                     401
