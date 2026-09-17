@@ -85,6 +85,13 @@
                     _secret = cfg.apiToken;
                   };
                 }
+                {
+                  type = "remote";
+                  url = "https://mensis-glance.${baseDomain}";
+                  token = {
+                    _secret = cfg.apiToken;
+                  };
+                }
               ];
             }
           ];
