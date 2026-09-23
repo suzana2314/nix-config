@@ -101,7 +101,10 @@ in
         enable = true;
         secretKey = config.sops.secrets."grafana/secretKey".path;
       };
-      prometheus-node-exporter.enable = true;
+      prometheus-node-exporter = {
+        enable = true;
+        environmentFile = config.sops.secrets."prometheus-node-exporter/environmentFile".path;
+      };
       prometheus = {
         enable = true;
         scrapeConfigs = import ./prometheus/scrape-configs.nix { inherit config; };
@@ -125,6 +128,7 @@ in
     "radicale/passwdFile" = mkUserSecret config.users.users.radicale.name;
     "webdav/environmentFile" = mkUserSecret config.users.users.webdav.name;
     "prometheus/hostsPasswordFile" = mkUserSecret config.users.users.prometheus.name;
+    "prometheus-node-exporter/environmentFile" = mkUserSecret config.users.users.node-exporter.name;
     "grafana/secretKey" = mkUserSecret config.users.users.grafana.name;
     "glance/byrgenwerthApitoken" = mkSecret;
     "alertmanager/ntfy" = mkSecret;

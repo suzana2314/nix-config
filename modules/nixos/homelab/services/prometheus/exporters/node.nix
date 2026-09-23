@@ -18,6 +18,11 @@ in
       type = lib.types.port;
       default = 9100;
     };
+    environmentFile = lib.mkOption {
+      type = lib.types.path;
+      default = null;
+      description = "Path to environment file containing NODE_EXPORTER_AUTH_HASH";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -26,9 +31,17 @@ in
       enable = true;
       enabledCollectors = [ "systemd" ];
     };
+    systemd.services.caddy.serviceConfig.EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [
+      cfg.environmentFile
+    ];
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''
+        ${lib.optionalString (cfg.environmentFile != null) ''
+          basic_auth /metrics {
+            prometheus-oedon {$NODE_EXPORTER_AUTH_HASH}
+          }
+        ''}
         reverse_proxy /metrics http://127.0.0.1:${toString cfg.port}
       '';
     };

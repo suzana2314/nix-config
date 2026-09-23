@@ -72,13 +72,17 @@ in
         environmentFile = config.sops.secrets."newt/environmentFile".path;
       };
 
-      prometheus-node-exporter.enable = true;
+      prometheus-node-exporter = {
+        enable = true;
+        environmentFile = config.sops.secrets."prometheus-node-exporter/environmentFile".path;
+      };
     };
   };
 
   # secrets for the homelab config
   sops.secrets = {
     "cloudflare/dnsCredentials" = mkUserSecret config.users.users.acme.name;
+    "prometheus-node-exporter/environmentFile" = mkUserSecret config.users.users.node-exporter.name;
     frigate = mkSecret;
     "glance/environmentFile" = mkSecret;
     navidrome = mkSecret;
