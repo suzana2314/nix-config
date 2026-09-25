@@ -13,22 +13,38 @@ in
       type = lib.types.port;
       default = 1883;
     };
+    users = lib.mkOption {
+      type = lib.types.attrsOf (
+        lib.types.submodule {
+          options = {
+            hashedPasswordFile = lib.mkOption {
+              type = lib.types.path;
+            };
+            acl = lib.mkOption {
+              type = lib.types.listOf lib.types.str;
+              default = [ ];
+              example = [ "readwrite frigate/#" ];
+              description = "ACL rules for this user.";
+            };
+          };
+        }
+      );
+      default = { };
+      description = "mqtt users to provision on this broker";
+    };
   };
   config = lib.mkIf cfg.enable {
     services.${service} = {
       enable = true;
       listeners = [
-        # FIXME: don't forget the protection :)
         {
           inherit (cfg) port;
           address = "0.0.0.0";
-          acl = [ "pattern readwrite #" ];
-          omitPasswordAuth = true;
-          settings.allow_anonymous = true;
+          users = cfg.users;
         }
       ];
     };
-    networking.firewall = lib.mkIf homelab.services.mosquitto.enable {
+    networking.firewall = lib.mkIf homelab.services.${service}.enable {
       allowedTCPPorts = [ cfg.port ];
     };
   };

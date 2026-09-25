@@ -51,12 +51,16 @@ in
         };
       };
 
+      mosquitto = {
+        enable = true;
+        users = import ./mqtt.nix { inherit config; };
+      };
+
       readeck = {
         enable = true;
         environmentFile = config.sops.secrets."readeck/environmentFile".path;
       };
 
-      mosquitto.enable = true;
       gree-server.enable = true;
       scanservjs.enable = true;
       vaultwarden.enable = true;
@@ -130,6 +134,9 @@ in
     "prometheus/hostsPasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "prometheus-node-exporter/environmentFile" = mkUserSecret config.users.users.node-exporter.name;
     "grafana/secretKey" = mkUserSecret config.users.users.grafana.name;
+    "mqtt/homeassistant" = mkUserSecret config.users.users.mosquitto.name;
+    "mqtt/freeds" = mkUserSecret config.users.users.mosquitto.name;
+    "mqtt/frigate" = mkUserSecret config.users.users.mosquitto.name;
     "glance/byrgenwerthApitoken" = mkSecret;
     "alertmanager/ntfy" = mkSecret;
     "miniflux/environmentFile" = mkSecret;

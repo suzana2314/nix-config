@@ -12,6 +12,8 @@ in
     port = 1883;
     topic_prefix = "frigate";
     client_id = "frigate";
+    user = "frigate";
+    password = "{FRIGATE_MQTT_PASS}";
   };
   go2rtc = {
     streams = {
