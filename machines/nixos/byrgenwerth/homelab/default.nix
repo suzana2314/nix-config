@@ -47,11 +47,10 @@ in
         accelerationDevices = [
           "/dev/dri/renderD128"
         ];
-      };
-
-      immich-backup = {
-        enable = true;
-        passwordFile = config.sops.secrets."immich-backup/passwordFile".path;
+        backup = {
+          enable = true;
+          passwordFile = config.sops.secrets."immich-backup/passwordFile".path;
+        };
       };
 
       frigate = {

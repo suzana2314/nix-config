@@ -27,7 +27,8 @@ in
       default = [
         "immich-server"
         "redis-immich"
-      ];
+      ]
+      ++ lib.optional cfg.backup.enable "restic-backups-immich";
     };
     mediaDir = lib.mkOption {
       type = lib.types.path;
@@ -36,6 +37,18 @@ in
     accelerationDevices = lib.mkOption {
       type = lib.types.nullOr (lib.types.listOf lib.types.str);
       description = "Path to the accelarator device";
+    };
+
+    backup = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Enable immich backups";
+      };
+      passwordFile = lib.mkOption {
+        type = lib.types.path;
+        description = "Path to restic password file";
+      };
     };
   };
 
@@ -50,9 +63,34 @@ in
       mediaLocation = "${cfg.mediaDir}";
       inherit (cfg) accelerationDevices;
       machine-learning.enable = false;
-      settings.server = {
-        externalDomain = "https://${cfg.url}";
+      settings = {
+        backup.database = {
+          enabled = true;
+          cronExpression = "0 02 * * *";
+          keepLastAmount = 5;
+        };
+        server.externalDomain = "https://${cfg.url}";
       };
+    };
+    services.restic.backups.immich = lib.mkIf cfg.backup.enable {
+      initialize = true;
+      repository = "sftp:hetzner-storage-immich:/home/immich-backup";
+      passwordFile = cfg.backup.passwordFile;
+      paths = [
+        # files
+        "${cfg.mediaDir}/upload"
+        # db dump
+        "${cfg.mediaDir}/backups"
+      ];
+      timerConfig = {
+        OnCalendar = "03:00";
+        Persistent = true;
+      };
+      pruneOpts = [
+        "--keep-daily 7"
+        "--keep-weekly 4"
+        "--keep-monthly 12"
+      ];
     };
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
