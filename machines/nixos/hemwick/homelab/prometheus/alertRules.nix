@@ -106,4 +106,19 @@
       }
     ];
   }
+  {
+    name = "backups";
+    rules = [
+      {
+        alert = "BackupFailed";
+        expr = ''node_systemd_unit_state{name=~"restic-backups-.*", state="failed"} == 1'';
+        for = "5m";
+        labels.severity = "critical";
+        annotations = {
+          summary = "Backup failed on {{ $labels.instance }}";
+          description = "{{ $labels.name }} on {{ $labels.instance }} has been in the failed state for more than 5 minutes.";
+        };
+      }
+    ];
+  }
 ]
