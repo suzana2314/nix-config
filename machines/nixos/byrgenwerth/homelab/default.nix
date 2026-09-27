@@ -49,6 +49,11 @@ in
         ];
       };
 
+      immich-backup = {
+        enable = true;
+        passwordFile = config.sops.secrets."immich-backup/passwordFile".path;
+      };
+
       frigate = {
         enable = true;
         environmentFile = config.sops.secrets.frigate.path;
@@ -83,6 +88,7 @@ in
   sops.secrets = {
     "cloudflare/dnsCredentials" = mkUserSecret config.users.users.acme.name;
     "prometheus-node-exporter/environmentFile" = mkUserSecret config.users.users.node-exporter.name;
+    "immich-backup/passwordFile" = mkUserSecret config.users.users.root.name;
     frigate = mkSecret;
     "glance/environmentFile" = mkSecret;
     navidrome = mkSecret;

@@ -35,6 +35,7 @@
     ./gree-server
     ./homeassistant
     ./immich
+    ./immich-backup
     ./media
     ./miniflux
     ./mqtt
