@@ -100,8 +100,19 @@
           size = "full";
           widgets = [
             {
-              type = "reddit";
-              subreddit = "portugal";
+              type = "group";
+              widgets = [
+                {
+                  type = "hacker-news";
+                  limit = 15;
+                  collapse-after = 6;
+                }
+                {
+                  type = "lobsters";
+                  limit = 15;
+                  collapse-after = 6;
+                }
+              ];
             }
           ];
         }
