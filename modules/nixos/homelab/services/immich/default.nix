@@ -38,16 +38,41 @@ in
       type = lib.types.nullOr (lib.types.listOf lib.types.str);
       description = "Path to the accelarator device";
     };
-
     backup = {
       enable = lib.mkOption {
         type = lib.types.bool;
         default = false;
         description = "Enable immich backups";
       };
+      host = lib.mkOption {
+        type = lib.types.str;
+        default = "hetzner-immich-backup";
+        description = "Name for backup host";
+      };
+      user = lib.mkOption {
+        type = lib.types.str;
+        description = "Remote user";
+      };
+      address = lib.mkOption {
+        type = lib.types.str;
+        description = "Address for remote backup location";
+      };
+      sshKeyPath = lib.mkOption {
+        type = lib.types.path;
+        description = "Path to remove key file";
+      };
+      remotePublicKey = lib.mkOption {
+        type = lib.types.str;
+        description = "The remote public key used for known hosts";
+      };
       passwordFile = lib.mkOption {
         type = lib.types.path;
         description = "Path to restic password file";
+      };
+      repositoryPath = lib.mkOption {
+        type = lib.types.str;
+        default = "/home/immich-backup";
+        description = "Path to restic repository in the remote";
       };
     };
   };
@@ -56,7 +81,6 @@ in
     systemd.tmpfiles.rules = [ "d ${cfg.mediaDir} 0775 immich immich - -" ];
     services.${service} = {
       enable = true;
-      # FIXME: immich is broken on stable 26.05
       package = pkgs.unstable.immich;
       port = cfg.port;
       openFirewall = !homelab.services.reverseProxy.enable;
@@ -74,7 +98,7 @@ in
     };
     services.restic.backups.immich = lib.mkIf cfg.backup.enable {
       initialize = true;
-      repository = "sftp:hetzner-storage-immich:/home/immich-backup";
+      repository = "sftp:${cfg.backup.host}:/home/immich-backup";
       passwordFile = cfg.backup.passwordFile;
       paths = [
         # files
@@ -92,12 +116,27 @@ in
         "--keep-monthly 12"
       ];
     };
+
+    programs.ssh = lib.mkIf cfg.backup.enable {
+      knownHosts.${cfg.backup.host} = {
+        hostNames = [ cfg.backup.address ];
+        publicKey = cfg.backup.remotePublicKey;
+      };
+      extraConfig = ''
+        Host ${cfg.backup.host}
+          IdentitiesOnly yes
+          User ${cfg.backup.user}
+          Hostname ${cfg.backup.address}
+          IdentityFile ${cfg.backup.sshKeyPath}
+          Port 23
+      '';
+    };
+
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''
         reverse_proxy http://${config.services.immich.host}:${toString cfg.port}
       '';
     };
-
   };
 }

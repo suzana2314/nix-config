@@ -50,6 +50,10 @@ in
         backup = {
           enable = true;
           passwordFile = config.sops.secrets."immich-backup/passwordFile".path;
+          sshKeyPath = config.sops.secrets."immich-backup/sshKey".path;
+          remotePublicKey = secrets.immich.remotePublicKey;
+          user = secrets.immich.remoteUser;
+          address = secrets.immich.remoteAddress;
         };
       };
 
@@ -88,6 +92,7 @@ in
     "cloudflare/dnsCredentials" = mkUserSecret config.users.users.acme.name;
     "prometheus-node-exporter/environmentFile" = mkUserSecret config.users.users.node-exporter.name;
     "immich-backup/passwordFile" = mkUserSecret config.users.users.root.name;
+    "immich-backup/sshKey" = mkUserSecret config.users.users.root.name;
     frigate = mkSecret;
     "glance/environmentFile" = mkSecret;
     navidrome = mkSecret;
