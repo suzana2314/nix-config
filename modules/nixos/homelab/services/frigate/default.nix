@@ -12,6 +12,7 @@ let
   frigateConfig = import ./config.nix { inherit inputs config; };
   yamlFormat = pkgs.formats.yaml { };
   configFile = yamlFormat.generate "frigate-config.yaml" frigateConfig;
+  webrtcPort = 8555;
 in
 {
   options.homelab.services.${service} = {
@@ -55,6 +56,10 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
+    homelab.ports = [
+      cfg.port
+      webrtcPort
+    ];
     systemd.tmpfiles.rules = [
       "d ${cfg.configDir}/config 0755 root root -"
       "d ${cfg.storageDir}/media 0755 root root -"
@@ -74,8 +79,8 @@ in
       image = "ghcr.io/blakeblackshear/frigate:stable";
       ports = [
         "${if homelab.services.reverseProxy.enable then "127.0.0.1:" else ""}${toString cfg.port}:8971"
-        "8555:8555/tcp" # webrtc
-        "8555:8555/udp" # webrtc
+        "${toString webrtcPort}:${toString webrtcPort}/tcp" # webrtc
+        "${toString webrtcPort}:${toString webrtcPort}/udp" # webrtc
       ];
       volumes = [
         "/etc/localtime:/etc/localtime:ro"
@@ -96,8 +101,8 @@ in
     };
     networking.firewall = lib.mkMerge [
       {
-        allowedTCPPorts = [ 8555 ];
-        allowedUDPPorts = [ 8555 ];
+        allowedTCPPorts = [ webrtcPort ];
+        allowedUDPPorts = [ webrtcPort ];
       }
       (lib.mkIf (!homelab.services.reverseProxy.enable) {
         allowedTCPPorts = [ cfg.port ];

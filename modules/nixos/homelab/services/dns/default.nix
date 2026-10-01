@@ -51,6 +51,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    homelab.ports = [
+      53
+      cfg.port
+      unboundPort
+    ];
     services.blocky = {
       enable = true;
       settings = {

@@ -34,6 +34,7 @@ in
         message = "${service} requires mDNS to work properly!";
       }
     ];
+    homelab.ports = [ cfg.port ];
     services.${service} = {
       enable = true;
       usePing = false;

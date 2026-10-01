@@ -26,6 +26,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    homelab.ports = [ cfg.port ];
     services.prometheus.exporters.node = {
       inherit (cfg) port;
       enable = true;

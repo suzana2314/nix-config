@@ -6,6 +6,10 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    homelab.ports = [
+      80
+      443
+    ];
     services.caddy = {
       enable = true;
       globalConfig = ''

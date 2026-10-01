@@ -35,6 +35,7 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
+    homelab.ports = [ cfg.port ];
     services.${service} = {
       enable = true;
       listeners = [

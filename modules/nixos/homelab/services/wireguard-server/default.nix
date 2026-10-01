@@ -48,6 +48,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    homelab.ports = [ cfg.port ];
     networking = {
       nat = {
         enable = true;

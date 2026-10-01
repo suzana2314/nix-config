@@ -61,6 +61,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    homelab.ports = [
+      cfg.port
+    ]
+    ++ lib.optionals cfg.alertmanager.enable [
+      cfg.alertmanager.port
+      cfg.alertmanager.ntfy.bridgePort
+    ];
     services.prometheus = {
       enable = true;
       globalConfig.scrape_interval = "30s";

@@ -40,6 +40,7 @@ in
       "d ${cfg.configDir}/books 0700 ${service} ${service} -"
     ];
 
+    homelab.ports = [ cfg.port ];
     services.${service} = {
       enable = true;
       environmentFile = cfg.environmentFile;

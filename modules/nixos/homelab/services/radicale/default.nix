@@ -27,6 +27,7 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    homelab.ports = [ cfg.port ];
     services.radicale = {
       enable = true;
       settings = {

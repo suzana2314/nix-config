@@ -39,6 +39,7 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
+    homelab.ports = [ cfg.port ];
     systemd.tmpfiles.rules = [
       "d ${cfg.configDir}/data 0755 root root -"
       "d ${cfg.configDir}/logs 0755 root root -"

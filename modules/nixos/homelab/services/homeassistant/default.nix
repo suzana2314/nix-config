@@ -59,6 +59,10 @@ in
         message = "${service} requires mDNS to work properly!";
       }
     ];
+    homelab.ports = [
+      cfg.port
+    ]
+    ++ lib.optional cfg.shelly.enable cfg.shelly.port;
     systemd.tmpfiles.rules = [ "d ${cfg.configDir} 0775 ${homelab.user} ${homelab.group} - -" ];
     virtualisation.oci-containers.containers.${service} = {
       image = "ghcr.io/home-assistant/home-assistant:stable";

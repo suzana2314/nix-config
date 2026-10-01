@@ -41,6 +41,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    homelab.ports = [
+      cfg.tlsPort
+      cfg.tcpPort
+    ];
     virtualisation.oci-containers.containers = {
       ${service} = {
         image = "codeberg.org/joserebelo/gree-dummy-tls-server:latest";

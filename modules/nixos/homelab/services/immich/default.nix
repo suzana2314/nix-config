@@ -79,6 +79,7 @@ in
 
   config = lib.mkIf cfg.enable {
     systemd.tmpfiles.rules = [ "d ${cfg.mediaDir} 0775 immich immich - -" ];
+    homelab.ports = [ cfg.port ];
     services.${service} = {
       enable = true;
       package = pkgs.unstable.immich;

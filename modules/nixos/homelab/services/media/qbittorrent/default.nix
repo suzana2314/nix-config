@@ -29,6 +29,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    homelab.ports = [
+      cfg.port
+      cfg.torrentingPort
+    ];
     services.${service} = {
       enable = true;
       inherit (homelab) user group;
