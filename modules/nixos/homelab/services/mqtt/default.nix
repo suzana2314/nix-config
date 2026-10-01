@@ -2,6 +2,7 @@
 let
   service = "mosquitto";
   cfg = config.homelab.services.${service};
+  anonymous = cfg.users == { };
   inherit (config) homelab;
 in
 {
@@ -37,11 +38,24 @@ in
     services.${service} = {
       enable = true;
       listeners = [
-        {
-          inherit (cfg) port;
-          address = "0.0.0.0";
-          users = cfg.users;
-        }
+        (
+          {
+            inherit (cfg) port;
+            address = "0.0.0.0";
+          }
+          // (
+            if anonymous then
+              {
+                omitPasswordAuth = true;
+                settings.listener_allow_anonymous = true;
+                acl = [ "pattern readwrite #" ];
+              }
+            else
+              {
+                inherit (cfg) users;
+              }
+          )
+        )
       ];
     };
     networking.firewall = lib.mkIf homelab.services.${service}.enable {
