@@ -51,7 +51,10 @@ in
         networkInterface = "eno1";
       };
 
-      prometheus-node-exporter.enable = true;
+      prometheus-node-exporter = {
+        enable = true;
+        environmentFile = config.sops.secrets."prometheus-node-exporter/environmentFile".path;
+      };
     };
   };
 
@@ -59,6 +62,7 @@ in
   sops.secrets = {
     "cloudflare/ddnsCredentials" = mkUserSecret config.users.users.ddns-updater.name;
     "cloudflare/ddnsNotification" = mkUserSecret config.users.users.ddns-updater.name;
+    "prometheus-node-exporter/environmentFile" = mkUserSecret config.users.users.node-exporter.name;
     "wireguard/privateKey" = mkSecret;
     esphome = mkSecret;
     "newt/environmentFile" = mkSecret;
