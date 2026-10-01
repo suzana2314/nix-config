@@ -46,6 +46,9 @@ in
       settings = {
         MusicFolder = "${cfg.mediaDir}/media/music";
       };
+      plugins = with pkgs.navidromePlugins; [
+        listenbrainz-daily-playlist
+      ];
     };
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
