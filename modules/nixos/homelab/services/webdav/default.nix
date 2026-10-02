@@ -3,6 +3,8 @@ let
   inherit (config) homelab;
   service = "webdav";
   cfg = homelab.services.${service};
+
+  userDir = u: "${cfg.configDir}/${u.dirName}";
 in
 {
   options.homelab.services.${service} = {
@@ -21,6 +23,24 @@ in
       type = lib.types.port;
       default = 8904;
     };
+    users = lib.mkOption {
+      type = lib.types.listOf (
+        lib.types.submodule {
+          options = {
+            username = lib.mkOption { type = lib.types.str; };
+            password = lib.mkOption { type = lib.types.str; };
+            dirName = lib.mkOption { type = lib.types.str; };
+            permissions = lib.mkOption {
+              type = lib.types.str;
+              default = "CRUD";
+            };
+          };
+        }
+      );
+      default = [ ];
+      description = "WebDAV users";
+
+    };
     environmentFile = lib.mkOption {
       type = lib.types.path;
       description = "Path to environment file containing USERNAME and PASSWORD";
@@ -35,10 +55,8 @@ in
 
     systemd.tmpfiles.rules = [
       "d ${cfg.configDir} 0700 ${service} ${service} -"
-      "d ${cfg.configDir}/runner 0700 ${service} ${service} -"
-      "d ${cfg.configDir}/backup 0700 ${service} ${service} -"
-      "d ${cfg.configDir}/books 0700 ${service} ${service} -"
-    ];
+    ]
+    ++ map (u: "d ${userDir u} 0700 ${service} ${service} -") cfg.users;
 
     homelab.ports = [ cfg.port ];
     services.${service} = {
@@ -49,26 +67,10 @@ in
         port = cfg.port;
         behindProxy = true;
         directory = cfg.configDir;
-        users = [
-          {
-            username = "{env}USERNAME_KOBO";
-            password = "{env}PASSWORD_KOBO";
-            directory = "${cfg.configDir}/books";
-            permissions = "CRUD";
-          }
-          {
-            username = "{env}USERNAME_RUNNER";
-            password = "{env}PASSWORD_RUNNER";
-            directory = "${cfg.configDir}/runner";
-            permissions = "CR";
-          }
-          {
-            username = "{env}USERNAME_BACKUP";
-            password = "{env}PASSWORD_BACKUP";
-            directory = "${cfg.configDir}/backup";
-            permissions = "CRUD";
-          }
-        ];
+        users = map (u: {
+          inherit (u) username password permissions;
+          directory = userDir u;
+        }) cfg.users;
       };
     };
 
@@ -78,6 +80,5 @@ in
         reverse_proxy http://127.0.0.1:${toString cfg.port}
       '';
     };
-
   };
 }

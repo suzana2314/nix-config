@@ -88,6 +88,7 @@ in
 
       webdav = {
         enable = true;
+        users = import ./webdav.nix;
         environmentFile = config.sops.secrets."webdav/environmentFile".path;
       };
 
