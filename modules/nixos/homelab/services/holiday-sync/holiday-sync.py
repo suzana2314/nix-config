@@ -2,9 +2,9 @@ import datetime as dt
 import os
 import uuid
 
-import caldav
-import holidays
-from icalendar import Calendar, Event
+import caldav # ty: ignore[unresolved-import]
+import holidays  # ty:ignore[unresolved-import]
+from icalendar import Calendar, Event  # ty:ignore[unresolved-import]
 
 UID_NAMESPACE = uuid.UUID("773b57f5-08c3-40ce-b492-13081bab26e4")
 UID_SUFFIX = "@pt-holidays-sync"
