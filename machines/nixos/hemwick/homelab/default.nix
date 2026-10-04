@@ -63,7 +63,17 @@ in
 
       gree-server.enable = true;
       scanservjs.enable = true;
-      vaultwarden.enable = true;
+      vaultwarden = {
+        enable = true;
+        backup = {
+          enable = true;
+          passwordFile = config.sops.secrets."vaultwarden-backup/passwordFile".path;
+          sshKeyPath = config.sops.secrets."vaultwarden-backup/sshKey".path;
+          remotePublicKey = secrets.vaultwarden.remotePublicKey;
+          user = secrets.vaultwarden.remoteUser;
+          address = secrets.vaultwarden.remoteAddress;
+        };
+      };
 
       glance = {
         enable = true;
@@ -138,6 +148,8 @@ in
     "mqtt/homeassistant" = mkUserSecret config.users.users.mosquitto.name;
     "mqtt/freeds" = mkUserSecret config.users.users.mosquitto.name;
     "mqtt/frigate" = mkUserSecret config.users.users.mosquitto.name;
+    "vaultwarden-backup/passwordFile" = mkUserSecret config.users.users.root.name;
+    "vaultwarden-backup/sshKey" = mkUserSecret config.users.users.root.name;
     "glance/byrgenwerthApitoken" = mkSecret;
     "alertmanager/ntfy" = mkSecret;
     "miniflux/environmentFile" = mkSecret;
