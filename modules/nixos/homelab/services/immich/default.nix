@@ -99,7 +99,7 @@ in
     };
     services.restic.backups.immich = lib.mkIf cfg.backup.enable {
       initialize = true;
-      repository = "sftp:${cfg.backup.host}:/home/immich-backup";
+      repository = "sftp:${cfg.backup.host}:${cfg.backup.repositoryPath}";
       passwordFile = cfg.backup.passwordFile;
       paths = [
         # files
