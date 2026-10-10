@@ -29,7 +29,7 @@ in
         "vaultwarden"
         "backup-vaultwarden"
       ]
-      ++ lib.optional cfg.backup.enable "restic-backups-immich";
+      ++ lib.optional cfg.backup.enable "restic-backups-vaultwarden";
     };
     backup = {
       enable = lib.mkOption {
