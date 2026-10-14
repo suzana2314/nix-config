@@ -90,7 +90,9 @@ in
         };
         caching = {
           prefetching = true;
-          minTime = "1m";
+          minTime = "5m";
+          prefetchExpires = "12h";
+          prefetchThreshold = 3;
         };
         queryLog = {
           type = "csv";
@@ -138,11 +140,19 @@ in
             "255.255.255.255/32"
             "2001:db8::/32"
           ];
+          cache-min-ttl = 300;
+          cache-max-ttl = 86400;
+          serve-expired = true;
+          serve-expired-ttl = 86400;
+          serve-expired-client-timeout = 1800;
+          prefetch-key = true;
+          aggressive-nsec = true;
         };
       };
     };
     networking.firewall = {
       allowedUDPPorts = [ 53 ];
+      allowedTCPPorts = [ 53 ];
     };
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
