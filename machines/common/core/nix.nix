@@ -14,8 +14,7 @@ in
       flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
     in
     {
-      # FIXME: remove when merged into stable
-      package = pkgs.unstable.nix;
+      package = pkgs.lixPackageSets.stable.lix;
       settings = {
         experimental-features = [
           "nix-command"
