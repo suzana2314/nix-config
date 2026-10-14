@@ -12,6 +12,10 @@ in
       type = lib.types.str;
       default = "/storage/data";
     };
+    musicDir = lib.mkOption {
+      type = lib.types.str;
+      default = "/storage/data/media/music";
+    };
     monitoredServices = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [
@@ -22,6 +26,7 @@ in
         "navidrome"
         "prowlarr"
         "qbittorrent"
+        "slskd"
         "radarr"
         "sonarr"
       ];
@@ -35,7 +40,20 @@ in
         '''
       '';
     };
+    slskdEnvFile = lib.mkOption {
+      description = "Environment file with slskd credentials";
+      type = lib.types.path;
+      example = lib.literalExpression ''
+        pkgs.writeText "slskd-env" '''
+          SLSKD_PASSWORD=example
+          SLSKD_USERNAME=example
+        '''
+      '';
+    };
     torrentingPort = lib.mkOption {
+      type = lib.types.port;
+    };
+    soulseekPort = lib.mkOption {
       type = lib.types.port;
     };
   };
@@ -48,16 +66,18 @@ in
     ];
 
     systemd.tmpfiles.rules = [
-
       "d ${cfg.mediaDir} 0755 ${homelab.user} ${homelab.group} -"
       "d ${cfg.mediaDir}/media 0755 ${homelab.user} ${homelab.group} -"
       "d ${cfg.mediaDir}/media/movies 0755 ${homelab.user} ${homelab.group} -"
       "d ${cfg.mediaDir}/media/tv 0755 ${homelab.user} ${homelab.group} -"
+      "d ${cfg.mediaDir}/media/music 0755 ${homelab.user} ${homelab.group} -"
+      "d ${cfg.mediaDir}/media/music/.beets 0775 ${homelab.user} ${homelab.group} -"
 
       "d ${cfg.mediaDir}/torrents 0755 ${homelab.user} ${homelab.group} -"
       "d ${cfg.mediaDir}/torrents/movies 0755 ${homelab.user} ${homelab.group} -"
       "d ${cfg.mediaDir}/torrents/tv 0755 ${homelab.user} ${homelab.group} -"
-
+      "d ${cfg.mediaDir}/torrents/music 0755 ${homelab.user} ${homelab.group} -"
+      "d ${cfg.mediaDir}/torrents/music-incomplete 0755 ${homelab.user} ${homelab.group} -"
     ];
 
     homelab.services = {
@@ -77,6 +97,14 @@ in
         inherit (cfg) mediaDir;
         environmentFile = cfg.navidromeEnvFile;
       };
+      slskd = {
+        enable = lib.mkDefault true;
+        inherit (cfg) soulseekPort;
+        environmentFile = cfg.slskdEnvFile;
+        musicDir = cfg.musicDir;
+        downloadDir = "${cfg.mediaDir}/torrents/music";
+        incompleteDownloadDir = "${cfg.mediaDir}/torrents/music-incomplete";
+      };
     };
   };
 
@@ -90,5 +118,6 @@ in
     ./qbittorrent
     ./navidrome
     ./flaresolverr
+    ./slskd
   ];
 }

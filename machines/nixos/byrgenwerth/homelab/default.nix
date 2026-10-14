@@ -39,7 +39,9 @@ in
       media = {
         enable = true;
         navidromeEnvFile = config.sops.secrets.navidrome.path;
+        slskdEnvFile = config.sops.secrets.slskd.path;
         torrentingPort = secrets.torrentingPort;
+        soulseekPort = secrets.soulseekPort;
       };
 
       immich = {
@@ -93,6 +95,7 @@ in
     "prometheus-node-exporter/environmentFile" = mkUserSecret config.users.users.node-exporter.name;
     "immich-backup/passwordFile" = mkUserSecret config.users.users.root.name;
     "immich-backup/sshKey" = mkUserSecret config.users.users.root.name;
+    slskd = mkUserSecret config.users.users.${config.homelab.user}.name;
     frigate = mkSecret;
     "glance/environmentFile" = mkSecret;
     navidrome = mkSecret;

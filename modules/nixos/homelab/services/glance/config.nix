@@ -189,6 +189,11 @@
                   url = "https://qbittorrent.${baseDomain}";
                   icon = "/assets/qbittorrent.svg";
                 }
+                {
+                  title = "slskd";
+                  url = "https://slskd.${baseDomain}";
+                  icon = "/assets/slskd.svg";
+                }
               ];
             }
             {

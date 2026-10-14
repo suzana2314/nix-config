@@ -17,6 +17,7 @@ let
     "espressif.svg" = "svg/espressif.svg";
     "seerr.svg" = "svg/seerr.svg";
     "qbittorrent.svg" = "svg/qbittorrent.svg";
+    "slskd.svg" = "svg/slskd.svg";
     "sonarr.svg" = "svg/sonarr.svg";
     "radarr.svg" = "svg/radarr.svg";
     "prowlarr.svg" = "svg/prowlarr.svg";
