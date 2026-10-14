@@ -12,10 +12,6 @@ in
       type = lib.types.str;
       default = "/storage/data";
     };
-    musicDir = lib.mkOption {
-      type = lib.types.str;
-      default = "/storage/data/media/music";
-    };
     monitoredServices = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [
@@ -94,14 +90,14 @@ in
       };
       navidrome = {
         enable = lib.mkDefault true;
-        inherit (cfg) mediaDir;
+        musicDir = "${cfg.mediaDir}/media/music";
         environmentFile = cfg.navidromeEnvFile;
       };
       slskd = {
         enable = lib.mkDefault true;
         inherit (cfg) soulseekPort;
         environmentFile = cfg.slskdEnvFile;
-        musicDir = cfg.musicDir;
+        musicDir = "${cfg.mediaDir}/media/music";
         downloadDir = "${cfg.mediaDir}/torrents/music";
         incompleteDownloadDir = "${cfg.mediaDir}/torrents/music-incomplete";
       };

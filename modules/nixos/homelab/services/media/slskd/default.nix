@@ -105,7 +105,10 @@ in
         };
       };
     };
-    systemd.services.slskd.serviceConfig.ReadWritePaths = [ cfg.musicDir ];
+    systemd.services.slskd.serviceConfig = {
+      ReadWritePaths = [ cfg.musicDir ];
+      ReadOnlyPaths = lib.mkForce [ ];
+    };
     networking.firewall = {
       allowedTCPPorts = [ cfg.soulseekPort ];
       allowedUDPPorts = [ cfg.soulseekPort ];

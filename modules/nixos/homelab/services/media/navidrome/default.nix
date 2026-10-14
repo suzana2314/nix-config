@@ -22,7 +22,7 @@ in
       type = lib.types.port;
       default = 4533;
     };
-    mediaDir = lib.mkOption {
+    musicDir = lib.mkOption {
       type = lib.types.str;
     };
     environmentFile = lib.mkOption {
@@ -44,7 +44,7 @@ in
       inherit (homelab) user group;
       inherit (cfg) environmentFile;
       settings = {
-        MusicFolder = "${cfg.mediaDir}/media/music";
+        MusicFolder = cfg.musicDir;
       };
       plugins = with pkgs.navidromePlugins; [
         listenbrainz-daily-playlist
