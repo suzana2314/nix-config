@@ -9,18 +9,17 @@ let
   ifExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
   sopsFile = "${toString inputs.nix-secrets}/sops/shared.yaml";
 
-  genPubKeyList =
-    user:
+  sshKeys =
     let
-      keyPath = ../${user}/keys/ssh;
+      keyPath = ../../../../keys/ssh;
     in
-    if (lib.pathExists keyPath) then
-      lib.lists.forEach (lib.filesystem.listFilesRecursive keyPath) (key: lib.readFile key)
+    if lib.pathExists keyPath then
+      lib.pipe (lib.filesystem.listFilesRecursive keyPath) [
+        (lib.filter (file: lib.hasSuffix ".pub" (toString file)))
+        (map (file: lib.trim (builtins.readFile file)))
+      ]
     else
       [ ];
-
-  # list of ssh yubikeys that will allow access to any system
-  superKeys = genPubKeyList "super";
 in
 {
   users.mutableUsers = false;
@@ -41,7 +40,7 @@ in
       "dialout"
     ];
 
-    openssh.authorizedKeys.keys = superKeys;
+    openssh.authorizedKeys.keys = sshKeys;
   };
 
   home-manager.users.suz = import ../../../../home/suz/${config.networking.hostName}.nix;
