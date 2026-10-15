@@ -8,7 +8,8 @@ vim.lsp.enable({
   "gopls",
   "rust_analyzer",
   "yamlls",
-  "zls"
+  "zls",
+  "tofu_ls",
 })
 
 vim.lsp.config('yamlls', {
