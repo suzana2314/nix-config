@@ -55,8 +55,8 @@ variable "subaccounts" {
 variable "ssh_public_keys" {
   type = list(string)
   default = [
-    "../../machines/common/users/super/keys/ssh/astral.pub",
-    "../../machines/common/users/super/keys/ssh/lunarium.pub",
+    "../../keys/ssh/astral.pub",
+    "../../keys/ssh/lunarium.pub",
   ]
 }
 

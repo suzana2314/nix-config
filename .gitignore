@@ -36,3 +36,7 @@
 
 !infra/
 !infra/**
+
+!keys/
+!keys/**
+

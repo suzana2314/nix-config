@@ -6,7 +6,7 @@
     homedir = "${config.xdg.dataHome}/gnupg";
     publicKeys = [
       {
-        source = ../../../machines/common/users/super/keys/pgp.asc;
+        source = ../../../keys/pgp.asc;
         trust = 5;
       }
     ];

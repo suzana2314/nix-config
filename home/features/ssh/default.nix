@@ -8,7 +8,7 @@ let
   inherit (inputs.nix-secrets) sshCfg;
   sopsFile = "${toString inputs.nix-secrets}/sops/${config.home.username}.yaml";
 
-  pathToKeys = ../../../machines/common/users/super/keys/ssh;
+  pathToKeys = ../../../keys/ssh;
 
   yubikeys = lib.lists.forEach (builtins.attrNames (builtins.readDir pathToKeys)) (
     key: lib.substring 0 (lib.stringLength key - lib.stringLength ".pub") key
