@@ -146,7 +146,6 @@ in
     "prometheus-node-exporter/environmentFile" = mkUserSecret config.users.users.node-exporter.name;
     "grafana/secretKey" = mkUserSecret config.users.users.grafana.name;
     "mqtt/homeassistant" = mkUserSecret config.users.users.mosquitto.name;
-    "mqtt/freeds" = mkUserSecret config.users.users.mosquitto.name;
     "mqtt/frigate" = mkUserSecret config.users.users.mosquitto.name;
     "vaultwarden-backup/passwordFile" = mkUserSecret config.users.users.root.name;
     "vaultwarden-backup/sshKey" = mkUserSecret config.users.users.root.name;

@@ -10,10 +10,4 @@
       "readwrite frigate/#"
     ];
   };
-  freeds = {
-    hashedPasswordFile = config.sops.secrets."mqtt/freeds".path;
-    acl = [
-      "readwrite freeds/#"
-    ];
-  };
 }
