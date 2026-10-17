@@ -22,7 +22,7 @@ in
     };
     url = lib.mkOption {
       type = lib.types.str;
-      default = "${service}.${homelab.baseDomain}";
+      default = "dash.${homelab.baseDomain}";
     };
     port = lib.mkOption {
       type = lib.types.port;

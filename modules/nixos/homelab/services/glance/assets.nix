@@ -14,7 +14,6 @@ let
     "navidrome.png" = "png/navidrome.png";
     "immich.svg" = "svg/immich.svg";
     "frigate-light.svg" = "svg/frigate-light.svg";
-    "espressif.svg" = "svg/espressif.svg";
     "seerr.svg" = "svg/seerr.svg";
     "qbittorrent.svg" = "svg/qbittorrent.svg";
     "slskd.svg" = "svg/slskd.svg";

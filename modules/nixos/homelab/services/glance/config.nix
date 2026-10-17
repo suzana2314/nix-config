@@ -136,7 +136,7 @@
             {
               type = "monitor";
               cache = "1m";
-              title = "Home";
+              title = "Main";
               sites = [
                 {
                   title = "Home Assistant";
@@ -144,18 +144,24 @@
                   icon = "/assets/home-assistant.svg";
                 }
                 {
-                  title = "Frigate";
-                  url = "https://frigate.${baseDomain}";
-                  icon = "/assets/frigate-light.svg";
+                  title = "Immich";
+                  url = "https://immich.${baseDomain}";
+                  icon = "/assets/immich.svg";
                 }
                 {
-                  title = "FreeDS";
-                  url = "http://freeds.${baseDomain}";
-                  icon = "/assets/espressif.svg";
-                  alt-status-codes = [
-                    403
-                    401
-                  ];
+                  title = "Navidrome";
+                  url = "https://navidrome.${baseDomain}";
+                  icon = "/assets/navidrome.png";
+                }
+                {
+                  title = "Miniflux";
+                  url = "https://miniflux.${baseDomain}";
+                  icon = "/assets/miniflux-light.svg";
+                }
+                {
+                  title = "Readeck";
+                  url = "https://readeck.${baseDomain}";
+                  icon = "/assets/readeck.svg";
                 }
               ];
             }
@@ -165,11 +171,6 @@
               title = "Media";
               sites = [
                 {
-                  title = "Immich";
-                  url = "https://immich.${baseDomain}";
-                  icon = "/assets/immich.svg";
-                }
-                {
                   title = "Jellyfin";
                   url = "https://jellyfin.${baseDomain}";
                   icon = "/assets/jellyfin.svg";
@@ -178,11 +179,6 @@
                   title = "Seerr";
                   url = "https://seerr.${baseDomain}";
                   icon = "/assets/seerr.svg";
-                }
-                {
-                  title = "Navidrome";
-                  url = "https://navidrome.${baseDomain}";
-                  icon = "/assets/navidrome.png";
                 }
                 {
                   title = "qBitTorrent";
@@ -261,19 +257,14 @@
                   icon = "/assets/endurain.svg";
                 }
                 {
-                  title = "Miniflux";
-                  url = "https://miniflux.${baseDomain}";
-                  icon = "/assets/miniflux-light.svg";
-                }
-                {
-                  title = "Readeck";
-                  url = "https://readeck.${baseDomain}";
-                  icon = "/assets/readeck.svg";
-                }
-                {
                   title = "Scanservjs";
                   url = "https://scan.${baseDomain}";
                   icon = "/assets/printer.svg";
+                }
+                {
+                  title = "Frigate";
+                  url = "https://frigate.${baseDomain}";
+                  icon = "/assets/frigate-light.svg";
                 }
               ];
             }
