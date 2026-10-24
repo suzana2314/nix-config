@@ -25,19 +25,6 @@ in
         notifications = config.sops.secrets."cloudflare/ddnsNotification".path;
       };
 
-      homeassistant = {
-        enable = true;
-      };
-
-      esphome = {
-        enable = true;
-        environmentFile = config.sops.secrets.esphome.path;
-      };
-
-      mosquitto = {
-        enable = true;
-      };
-
       newt = {
         enable = true;
         environmentFile = config.sops.secrets."newt/environmentFile".path;
@@ -55,6 +42,9 @@ in
         enable = true;
         environmentFile = config.sops.secrets."prometheus-node-exporter/environmentFile".path;
       };
+
+      homeassistant.enable = true;
+      mosquitto.enable = true;
     };
   };
 
@@ -64,7 +54,6 @@ in
     "cloudflare/ddnsNotification" = mkUserSecret config.users.users.ddns-updater.name;
     "prometheus-node-exporter/environmentFile" = mkUserSecret config.users.users.node-exporter.name;
     "wireguard/privateKey" = mkSecret;
-    esphome = mkSecret;
     "newt/environmentFile" = mkSecret;
   };
 }
