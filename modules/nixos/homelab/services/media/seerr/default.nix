@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   inherit (config) homelab;
   service = "seerr";
@@ -23,6 +28,7 @@ in
     homelab.ports = [ cfg.port ];
     services.${service} = {
       enable = true;
+      package = pkgs.unstable.seerr;
       inherit (cfg) port;
     };
     services.caddy.virtualHosts."${cfg.url}" = {
