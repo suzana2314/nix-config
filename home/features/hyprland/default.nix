@@ -102,6 +102,7 @@
         ${builtins.readFile config/animations.lua}
         ${builtins.readFile config/binds.lua}
         ${builtins.readFile config/rules.lua}
+        ${builtins.readFile config/pseudo.lua}
         ${lib.concatStringsSep "\n" monitors}
         --- default for monitors without config
         hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
