@@ -38,23 +38,26 @@ in
         type = lib.types.str;
         default = "alerts.${homelab.baseDomain}";
       };
-      ntfy = {
+      gotify = {
         bridgePort = lib.mkOption {
           type = lib.types.port;
           default = 8111;
         };
-        baseUrl = lib.mkOption {
+        host = lib.mkOption {
           type = lib.types.str;
-          default = "https://ntfy.sh";
+          default = "gotify.example.com";
         };
-        extraConfigFiles = lib.mkOption {
-          type = lib.types.listOf lib.types.path;
-          default = [ ];
+        port = lib.mkOption {
+          type = lib.types.port;
+          default = 443;
         };
-        topic = lib.mkOption {
-          type = lib.types.str;
-          default = "alerts";
-          description = "ntfy topic to publish alerts to";
+        environmentFile = lib.mkOption {
+          type = lib.types.nullOr lib.types.path;
+          default = null;
+          description = ''
+            File with env vars for the bridge:
+            GOTIFY_TOKEN=<some-token>
+          '';
         };
       };
     };
@@ -66,7 +69,7 @@ in
     ]
     ++ lib.optionals cfg.alertmanager.enable [
       cfg.alertmanager.port
-      cfg.alertmanager.ntfy.bridgePort
+      cfg.alertmanager.gotify.bridgePort
     ];
     services.prometheus = {
       enable = true;
@@ -89,7 +92,7 @@ in
         webExternalUrl = "https://${cfg.alertmanager.url}";
         configuration = {
           route = {
-            receiver = "ntfy";
+            receiver = "gotify";
             group_by = [ "alertname" ];
             group_wait = "30s";
             group_interval = "5m";
@@ -97,10 +100,10 @@ in
           };
           receivers = [
             {
-              name = "ntfy";
+              name = "gotify";
               webhook_configs = [
                 {
-                  url = "http://127.0.0.1:${toString cfg.alertmanager.ntfy.bridgePort}/hook";
+                  url = "http://127.0.0.1:${toString cfg.alertmanager.gotify.bridgePort}/gotify_webhook";
                 }
               ];
             }
@@ -108,19 +111,18 @@ in
         };
       };
 
-      alertmanager-ntfy = lib.mkIf cfg.alertmanager.enable {
+      alertmanagerGotify = lib.mkIf cfg.alertmanager.enable {
         enable = true;
-        inherit (cfg.alertmanager.ntfy) extraConfigFiles;
-        settings = {
-          http.addr = ":${toString cfg.alertmanager.ntfy.bridgePort}";
-          ntfy = {
-            baseurl = cfg.alertmanager.ntfy.baseUrl;
-            notification = {
-              topic = cfg.alertmanager.ntfy.topic;
-              priority = ''status == "firing" ? "high" : "default"'';
-            };
-          };
+        port = cfg.alertmanager.gotify.bridgePort;
+        webhookPath = "/gotify_webhook";
+        titleAnnotation = "summary";
+        messageAnnotation = "description";
+        metrics.username = "alertmanager";
+
+        gotifyEndpoint = {
+          inherit (cfg.alertmanager.gotify) host port;
         };
+        inherit (cfg.alertmanager.gotify) environmentFile;
       };
     };
     services.caddy.virtualHosts = {

@@ -126,9 +126,9 @@ in
         alertRules = import ./prometheus/alertRules.nix;
         alertmanager = {
           enable = true;
-          ntfy = {
-            baseUrl = "https://nt.${secrets.domain}";
-            extraConfigFiles = [ config.sops.secrets."alertmanager/ntfy".path ];
+          gotify = {
+            host = "gtfy.${secrets.domain}";
+            environmentFile = config.sops.secrets."alertmanager/gtfy".path;
           };
         };
       };
@@ -150,7 +150,7 @@ in
     "vaultwarden-backup/passwordFile" = mkUserSecret config.users.users.root.name;
     "vaultwarden-backup/sshKey" = mkUserSecret config.users.users.root.name;
     "glance/byrgenwerthApitoken" = mkSecret;
-    "alertmanager/ntfy" = mkSecret;
+    "alertmanager/gtfy" = mkSecret;
     "miniflux/environmentFile" = mkSecret;
     "newt/environmentFile" = mkSecret;
     "readeck/environmentFile" = mkSecret;
