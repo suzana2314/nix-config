@@ -10,7 +10,7 @@
     ../features/wayland
     ../features/wofi
     ../features/neovim
-    ../features/calendar
+    ../features/dav
     ../features/subtui
     ../features/whipper
     ../features/bat
