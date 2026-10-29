@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   customLib,
   ...
 }:
@@ -18,6 +19,23 @@ in
 
   programs.waybar = {
     enable = true;
+    # https://github.com/JacobGDG/nix-config/blob/main/modules/desktop/waybar.nix
+    package =
+      lib.warnIf (lib.versionAtLeast pkgs.unstable.waybar.version "0.15.1")
+        "waybar: nixpkgs now ships ${pkgs.unstable.waybar.version}"
+        (
+          (pkgs.unstable.waybar.override { cavaSupport = false; }).overrideAttrs (old: {
+            version = "0.15.0-unstable-2026-10-28";
+            src = pkgs.fetchFromGitHub {
+              owner = "Alexays";
+              repo = "Waybar";
+              rev = "c15ec02ede4343592a59eb5c2ff4443c9c045f7c";
+              hash = "sha256-mBDWjeeIuFfDZQuBxHu+EpbJ+GMbbSxpRz0WVM2N+ZI=";
+            };
+            mesonFlags = old.mesonFlags ++ [ "-Dwwan=disabled" ];
+            doInstallCheck = false;
+          })
+        );
     settings = {
       mainBar = {
         layer = "bottom";
