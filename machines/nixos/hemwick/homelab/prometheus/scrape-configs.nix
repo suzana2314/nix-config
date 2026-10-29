@@ -52,4 +52,11 @@ in
     job_name = "Prometheus";
     static_configs = [ { targets = [ "localhost:9090" ]; } ];
   }
+  {
+    job_name = "slskd";
+    static_configs = [ { targets = [ (mkHostTarget "slskd") ]; } ];
+    basic_auth =
+      mkAuthConfig "prometheus-oedon"
+        config.sops.secrets."prometheus/slskdPasswordFile".path;
+  }
 ]

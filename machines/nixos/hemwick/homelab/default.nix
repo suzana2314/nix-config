@@ -143,6 +143,7 @@ in
     "radicale/passwdFile" = mkUserSecret config.users.users.radicale.name;
     "webdav/environmentFile" = mkUserSecret config.users.users.webdav.name;
     "prometheus/hostsPasswordFile" = mkUserSecret config.users.users.prometheus.name;
+    "prometheus/slskdPasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "prometheus-node-exporter/environmentFile" = mkUserSecret config.users.users.node-exporter.name;
     "grafana/secretKey" = mkUserSecret config.users.users.grafana.name;
     "mqtt/homeassistant" = mkUserSecret config.users.users.mosquitto.name;
