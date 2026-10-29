@@ -5,5 +5,5 @@ DATA_HOME = "@dataHome@"
 PICTURE_HOME = "@pictureHome@"
 CURSOR_THEME = "@cursorTheme@"
 BUILTIN_MONITOR = "@builtinMonitor@"
-PSEUDO_CLASSES = { "com.mitchellh.ghostty", "vesktop" }
+PSEUDO_CLASSES = { "com.mitchellh.ghostty", "md.obsidian.Obsidian" }
 LAYER_NAMESPACES = { "notifications", "waybar", "wofi" }
