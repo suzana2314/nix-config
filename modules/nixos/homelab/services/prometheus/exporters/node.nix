@@ -19,7 +19,7 @@ in
       default = 9100;
     };
     environmentFile = lib.mkOption {
-      type = lib.types.path;
+      type = lib.types.nullOr lib.types.path;
       default = null;
       description = "Path to environment file containing NODE_EXPORTER_AUTH_HASH";
     };
