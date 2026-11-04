@@ -32,7 +32,10 @@ in
     homelab.ports = [ cfg.port ];
     services.${service} = {
       enable = true;
-      package = pkgs.unstable.grafana;
+      package =
+        lib.warnIf (lib.versionAtLeast pkgs.grafana.version pkgs.unstable.grafana.version)
+          "${service}: stable now ships ${pkgs.grafana.version}, drop the unstable override"
+          pkgs.unstable.grafana;
       openFirewall = !homelab.services.reverseProxy.enable;
       settings = {
         server = {

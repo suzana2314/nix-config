@@ -25,7 +25,10 @@ in
   config = lib.mkIf cfg.enable {
     services.${service} = {
       enable = true;
-      package = pkgs.unstable.fosrl-newt;
+      package =
+        lib.warnIf (lib.versionAtLeast pkgs.fosrl-newt.version pkgs.unstable.fosrl-newt.version)
+          "${service}: stable now ships ${pkgs.fosrl-newt.version}, drop the unstable override"
+          pkgs.unstable.fosrl-newt;
       inherit (cfg) environmentFile;
     };
   };

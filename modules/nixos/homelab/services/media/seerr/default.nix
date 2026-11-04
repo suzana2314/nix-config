@@ -28,7 +28,10 @@ in
     homelab.ports = [ cfg.port ];
     services.${service} = {
       enable = true;
-      package = pkgs.unstable.seerr;
+      package =
+        lib.warnIf (lib.versionAtLeast pkgs.seerr.version pkgs.unstable.seerr.version)
+          "${service}: stable now ships ${pkgs.seerr.version}, drop the unstable override"
+          pkgs.unstable.seerr;
       inherit (cfg) port;
     };
     services.caddy.virtualHosts."${cfg.url}" = {

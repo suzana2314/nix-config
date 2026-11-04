@@ -82,7 +82,10 @@ in
     homelab.ports = [ cfg.port ];
     services.${service} = {
       enable = true;
-      package = pkgs.unstable.immich;
+      package =
+        lib.warnIf (lib.versionAtLeast pkgs.immich.version pkgs.unstable.immich.version)
+          "${service}: stable now ships ${pkgs.immich.version}, drop the unstable override"
+          pkgs.unstable.immich;
       port = cfg.port;
       openFirewall = !homelab.services.reverseProxy.enable;
       mediaLocation = "${cfg.mediaDir}";
