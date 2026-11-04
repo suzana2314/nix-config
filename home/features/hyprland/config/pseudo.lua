@@ -45,4 +45,3 @@ end
 hl.on("window.open", function(w) refresh({ include = w }) end)
 hl.on("window.close", function(w) applied[w.address] = nil; refresh({ exclude = w.address }) end)
 hl.on("window.move_to_workspace", function(w, ws) refresh({ move = { address = w.address, ws_id = ws.id } }) end)
-hl.on("config.reloaded", function() refresh() end)

@@ -66,6 +66,7 @@ hl.config({
       range = 6,
       render_power = 4,
     },
+    motion_blur = { enabled = true, },
   },
 
   animations = { enabled = true },
