@@ -38,7 +38,7 @@ in
     metrics_path = "/caddy/metrics";
     basic_auth =
       mkAuthConfig "prometheus-oedon"
-        config.sops.secrets."prometheus/hostsPasswordFile".path;
+        config.sops.secrets."prometheus/caddyPasswordFile".path;
   }
   {
     job_name = "DNS Primary";

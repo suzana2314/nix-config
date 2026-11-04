@@ -20,6 +20,16 @@
       type = lib.types.path;
       description = "Path to the file containing DNS provider credentials for ACME DNS-01 challenges";
     };
+    metrics = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+      };
+      environmentFile = lib.mkOption {
+        type = lib.types.nullOr lib.types.path;
+        default = null;
+        description = "Path to environment file containing CADDY_METRICS_AUTH_HASH";
+      };
+    };
   };
   imports = [
     ./caddy.nix

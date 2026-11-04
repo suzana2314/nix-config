@@ -27,6 +27,10 @@ in
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
         dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
+        metrics = {
+          enable = true;
+          environmentFile = config.sops.secrets."caddy/environmentFile".path;
+        };
       };
 
       dns = {
@@ -91,14 +95,15 @@ in
 
   # secrets for the homelab config
   sops.secrets = {
+    slskd = mkUserSecret config.users.users.${config.homelab.user}.name;
     "cloudflare/dnsCredentials" = mkUserSecret config.users.users.acme.name;
-    "prometheus-node-exporter/environmentFile" = mkUserSecret config.users.users.node-exporter.name;
     "immich-backup/passwordFile" = mkUserSecret config.users.users.root.name;
     "immich-backup/sshKey" = mkUserSecret config.users.users.root.name;
-    slskd = mkUserSecret config.users.users.${config.homelab.user}.name;
-    frigate = mkSecret;
+    "prometheus-node-exporter/environmentFile" = mkSecret;
+    "caddy/environmentFile" = mkSecret;
     "glance/environmentFile" = mkSecret;
-    navidrome = mkSecret;
     "newt/environmentFile" = mkSecret;
+    navidrome = mkSecret;
+    frigate = mkSecret;
   };
 }

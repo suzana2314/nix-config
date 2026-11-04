@@ -27,6 +27,10 @@ in
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
         dnsCredentialsFile = config.sops.secrets."cloudflare/dnsCredentials".path;
+        metrics = {
+          enable = true;
+          environmentFile = config.sops.secrets."caddy/environmentFile".path;
+        };
       };
 
       dns = {
@@ -143,13 +147,15 @@ in
     "radicale/passwdFile" = mkUserSecret config.users.users.radicale.name;
     "webdav/environmentFile" = mkUserSecret config.users.users.webdav.name;
     "prometheus/hostsPasswordFile" = mkUserSecret config.users.users.prometheus.name;
+    "prometheus/caddyPasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "prometheus/slskdPasswordFile" = mkUserSecret config.users.users.prometheus.name;
-    "prometheus-node-exporter/environmentFile" = mkUserSecret config.users.users.node-exporter.name;
     "grafana/secretKey" = mkUserSecret config.users.users.grafana.name;
     "mqtt/homeassistant" = mkUserSecret config.users.users.mosquitto.name;
     "mqtt/frigate" = mkUserSecret config.users.users.mosquitto.name;
     "vaultwarden-backup/passwordFile" = mkUserSecret config.users.users.root.name;
     "vaultwarden-backup/sshKey" = mkUserSecret config.users.users.root.name;
+    "prometheus-node-exporter/environmentFile" = mkSecret;
+    "caddy/environmentFile" = mkSecret;
     "glance/byrgenwerthApitoken" = mkSecret;
     "alertmanager/gtfy" = mkSecret;
     "miniflux/environmentFile" = mkSecret;

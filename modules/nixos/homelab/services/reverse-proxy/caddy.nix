@@ -26,14 +26,22 @@ in
           extraConfig = "redir https://{host}{uri}";
         };
         # metrics
-        "${host}.${homelab.baseDomain}" = {
+        "${host}.${homelab.baseDomain}" = lib.mkIf cfg.metrics.enable {
           useACMEHost = homelab.baseDomain;
           extraConfig = ''
+            ${lib.optionalString (cfg.metrics.environmentFile != null) ''
+              basic_auth /caddy/metrics {
+                prometheus-oedon {$CADDY_METRICS_AUTH_HASH}
+              }
+            ''}
             metrics /caddy/metrics
           '';
         };
       };
     };
+    systemd.services.caddy.serviceConfig.EnvironmentFile = lib.optional (
+      cfg.metrics.enable && cfg.metrics.environmentFile != null
+    ) cfg.metrics.environmentFile;
     networking.firewall.allowedTCPPorts = [
       80
       443
