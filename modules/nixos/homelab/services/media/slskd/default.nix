@@ -64,6 +64,10 @@ in
     services.${service} = {
       enable = true;
       inherit (homelab) user group;
+      package =
+        lib.warnIf (lib.versionAtLeast pkgs.slskd.version pkgs.unstable.slskd.version)
+          "${service}: stable now ships ${pkgs.slskd.version}, drop the unstable override"
+          pkgs.unstable.slskd;
       environmentFile = cfg.environmentFile;
       domain = null;
       settings = {
@@ -84,7 +88,7 @@ in
             "\.DS_Store$"
           ];
         };
-        integration.scripts.slskd-import-files = {
+        integrations.scripts.slskd-import-files = {
           on = [
             "DownloadDirectoryComplete"
           ];
