@@ -38,10 +38,6 @@ in
     homelab.ports = [ cfg.port ];
     services.${service} = {
       enable = true;
-      package =
-        lib.warnIf (lib.versionAtLeast pkgs.glance.version pkgs.unstable.glance.version)
-          "${service}: stable now ships ${pkgs.glance.version}, drop the unstable override"
-          pkgs.unstable.glance;
       openFirewall = !homelab.services.reverseProxy.enable;
       settings = import ./config.nix {
         inherit (homelab) baseDomain;

@@ -30,6 +30,8 @@ let
     "printer.svg" = "svg/printer.svg";
     "tp-link.svg" = "svg/tp-link.svg";
     "pangolin.svg" = "svg/pangolin.svg";
+    "alertmanager-dark.svg" = "svg/alertmanager-dark.svg";
+    "gotify.svg" = "svg/gotify.svg";
   };
 in
 pkgs.runCommand "glance-dashboard-icons" { } (

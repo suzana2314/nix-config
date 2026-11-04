@@ -3,6 +3,9 @@
   cfg,
   net,
 }:
+let
+  makeUrl = sd: "https://${sd}.${baseDomain}";
+in
 {
   server = {
     host = "localhost";
@@ -35,27 +38,27 @@
           sites = [
             {
               title = "Miniflux";
-              url = "https://miniflux.${baseDomain}";
+              url = makeUrl "miniflux";
               icon = "/assets/miniflux-light.svg";
             }
             {
               title = "Home Assistant";
-              url = "https://homeassistant.${baseDomain}";
+              url = makeUrl "homeassistant";
               icon = "/assets/home-assistant.svg";
             }
             {
               title = "Jellyfin";
-              url = "https://jellyfin.${baseDomain}";
+              url = makeUrl "jellyfin";
               icon = "/assets/jellyfin.svg";
             }
             {
               title = "Navidrome";
-              url = "https://navidrome.${baseDomain}";
+              url = makeUrl "navidrome";
               icon = "/assets/navidrome.png";
             }
             {
               title = "Immich";
-              url = "https://immich.${baseDomain}";
+              url = makeUrl "immich";
               icon = "/assets/immich.svg";
             }
           ];
@@ -80,14 +83,14 @@
                 }
                 {
                   type = "remote";
-                  url = "https://byrgenwerth-glance.${baseDomain}";
+                  url = makeUrl "byrgenwerth-glance";
                   token = {
                     _secret = cfg.apiToken;
                   };
                 }
                 {
                   type = "remote";
-                  url = "https://mensis-glance.${baseDomain}";
+                  url = makeUrl "mensis-glance";
                   token = {
                     _secret = cfg.apiToken;
                   };
@@ -140,27 +143,27 @@
               sites = [
                 {
                   title = "Home Assistant";
-                  url = "https://homeassistant.${baseDomain}";
+                  url = makeUrl "homeassistant";
                   icon = "/assets/home-assistant.svg";
                 }
                 {
                   title = "Immich";
-                  url = "https://immich.${baseDomain}";
+                  url = makeUrl "immich";
                   icon = "/assets/immich.svg";
                 }
                 {
                   title = "Navidrome";
-                  url = "https://navidrome.${baseDomain}";
+                  url = makeUrl "navidrome";
                   icon = "/assets/navidrome.png";
                 }
                 {
                   title = "Miniflux";
-                  url = "https://miniflux.${baseDomain}";
+                  url = makeUrl "miniflux";
                   icon = "/assets/miniflux-light.svg";
                 }
                 {
                   title = "Readeck";
-                  url = "https://readeck.${baseDomain}";
+                  url = makeUrl "readeck";
                   icon = "/assets/readeck.svg";
                 }
               ];
@@ -172,22 +175,22 @@
               sites = [
                 {
                   title = "Jellyfin";
-                  url = "https://jellyfin.${baseDomain}";
+                  url = makeUrl "jellyfin";
                   icon = "/assets/jellyfin.svg";
                 }
                 {
                   title = "Seerr";
-                  url = "https://seerr.${baseDomain}";
+                  url = makeUrl "seerr";
                   icon = "/assets/seerr.svg";
                 }
                 {
                   title = "qBitTorrent";
-                  url = "https://qbittorrent.${baseDomain}";
+                  url = makeUrl "qbittorrent";
                   icon = "/assets/qbittorrent.svg";
                 }
                 {
                   title = "slskd";
-                  url = "https://slskd.${baseDomain}";
+                  url = makeUrl "slskd";
                   icon = "/assets/slskd.svg";
                 }
               ];
@@ -199,22 +202,22 @@
               sites = [
                 {
                   title = "Sonarr";
-                  url = "https://sonarr.${baseDomain}";
+                  url = makeUrl "sonarr";
                   icon = "/assets/sonarr.svg";
                 }
                 {
                   title = "Radarr";
-                  url = "https://radarr.${baseDomain}";
+                  url = makeUrl "radarr";
                   icon = "/assets/radarr.svg";
                 }
                 {
                   title = "Prowlarr";
-                  url = "https://prowlarr.${baseDomain}";
+                  url = makeUrl "prowlarr";
                   icon = "/assets/prowlarr.svg";
                 }
                 {
                   title = "Bazarr";
-                  url = "https://bazarr.${baseDomain}";
+                  url = makeUrl "bazarr";
                   icon = "/assets/bazarr.svg";
                 }
               ];
@@ -226,18 +229,28 @@
               sites = [
                 {
                   title = "Gatus";
-                  url = "https://status.${baseDomain}";
+                  url = makeUrl "status";
                   icon = "/assets/gatus.svg";
                 }
                 {
                   title = "Grafana";
-                  url = "https://grafana.${baseDomain}";
+                  url = makeUrl "grafana";
                   icon = "/assets/grafana.svg";
                 }
                 {
                   title = "Prometheus";
-                  url = "https://metrics.${baseDomain}";
+                  url = makeUrl "metrics";
                   icon = "/assets/prometheus.svg";
+                }
+                {
+                  title = "Alertmanager";
+                  url = makeUrl "alerts";
+                  icon = "/assets/alertmanager-dark.svg";
+                }
+                {
+                  title = "Gotify";
+                  url = makeUrl "gtfy";
+                  icon = "/assets/gotify.svg";
                 }
               ];
             }
@@ -248,22 +261,22 @@
               sites = [
                 {
                   title = "3D Printer";
-                  url = "https://sovol.${baseDomain}";
+                  url = makeUrl "sovol";
                   icon = "/assets/mainsail.svg";
                 }
                 {
                   title = "Endurain";
-                  url = "https://endurain.${baseDomain}";
+                  url = makeUrl "endurain";
                   icon = "/assets/endurain.svg";
                 }
                 {
-                  title = "Scanservjs";
-                  url = "https://scan.${baseDomain}";
+                  title = "Scan";
+                  url = makeUrl "scan";
                   icon = "/assets/printer.svg";
                 }
                 {
                   title = "Frigate";
-                  url = "https://frigate.${baseDomain}";
+                  url = makeUrl "frigate";
                   icon = "/assets/frigate-light.svg";
                 }
               ];
@@ -280,7 +293,7 @@
                 }
                 {
                   title = "Pangolin";
-                  url = "https://pangolin.${baseDomain}";
+                  url = makeUrl "pangolin";
                   icon = "/assets/pangolin.svg";
                 }
               ];
