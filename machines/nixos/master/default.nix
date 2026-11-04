@@ -18,6 +18,7 @@
     ../../common/options/steam
     ../../common/options/users/suz
     ../../common/options/localsend
+    ../../common/options/netmd
   ];
 
   systemd.network.wait-online.enable = false;
