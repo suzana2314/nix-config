@@ -9,7 +9,7 @@ let
   service = "holiday-sync";
   cfg = homelab.services.${service};
 
-  pythonEnv = pkgs.python3.withPackages (
+  pythonEnv = pkgs.unstable.python3.withPackages (
     ps: with ps; [
       holidays
       caldav
