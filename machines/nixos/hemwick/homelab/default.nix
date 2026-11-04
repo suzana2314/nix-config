@@ -120,15 +120,6 @@ in
         enable = true;
         secretKey = config.sops.secrets."grafana/secretKey".path;
       };
-      prometheus-node-exporter = {
-        enable = true;
-        environmentFile = config.sops.secrets."prometheus-node-exporter/environmentFile".path;
-      };
-      storagebox-exporter = {
-        enable = true;
-        tokenFile = config.sops.secrets."storagebox-exporter/tokenFile".path;
-        environmentFile = config.sops.secrets."storagebox-exporter/environmentFile".path;
-      };
       prometheus = {
         enable = true;
         scrapeConfigs = import ./prometheus/scrape-configs.nix { inherit config; };
@@ -141,6 +132,15 @@ in
           };
         };
       };
+      node-exporter = {
+        enable = true;
+        environmentFile = config.sops.secrets."node-exporter/environmentFile".path;
+      };
+      storagebox-exporter = {
+        enable = true;
+        tokenFile = config.sops.secrets."storagebox-exporter/tokenFile".path;
+        environmentFile = config.sops.secrets."storagebox-exporter/environmentFile".path;
+      };
     };
   };
 
@@ -151,7 +151,7 @@ in
     "cloudflare/ddnsNotification" = mkUserSecret config.users.users.ddns-updater.name;
     "radicale/passwdFile" = mkUserSecret config.users.users.radicale.name;
     "webdav/environmentFile" = mkUserSecret config.users.users.webdav.name;
-    "prometheus/hostsPasswordFile" = mkUserSecret config.users.users.prometheus.name;
+    "prometheus/nodePasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "prometheus/caddyPasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "prometheus/slskdPasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "prometheus/storageboxPasswordFile" = mkUserSecret config.users.users.prometheus.name;
@@ -162,7 +162,7 @@ in
     "vaultwarden-backup/sshKey" = mkUserSecret config.users.users.root.name;
     "storagebox-exporter/tokenFile" = mkSecret;
     "storagebox-exporter/environmentFile" = mkSecret;
-    "prometheus-node-exporter/environmentFile" = mkSecret;
+    "node-exporter/environmentFile" = mkSecret;
     "caddy/environmentFile" = mkSecret;
     "glance/byrgenwerthApitoken" = mkSecret;
     "alertmanager/gtfy" = mkSecret;

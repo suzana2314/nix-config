@@ -86,9 +86,9 @@ in
         environmentFile = config.sops.secrets."newt/environmentFile".path;
       };
 
-      prometheus-node-exporter = {
+      node-exporter = {
         enable = true;
-        environmentFile = config.sops.secrets."prometheus-node-exporter/environmentFile".path;
+        environmentFile = config.sops.secrets."node-exporter/environmentFile".path;
       };
     };
   };
@@ -99,7 +99,7 @@ in
     "cloudflare/dnsCredentials" = mkUserSecret config.users.users.acme.name;
     "immich-backup/passwordFile" = mkUserSecret config.users.users.root.name;
     "immich-backup/sshKey" = mkUserSecret config.users.users.root.name;
-    "prometheus-node-exporter/environmentFile" = mkSecret;
+    "node-exporter/environmentFile" = mkSecret;
     "caddy/environmentFile" = mkSecret;
     "glance/environmentFile" = mkSecret;
     "newt/environmentFile" = mkSecret;

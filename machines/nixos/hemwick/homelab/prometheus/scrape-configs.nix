@@ -20,9 +20,7 @@ in
         ];
       }
     ];
-    basic_auth =
-      mkAuthConfig "prometheus-oedon"
-        config.sops.secrets."prometheus/hostsPasswordFile".path;
+    basic_auth = mkAuthConfig "prometheus-oedon" config.sops.secrets."prometheus/nodePasswordFile".path;
   }
   {
     job_name = "caddy";

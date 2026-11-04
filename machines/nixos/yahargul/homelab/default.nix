@@ -38,9 +38,9 @@ in
         networkInterface = "eno1";
       };
 
-      prometheus-node-exporter = {
+      node-exporter = {
         enable = true;
-        environmentFile = config.sops.secrets."prometheus-node-exporter/environmentFile".path;
+        environmentFile = config.sops.secrets."node-exporter/environmentFile".path;
       };
 
       homeassistant.enable = true;
@@ -52,7 +52,7 @@ in
   sops.secrets = {
     "cloudflare/ddnsCredentials" = mkUserSecret config.users.users.ddns-updater.name;
     "cloudflare/ddnsNotification" = mkUserSecret config.users.users.ddns-updater.name;
-    "prometheus-node-exporter/environmentFile" = mkUserSecret config.users.users.node-exporter.name;
+    "node-exporter/environmentFile" = mkUserSecret config.users.users.node-exporter.name;
     "wireguard/privateKey" = mkSecret;
     "newt/environmentFile" = mkSecret;
   };
