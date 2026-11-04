@@ -27,6 +27,12 @@ in
       default = null;
       description = "Path to environment file containing STORAGEBOX_EXPORTER_AUTH_HASH";
     };
+    monitoredServices = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        "prometheus-${service}"
+      ];
+    };
   };
 
   config = lib.mkIf cfg.enable {

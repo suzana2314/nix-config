@@ -12,14 +12,16 @@ let
       name: value: value != "enable" && value ? enable && value.enable
     ) config.homelab.services
   );
-  monitoredServices = lib.lists.unique (
-    lib.lists.flatten (
-      lib.lists.forEach enabledServices (
-        x:
-        let
-          services = config.homelab.services.${x};
-        in
-        if (services ? monitoredServices) then services.monitoredServices else [ x ]
+  monitoredServices = lib.lists.sort builtins.lessThan (
+    lib.lists.unique (
+      lib.lists.flatten (
+        lib.lists.forEach enabledServices (
+          x:
+          let
+            services = config.homelab.services.${x};
+          in
+          if (services ? monitoredServices) then services.monitoredServices else [ x ]
+        )
       )
     )
   );
