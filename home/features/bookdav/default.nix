@@ -18,7 +18,7 @@ in
         passwordFile = config.sops.secrets.bookdav.path;
       };
       epub = {
-        kepubify = false;
+        kepubify = true;
         rename_epubs = true;
         keep_converted = false;
         dir = "${config.xdg.userDirs.documents}/epubs";
