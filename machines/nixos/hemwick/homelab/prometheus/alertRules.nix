@@ -121,4 +121,25 @@
       }
     ];
   }
+  {
+    name = "storagebox";
+    rules = [
+      {
+        alert = "StorageBoxDiskAlmostFull";
+        expr = ''
+          (
+            storagebox_disk_usage
+            /
+            storagebox_disk_quota
+          ) >= 0.95
+        '';
+        for = "30m";
+        labels.severity = "critical";
+        annotations = {
+          summary = "Storage Box {{ $labels.name }} is almost full";
+          description = "{{ $labels.name }} ({{ $labels.server }}) is using {{ $value | humanizePercentage }} of its quota.";
+        };
+      }
+    ];
+  }
 ]

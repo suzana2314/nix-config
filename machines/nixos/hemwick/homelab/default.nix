@@ -124,6 +124,11 @@ in
         enable = true;
         environmentFile = config.sops.secrets."prometheus-node-exporter/environmentFile".path;
       };
+      storagebox-exporter = {
+        enable = true;
+        tokenFile = config.sops.secrets."storagebox-exporter/tokenFile".path;
+        environmentFile = config.sops.secrets."storagebox-exporter/environmentFile".path;
+      };
       prometheus = {
         enable = true;
         scrapeConfigs = import ./prometheus/scrape-configs.nix { inherit config; };
@@ -149,11 +154,14 @@ in
     "prometheus/hostsPasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "prometheus/caddyPasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "prometheus/slskdPasswordFile" = mkUserSecret config.users.users.prometheus.name;
+    "prometheus/storageboxPasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "grafana/secretKey" = mkUserSecret config.users.users.grafana.name;
     "mqtt/homeassistant" = mkUserSecret config.users.users.mosquitto.name;
     "mqtt/frigate" = mkUserSecret config.users.users.mosquitto.name;
     "vaultwarden-backup/passwordFile" = mkUserSecret config.users.users.root.name;
     "vaultwarden-backup/sshKey" = mkUserSecret config.users.users.root.name;
+    "storagebox-exporter/tokenFile" = mkSecret;
+    "storagebox-exporter/environmentFile" = mkSecret;
     "prometheus-node-exporter/environmentFile" = mkSecret;
     "caddy/environmentFile" = mkSecret;
     "glance/byrgenwerthApitoken" = mkSecret;

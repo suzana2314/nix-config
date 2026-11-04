@@ -59,4 +59,11 @@ in
       mkAuthConfig "prometheus-oedon"
         config.sops.secrets."prometheus/slskdPasswordFile".path;
   }
+  {
+    job_name = "Storage Box";
+    static_configs = [ { targets = [ (mkHostTarget "storagebox-metrics") ]; } ];
+    basic_auth =
+      mkAuthConfig "prometheus-oedon"
+        config.sops.secrets."prometheus/storageboxPasswordFile".path;
+  }
 ]
