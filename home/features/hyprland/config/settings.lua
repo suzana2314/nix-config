@@ -1,6 +1,6 @@
 -- Startup
 hl.on("hyprland.start", function()
-  hl.exec_cmd("waybar")
+  hl.exec_cmd("noctalia")
   hl.exec_cmd("hyprpaper")
   hl.exec_cmd("hypridle")
   hl.exec_cmd("systemctl --user start hyprpolkitagent")
@@ -62,9 +62,14 @@ hl.config({
       xray = false,
     },
     shadow = {
-      enabled = true,
-      range = 6,
-      render_power = 4,
+      enabled        = true,
+      range          = 60,
+      render_power   = 2,
+      sharp          = false,
+      color          = "rgba(00000066)",
+      color_inactive = "rgba(00000033)",
+      offset         = { 0, 24 },
+      scale          = 1.0,
     },
     motion_blur = { enabled = true, },
   },

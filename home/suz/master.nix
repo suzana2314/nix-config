@@ -3,12 +3,10 @@
   imports = [
     ../features/ghostty
     ../features/discord
-    ../features/notifications
     ../features/hyprland
+    ../features/noctalia
     ../features/theme
-    ../features/waybar
     ../features/wayland
-    ../features/wofi
     ../features/neovim
     ../features/dav
     ../features/subtui
@@ -30,8 +28,8 @@
 
   scheme = {
     wallpaper = {
-      url = "https://gruvbox-wallpapers.pages.dev/wallpapers/photography/mountains2.jpg";
-      hash = "sha256-hp9cxCpZsDYKxUUSuec2wZyv9/N93Cw6ENTHGxKap9Q=";
+      url = "https://gruvbox-wallpapers.pages.dev/wallpapers/photography/felix-bacher--jEEnRx38wo.jpg";
+      hash = "sha256-F9btc0vXM0vvwvNTpbLkxD2sjsfG/fQYPmbChX7+t/w=";
     };
     theme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
     polarity = "dark";

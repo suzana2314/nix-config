@@ -41,6 +41,10 @@
       url = "git+https://codeberg.org/suzana2314/bookdav.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
