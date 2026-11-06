@@ -3,12 +3,10 @@
   imports = [
     ../features/ghostty
     ../features/discord
-    ../features/notifications
     ../features/hyprland
+    ../features/noctalia
     ../features/theme
-    ../features/waybar
     ../features/wayland
-    ../features/wofi
     ../features/neovim
     ../features/dav
     ../features/subtui
