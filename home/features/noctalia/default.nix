@@ -80,6 +80,7 @@ in
         # TODO: put this in another place
         avatar_path = "/home/suz/pictures/profile_pictures/main/pfp_7.png";
         font_family = monospace.name;
+        launch_apps_as_systemd_services = true;
 
         clipboard_enabled = false;
         clipboard_keep_from_closed_apps = false;
@@ -125,6 +126,10 @@ in
         source = "custom";
         custom_palette = "stylix";
       };
+    };
+
+    systemd = {
+      enable = true;
     };
   };
 
