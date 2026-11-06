@@ -1,25 +1,60 @@
 {
-  services.upower.enable = true;
-  services.tlp = {
+  services.upower = {
     enable = true;
-    settings = {
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    percentageLow = 20;
+    percentageCritical = 10;
+    percentageAction = 5;
+    criticalPowerAction = "Hibernate";
+  };
 
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-      PLATFORM_PROFILE_ON_AC = "performance";
-      PLATFORM_PROFILE_ON_BAT = "balanced";
+  services.tuned = {
+    enable = true;
+    ppdSupport = true;
 
-      CPU_MIN_PERF_ON_AC = 0;
-      CPU_MAX_PERF_ON_AC = 100;
-      CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 20;
+    ppdSettings = {
+      main = {
+        default = "balanced";
+        battery_detection = true;
+      };
+      profiles = {
+        power-saver = "powersave";
+        balanced = "laptop-ac";
+        performance = "throughput-performance";
+      };
+      battery.balanced = "laptop-battery";
+    };
 
-      START_CHARGE_THRESH_BAT0 = 0;
-      STOP_CHARGE_THRESH_BAT0 = 1;
-      RESTORE_DEVICE_STATE_ON_STARTUP = 1; # keep the bluetooth state from previous shutdown
-      USB_BLACKLIST = "18d1:4ee1";
+    profiles = {
+      laptop-battery = {
+        main.include = "balanced-battery";
+        cpu = {
+          type = "cpu";
+          governor = "powersave";
+          energy_performance_preference = "balance_power";
+        };
+        pcie = {
+          type = "sysfs";
+          "/sys/module/pcie_aspm/parameters/policy" = "powersave";
+        };
+        audio = {
+          type = "audio";
+          timeout = 10;
+        };
+        sysctls = {
+          type = "sysctl";
+          "vm.dirty_writeback_centisecs" = 1500;
+          "kernel.nmi_watchdog" = 0;
+        };
+      };
+
+      laptop-ac = {
+        main.include = "balanced";
+        cpu = {
+          type = "cpu";
+          governor = "powersave";
+          energy_performance_preference = "balance_performance";
+        };
+      };
     };
   };
 }
