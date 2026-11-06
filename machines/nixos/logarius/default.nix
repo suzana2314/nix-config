@@ -10,6 +10,7 @@
 
     ../../common/users/suz # main user
     ../../common/core
+    ../../common/options/power
     ../../common/options/impermenance
     ../../common/options/audio
     ../../common/options/wireless
