@@ -7,6 +7,7 @@ local function toggle_builtin_monitor()
 end
 
 local ipc = "noctalia msg "
+local app = "uwsm app -- "
 
 -- App binds
 hl.bind(MOD .. " + D", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
@@ -14,9 +15,9 @@ hl.bind(MOD .. " + Q", hl.dsp.exec_cmd(ipc .. "panel-toggle control-center"))
 hl.bind(MOD .. " + comma", hl.dsp.exec_cmd(ipc .. "settings-toggle"))
 hl.bind(MOD .. " + SHIFT + S", hl.dsp.exec_cmd(ipc .. "screenshot-region"))
 
-hl.bind(MOD .. " + Return", hl.dsp.exec_cmd(TERM .. " +new-window"))
-hl.bind(MOD .. " + Z", hl.dsp.exec_cmd("firefox"))
-hl.bind(MOD .. " + E", hl.dsp.exec_cmd("nautilus"))
+hl.bind(MOD .. " + Return", hl.dsp.exec_cmd(app .. TERM .. " +new-window"))
+hl.bind(MOD .. " + Z", hl.dsp.exec_cmd(app .. "firefox"))
+hl.bind(MOD .. " + E", hl.dsp.exec_cmd(app .. "nautilus"))
 hl.bind(MOD .. " + P", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(MOD .. " + SHIFT + M", toggle_builtin_monitor)
 

@@ -40,9 +40,22 @@
     playerctl
   ];
 
+  xdg.configFile."uwsm/env".text = ''
+    export XCURSOR_THEME=${config.gtk.cursorTheme.name}
+    export XCURSOR_PATH=${config.xdg.dataHome}/icons
+    export XCURSOR_SIZE=16
+    export HYPRCURSOR_THEME=${config.gtk.cursorTheme.name}
+    export HYPRCURSOR_SIZE=16
+    export QT_CURSOR_THEME=${config.gtk.cursorTheme.name}
+    export QT_CURSOR_SIZE=16
+    export XDG_SCREENSHOTS_DIR=${config.xdg.userDirs.pictures}
+    export NIXOS_OZONE_WL=1
+  '';
+
   wayland.windowManager.hyprland = {
     enable = true;
     package = null;
+    systemd.enable = false;
     configType = "lua";
 
     extraConfig =
@@ -87,8 +100,6 @@
               term = "ghostty";
               opacity = toString config.scheme.opacity;
               cursorTheme = config.gtk.cursorTheme.name;
-              dataHome = config.xdg.dataHome;
-              pictureHome = config.xdg.userDirs.pictures;
               builtinMonitor = if builtinMonitor != null then "desc:${builtinMonitor.description}" else "";
             };
           in
@@ -105,7 +116,7 @@
         ${builtins.readFile config/pseudo.lua}
         ${lib.concatStringsSep "\n" monitors}
         --- default for monitors without config
-        hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
+        hl.monitor({ output = "", mode = "highres", position = "auto", scale = 1 })
         ${lib.concatStrings workspaces}
       '';
   };

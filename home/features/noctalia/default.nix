@@ -80,13 +80,14 @@ in
         # TODO: put this in another place
         avatar_path = "/home/suz/pictures/profile_pictures/main/pfp_7.png";
         font_family = monospace.name;
-        launch_apps_as_systemd_services = true;
+        launch_apps_as_systemd_services = false;
+        launch_apps_custom_command = "uwsm app -- $CMD";
 
         clipboard_enabled = false;
         clipboard_keep_from_closed_apps = false;
         settings_expand_all_groups = true;
         settings_show_advanced = false;
-        settings_window_translucent = true;
+        settings_window_translucent = false;
         show_close_buttons = false;
         button_borders = false;
         card_borders = false;
@@ -95,6 +96,7 @@ in
 
         launcher = {
           categories = false;
+          compact = true;
           fetch_exchange_rates = false;
           ignore_mouse = false;
           layout = "simple";
