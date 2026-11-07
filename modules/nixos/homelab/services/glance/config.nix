@@ -240,11 +240,13 @@ in
                 {
                   title = "Prometheus";
                   url = makeUrl "metrics";
+                  alt-status-codes = [ 401 ];
                   icon = "/assets/prometheus.svg";
                 }
                 {
                   title = "Alertmanager";
                   url = makeUrl "alerts";
+                  alt-status-codes = [ 401 ];
                   icon = "/assets/alertmanager-dark.svg";
                 }
                 {
