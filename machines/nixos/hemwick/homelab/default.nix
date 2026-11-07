@@ -153,7 +153,6 @@ in
     "webdav/environmentFile" = mkUserSecret config.users.users.webdav.name;
     "prometheus/nodePasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "prometheus/caddyPasswordFile" = mkUserSecret config.users.users.prometheus.name;
-    "prometheus/slskdPasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "prometheus/storageboxPasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "grafana/secretKey" = mkUserSecret config.users.users.grafana.name;
     "mqtt/homeassistant" = mkUserSecret config.users.users.mosquitto.name;
