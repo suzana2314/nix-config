@@ -21,6 +21,11 @@ in
       type = lib.types.listOf lib.types.attrs;
       description = "The jobs to scrape";
     };
+    environmentFile = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
+      default = null;
+      description = "Path to file with containing PROMETHEUS_WEB_AUTH_HASH";
+    };
     alertRules = lib.mkOption {
       type = lib.types.listOf lib.types.attrs;
       default = [ ];
@@ -74,6 +79,7 @@ in
     services.prometheus = {
       enable = true;
       globalConfig.scrape_interval = "30s";
+      webExternalUrl = "https://${cfg.url}";
       inherit (cfg) scrapeConfigs port;
 
       ruleFiles = lib.optional (cfg.alertRules != [ ]) (
@@ -125,16 +131,29 @@ in
         inherit (cfg.alertmanager.gotify) environmentFile;
       };
     };
+    systemd.services.caddy.serviceConfig.EnvironmentFile = lib.mkIf (cfg.environmentFile != null) [
+      cfg.environmentFile
+    ];
     services.caddy.virtualHosts = {
       "${cfg.url}" = {
         useACMEHost = homelab.baseDomain;
         extraConfig = ''
+          ${lib.optionalString (cfg.environmentFile != null) ''
+            basic_auth {
+              prometheus {$PROMETHEUS_WEB_AUTH_HASH}
+            }
+          ''}
           reverse_proxy http://127.0.0.1:${toString cfg.port}
         '';
       };
       "${cfg.alertmanager.url}" = {
         useACMEHost = homelab.baseDomain;
         extraConfig = ''
+          ${lib.optionalString (cfg.environmentFile != null) ''
+            basic_auth {
+              prometheus {$PROMETHEUS_WEB_AUTH_HASH}
+            }
+          ''}
           reverse_proxy http://127.0.0.1:${toString cfg.alertmanager.port}
         '';
       };

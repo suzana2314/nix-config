@@ -26,6 +26,10 @@ in
       type = lib.types.str;
       description = "Path to the file containing the secret key";
     };
+    prometheusPassword = lib.mkOption {
+      type = lib.types.str;
+      description = "Path to the file containing the prometheus password";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -67,10 +71,14 @@ in
             {
               name = "Prometheus";
               type = "prometheus";
-              access = "proxy";
               url = "https://metrics.${homelab.baseDomain}";
               uid = "prometheus-default";
               isDefault = true;
+              basicAuth = true;
+              basicAuthUser = "prometheus";
+              secureJsonData = {
+                basicAuthPassword = "$__file{${cfg.prometheusPassword}}";
+              };
             }
           ];
         };
@@ -79,12 +87,7 @@ in
     services.caddy.virtualHosts."${cfg.url}" = {
       useACMEHost = homelab.baseDomain;
       extraConfig = ''
-        encode gzip
-        reverse_proxy http://127.0.0.1:${toString cfg.port} {
-          header_up X-Forwarded-Proto {http.request.scheme}
-          header_up X-Forwarded-Host {host}
-          header_up Host {host}
-        }
+        reverse_proxy http://127.0.0.1:${toString cfg.port}
       '';
     };
   };

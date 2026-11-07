@@ -119,11 +119,13 @@ in
       grafana = {
         enable = true;
         secretKey = config.sops.secrets."grafana/secretKey".path;
+        prometheusPassword = config.sops.secrets."grafana/prometheusPassword".path;
       };
       prometheus = {
         enable = true;
         scrapeConfigs = import ./prometheus/scrape-configs.nix { inherit config; };
         alertRules = import ./prometheus/alertRules.nix;
+        environmentFile = config.sops.secrets."prometheus/environmentFile".path;
         alertmanager = {
           enable = true;
           gotify = {
@@ -151,10 +153,12 @@ in
     "cloudflare/ddnsNotification" = mkUserSecret config.users.users.ddns-updater.name;
     "radicale/passwdFile" = mkUserSecret config.users.users.radicale.name;
     "webdav/environmentFile" = mkUserSecret config.users.users.webdav.name;
+    "prometheus/environmentFile" = mkUserSecret config.users.users.prometheus.name;
     "prometheus/nodePasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "prometheus/caddyPasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "prometheus/storageboxPasswordFile" = mkUserSecret config.users.users.prometheus.name;
     "grafana/secretKey" = mkUserSecret config.users.users.grafana.name;
+    "grafana/prometheusPassword" = mkUserSecret config.users.users.grafana.name;
     "mqtt/homeassistant" = mkUserSecret config.users.users.mosquitto.name;
     "mqtt/frigate" = mkUserSecret config.users.users.mosquitto.name;
     "vaultwarden-backup/passwordFile" = mkUserSecret config.users.users.root.name;
