@@ -16,6 +16,7 @@ This repository contains my personal NixOS system configurations. It's not meant
 - **logarius** - thinkpad laptop
 - **byrgenwerth** - media server
 - **hemwick** - smart home / DNS server / lightweight apps
+- **iosefka** - raspberry pi running klipper for 3D Printing
 - **yahargul** - offsite server
 
 ## Some Features
