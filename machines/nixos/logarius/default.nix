@@ -28,6 +28,7 @@
 
   systemd.network.wait-online.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ]; # this is to build pi sd image
 
   services.btrfs.autoScrub = {
     enable = true;
