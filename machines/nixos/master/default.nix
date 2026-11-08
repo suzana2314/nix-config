@@ -28,6 +28,7 @@
   networking.firewall.enable = true;
 
   boot.supportedFilesystems = [ "ntfs" ]; # for external hdd
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ]; # this is to build pi sd image
 
   services = {
     devmon.enable = true;

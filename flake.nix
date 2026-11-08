@@ -51,7 +51,10 @@
     { self, nixpkgs, ... }@inputs:
     let
       inherit (self) outputs;
-      systems = [ "x86_64-linux" ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
       forAllSystems = nixpkgs.lib.genAttrs systems;
       customLib = import ./lib { lib = nixpkgs.lib; };
     in
