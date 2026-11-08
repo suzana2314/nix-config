@@ -5,16 +5,17 @@
   ...
 }:
 let
-  genPubKeyList =
-    user:
+  sshKeys =
     let
-      keyPath = ../../common/users/${user}/keys/ssh;
+      keyPath = ../../../keys/ssh;
     in
-    if (lib.pathExists keyPath) then
-      lib.lists.forEach (lib.filesystem.listFilesRecursive keyPath) (key: lib.readFile key)
+    if lib.pathExists keyPath then
+      lib.pipe (lib.filesystem.listFilesRecursive keyPath) [
+        (lib.filter (file: lib.hasSuffix ".pub" (toString file)))
+        (map (file: lib.trim (builtins.readFile file)))
+      ]
     else
       [ ];
-  superKeys = genPubKeyList "super";
 in
 {
   imports = [
@@ -46,7 +47,7 @@ in
   # ssh
   systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
   services.openssh.settings.PermitRootLogin = lib.mkForce "yes";
-  users.users.root.openssh.authorizedKeys.keys = superKeys;
+  users.users.root.openssh.authorizedKeys.keys = sshKeys;
 
   # mdns so that we can login without the ip address
   services.avahi = {
