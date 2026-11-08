@@ -17,6 +17,7 @@ in
           "kos"
           "mensis"
           "yahargul"
+          "iosefka"
         ];
       }
     ];
@@ -30,6 +31,7 @@ in
           "hemwick"
           "byrgenwerth"
           "mensis"
+          "iosefka"
         ];
       }
     ];
