@@ -52,5 +52,7 @@
     ./endurain
     ./satisfactory
     ./holiday-sync
+    ./klipper
+    ./moonraker
   ];
 }

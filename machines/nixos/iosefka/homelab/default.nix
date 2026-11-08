@@ -38,6 +38,13 @@ in
         enable = true;
         environmentFile = config.sops.secrets."node-exporter/environmentFile".path;
       };
+
+      klipper = {
+        enable = true;
+        settings = import ./printer/klipper.nix;
+      };
+
+      moonraker.enable = true;
     };
   };
 
