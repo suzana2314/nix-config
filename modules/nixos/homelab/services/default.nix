@@ -53,6 +53,5 @@
     ./satisfactory
     ./holiday-sync
     ./klipper
-    ./moonraker
   ];
 }

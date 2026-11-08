@@ -1,4 +1,9 @@
-{ inputs, config, ... }:
+{
+  inputs,
+  config,
+  lib,
+  ...
+}:
 let
   host = config.networking.hostName;
   secrets = inputs.nix-secrets;
@@ -41,10 +46,8 @@ in
 
       klipper = {
         enable = true;
-        settings = import ./printer/klipper.nix;
+        klipperSettings = import ./printer { inherit lib config; };
       };
-
-      moonraker.enable = true;
     };
   };
 

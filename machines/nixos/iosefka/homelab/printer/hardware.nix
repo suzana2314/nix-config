@@ -1,3 +1,4 @@
+# this config is for a sovol sv06 3d printer
 {
   mcu = {
     serial = "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0";
@@ -107,6 +108,10 @@
     min_temp = 0;
     max_temp = 300;
     max_extrude_cross_section = 5;
+    control = "pid";
+    pid_kp = 20.534;
+    pid_ki = 1.441;
+    pid_kd = 73.152;
   };
 
   "tmc2209 extruder" = {
@@ -138,6 +143,7 @@
     pin = "PB1";
     x_offset = 28;
     y_offset = -20;
+    z_offset = 1.585;
     samples = 3;
     samples_result = "median";
     samples_tolerance = 0.01;
