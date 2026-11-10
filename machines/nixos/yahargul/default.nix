@@ -36,7 +36,7 @@
         "9.9.9.9#dns.quad9.net"
       ];
       Domains = [ "~." ];
-      DNSOverTLS = true;
+      DNSOverTLS = "opportunistic";
     };
   };
 
