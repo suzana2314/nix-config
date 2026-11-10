@@ -20,6 +20,7 @@ in
     ./xdg.nix
     ./editor.nix
     ./network.nix
+    ./time.nix
   ]
   ++ (builtins.attrValues outputs.nixosModules);
 
