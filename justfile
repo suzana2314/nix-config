@@ -13,6 +13,10 @@ check:
 format:
   nixpkgs-fmt .
 
+[group ('dev')]
+repl:
+  nix repl --expr "builtins.getFlake \"$PWD\""
+
 [group('nix')]
 up:
   nix flake update
