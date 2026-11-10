@@ -263,7 +263,7 @@ in
               sites = [
                 {
                   title = "3D Printer";
-                  url = makeUrl "sovol";
+                  url = makeUrl "mainsail";
                   icon = "/assets/mainsail.svg";
                 }
                 {
