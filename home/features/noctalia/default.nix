@@ -28,7 +28,6 @@ in
       };
 
       control_center = {
-        circular_avatar = false;
         hidden_tabs = [
           "monitor"
           "weather"
@@ -93,6 +92,7 @@ in
         card_borders = false;
         input_borders = false;
         popup_borders = false;
+        circular_avatar = false;
 
         launcher = {
           categories = false;
