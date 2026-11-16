@@ -28,7 +28,6 @@
 
       export VIMRUNTIME="${pkgs.neovim-unwrapped}/share/nvim/runtime"
       export CONFIG_LOCATION=$HOME/.config/nix/nix-config
-      export SECRETS_LOCATION=$HOME/.config/nix/nix-secrets
     '';
   };
 }
